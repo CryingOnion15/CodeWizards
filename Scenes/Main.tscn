@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cfp4520qxta5p"]
+
+[ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/BasicDragable.tscn" id="1_r150o"]
+[ext_resource type="Script" uid="uid://boppumrmai0ee" path="res://Components/Managers/pin_connection_manager.gd" id="2_idj7w"]
+[ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="2_rgh2o"]
+[ext_resource type="Texture2D" uid="uid://cisuk72u1i0bd" path="res://icon.svg" id="3_pbw6q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1gob"]
+size = Vector2(125.75, 128)
+
+[node name="Node2D" type="Node2D" unique_id=370466545]
+
+[node name="Dragable" parent="." unique_id=2016189920 instance=ExtResource("1_r150o")]
+
+[node name="Pin2" type="Area2D" parent="Dragable" unique_id=1631226547]
+position = Vector2(272, -166)
+script = ExtResource("2_rgh2o")
+data_type = 2
+metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
+
+[node name="Line2D" type="Line2D" parent="Dragable/Pin2" unique_id=909838929]
+position = Vector2(-85, -51)
+scale = Vector2(0.19999999, 0.19999999)
+width = 20.0
+default_color = Color(1, 0.16470589, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Dragable/Pin2" unique_id=140414445]
+position = Vector2(-85, -51)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_pbw6q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dragable/Pin2" unique_id=376585723]
+position = Vector2(-85.225, -51)
+scale = Vector2(0.2, 0.2)
+shape = SubResource("RectangleShape2D_v1gob")
+
+[node name="Dragable2" parent="." unique_id=2019694820 instance=ExtResource("1_r150o")]
+position = Vector2(0, -217)
+
+[node name="Dragable3" parent="." unique_id=1178897174 instance=ExtResource("1_r150o")]
+position = Vector2(0, 162)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
+
+[node name="Managers" type="Node" parent="." unique_id=173369814]
+
+[node name="PinConnectionManager" type="Node" parent="Managers" unique_id=477706189]
+script = ExtResource("2_idj7w")
+metadata/_custom_type_script = "uid://boppumrmai0ee"

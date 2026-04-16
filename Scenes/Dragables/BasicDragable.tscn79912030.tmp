@@ -1,0 +1,253 @@
+[gd_scene format=3 uid="uid://c143g3rde0h2a"]
+
+[ext_resource type="Script" uid="uid://coof0f3lpwuf" path="res://Scenes/Dragables/basic_draggable_controller.gd" id="1_4lsdv"]
+[ext_resource type="Texture2D" uid="uid://cisuk72u1i0bd" path="res://icon.svg" id="2_tvu0l"]
+
+[sub_resource type="GDScript" id="GDScript_dlfpu"]
+script/source = "class_name Dragable extends Area2D
+
+signal drag_event(oldPosition, newPosition)
+signal start_drag(startPosition)
+signal end_drag(endPosition)
+
+#Control variables
+var isDragging: bool = false;
+var isEntered: bool = false;
+
+#Drag variables
+var oldPos: Vector2 = Vector2.ZERO;
+var newPos: Vector2 = Vector2.ZERO;
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+		
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if(isEntered && event.is_action_pressed(\"Mouse1\")):
+			var dragables = get_intersected_dragables_at_mouse();
+			
+			if(dragables.size() > 0) :				
+				#Use the highest node.
+				if(dragables[dragables.size() - 1] == self):
+					handle_start(event)
+					
+		if(isDragging && event.is_action_released(\"Mouse1\")):
+			handle_end(event)
+		
+	elif isDragging && event is InputEventMouseMotion:
+		drag(get_global_mouse_position());
+		
+	
+func _mouse_enter() -> void:
+	isEntered = true;
+
+func _mouse_exit() -> void:
+	isEntered = false;
+	
+func handle_start(event):
+	isDragging = true
+	oldPos = get_global_mouse_position();
+	start_drag.emit(get_global_mouse_position());	
+	
+func handle_end(event):
+	isDragging = false
+	end_drag.emit(get_global_mouse_position())
+	
+func drag(newPos):
+	drag_event.emit(oldPos, newPos);
+	oldPos = newPos;
+	
+func get_intersected_dragables_at_mouse():
+	#Test the intersection points.
+	var pointParmeters: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	pointParmeters.position = get_global_mouse_position()
+	pointParmeters.collide_with_areas = true
+	
+	var objects_clicked = get_world_2d().direct_space_state.intersect_point(pointParmeters)
+	
+	var dragables = objects_clicked.map(
+		func(dict):
+			return dict.collider
+	)
+	
+	dragables.filter(
+		func(collider):
+			return collider is Dragable
+	)
+	
+	dragables.sort_custom(
+		func(c1, c2):
+			return c1.z_index < c2.z_index
+	)
+	
+	return dragables
+	
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvu0l"]
+size = Vector2(125.75, 128)
+
+[sub_resource type="GDScript" id="GDScript_4lsdv"]
+script/source = "@tool
+class_name Pin extends Dragable
+
+enum PIN_TYPE {
+	RECIEVER = 0, # Can only have another pin be dropped on this pin to make a connection.
+	CONNECTOR = 1, # Can only drag from this pin to another to make a connection
+	BOTH = 2, # Can do both above.
+}
+
+enum DATA_TYPE {
+	NUMBER,
+	STRING,
+	CONTROL
+}
+
+#CONST
+static var LINE_POINT_COUNT = 12;
+
+# Properties
+@export var pin_type: PIN_TYPE = PIN_TYPE.BOTH;
+@export var data_type: DATA_TYPE = DATA_TYPE.NUMBER;
+
+#On Ready Var
+@onready var line: Line2D = $Line2D
+
+# Variables
+var curve: Curve2D = null
+var curveStartPosition: Vector2 = Vector2.ZERO
+var curveEndPosition: Vector2 = Vector2.ZERO
+var curvePoints: Array[Vector2] = []
+var isDrawingCurve: bool = false;
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	add_to_group(\"Pin\")
+	curve = Curve2D.new();
+	
+	for i in range(LINE_POINT_COUNT):
+		curvePoints.append(Vector2(0,0));
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if(isDrawingCurve && line):
+		line.points = curve.get_baked_points()
+		
+# Warning tool to ensure right components.
+func _get_configuration_warnings():
+	if not has_node(\"Line2D\"):
+		return [\"This node requires a Line2D child to draw the line of the connection.\"]
+	return []
+		
+func updateCurve():
+	var localStart = line.to_local(curveStartPosition)
+	var localEnd = line.to_local(curveEndPosition)
+	curve.set_point_position(1, localEnd);
+	
+	curve.set_point_out(0, Vector2(100.0, 0.0))
+	curve.set_point_in(1, Vector2(-100.0, 0.0))
+	
+func handle_start(event):
+	if(pin_type != PIN_TYPE.RECIEVER):
+		curveStartPosition = global_position;
+		curveEndPosition = global_position;
+		isDrawingCurve = true;
+		
+		#Set up curve
+		curve.clear_points();
+		curve.add_point(line.to_local(curveStartPosition));
+		
+		#var midpoint = (curveStartPosition + curveEndPosition) / 2;
+		#curve.add_point(midpoint);
+		curve.add_point(line.to_local(curveEndPosition));
+		
+		super.handle_start(event);	
+	
+func handle_end(event):
+	var dragables = get_intersected_dragables_at_mouse();
+	
+	if(dragables.size() > 0):
+		var next_dragable = dragables[dragables.size() - 1];
+		
+		#If the draggable is a pin
+		if(next_dragable is Pin && check_valid_connection(next_dragable as Pin)):
+			curveEndPosition = next_dragable.global_position;
+		else:
+			clear_line();
+	else:
+		clear_line();
+		
+	super.handle_end(event)
+	
+func check_valid_connection(otherPin: Pin) -> bool:
+	if(otherPin.pin_type != PIN_TYPE.CONNECTOR && data_type == otherPin.data_type):
+		return true;
+	else:
+		return false;
+		
+func clear_line():
+	isDrawingCurve = false;
+	line.points = [];
+	
+func drag(newPos):
+	super.drag(newPos);
+	curveEndPosition = newPos;
+	updateCurve();
+	
+func _mouse_enter() -> void:
+	pass;
+
+func _mouse_exit() -> void:
+	pass;
+"
+
+[node name="BasicDragable" type="Node2D" unique_id=2019694820]
+script = ExtResource("1_4lsdv")
+
+[node name="DragableNode" type="Area2D" parent="." unique_id=391634273]
+script = SubResource("GDScript_dlfpu")
+metadata/_custom_type_script = "uid://s8wotonwccih"
+
+[node name="Sprite2D" type="Sprite2D" parent="DragableNode" unique_id=837174300]
+texture = ExtResource("2_tvu0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DragableNode" unique_id=1297763834]
+position = Vector2(-1.125, 0)
+shape = SubResource("RectangleShape2D_tvu0l")
+
+[node name="DragableNode2" type="Area2D" parent="." unique_id=587952086]
+z_index = 1
+position = Vector2(41.000008, -39.999996)
+scale = Vector2(0.2, 0.2)
+script = SubResource("GDScript_dlfpu")
+metadata/_custom_type_script = "uid://s8wotonwccih"
+
+[node name="Sprite2D" type="Sprite2D" parent="DragableNode2" unique_id=1237828604]
+texture = ExtResource("2_tvu0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DragableNode2" unique_id=1701855886]
+position = Vector2(-1.125, 0)
+shape = SubResource("RectangleShape2D_tvu0l")
+
+[node name="Pin" type="Area2D" parent="." unique_id=1148432890]
+position = Vector2(-85, -51)
+scale = Vector2(0.2, 0.2)
+script = SubResource("GDScript_4lsdv")
+metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
+
+[node name="Line2D" type="Line2D" parent="Pin" unique_id=1642517872]
+scale = Vector2(0.99999994, 0.99999994)
+width = 20.0
+default_color = Color(1, 0.16470589, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Pin" unique_id=1022895518]
+texture = ExtResource("2_tvu0l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pin" unique_id=1724174948]
+position = Vector2(-1.125, 0)
+shape = SubResource("RectangleShape2D_tvu0l")
