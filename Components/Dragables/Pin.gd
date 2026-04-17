@@ -16,6 +16,11 @@ enum DATA_TYPE {
 #signals
 signal pin_enter(pin: Pin)
 signal pin_exit(pin: Pin)
+signal pin_hover()
+signal pin_hover_correct()
+signal pin_hover_incorrect()
+signal pin_connected()
+signal pin_reset()
 
 #CONST
 static var LINE_POINT_COUNT = 12;
@@ -33,6 +38,7 @@ var curveStartPosition: Vector2 = Vector2.ZERO
 var curveEndPosition: Vector2 = Vector2.ZERO
 var curvePoints: Array[Vector2] = []
 var isDrawingCurve: bool = false;
+var isConnected = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,6 +47,8 @@ func _ready() -> void:
 	
 	for i in range(LINE_POINT_COUNT):
 		curvePoints.append(Vector2(0,0));
+		
+	reset();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -58,8 +66,9 @@ func updateCurve():
 	var localEnd = line.to_local(curveEndPosition)
 	curve.set_point_position(1, localEnd);
 	
-	curve.set_point_out(0, Vector2(100.0, 0.0))
-	curve.set_point_in(1, Vector2(-100.0, 0.0))
+	var rotVector = Vector2(cos(transform.get_rotation()), sin(transform.get_rotation())) * 100.0
+	curve.set_point_out(0, rotVector)
+	curve.set_point_in(1, -rotVector)
 	
 func handle_start(event):
 	if(pin_type != PIN_TYPE.RECIEVER):
@@ -85,11 +94,22 @@ func handle_end(event):
 		
 		#If the draggable is a pin
 		if(next_dragable is Pin && check_valid_connection(next_dragable as Pin)):
+			var otherPin = next_dragable as Pin;
 			curveEndPosition = next_dragable.global_position;
+			var localEnd = line.to_local(curveEndPosition)
+			curve.set_point_position(1, localEnd);
+	
+			var rotVector = Vector2(cos(next_dragable.transform.get_rotation()), sin(next_dragable.transform.get_rotation())) * 100.0
+			curve.set_point_in(1, rotVector)
+			
+			connected();
+			otherPin.connected();
 		else:
 			clear_line();
+			reset();
 	else:
 		clear_line();
+		reset();
 		
 	super.handle_end(event)
 	
@@ -132,20 +152,21 @@ func drag(newPos):
 	updateCurve();
 
 func hover():
-	print("Hover")
-	pass
+	pin_hover.emit()
 	
 func correct_connect_hover():
-	print("Correct Hover")
-	pass
+	pin_hover_correct.emit()
 	
 func incorrect_connect_hover():
-	print("Incorrect Hover")
-	pass
+	pin_hover_incorrect.emit()
 	
 func reset():
-	print("Reset")
-	pass
+	isConnected = false;
+	pin_reset.emit();
+	
+func connected():
+	isConnected = true;
+	pin_connected.emit();
 
 func _mouse_enter() -> void:
 	super._mouse_enter();

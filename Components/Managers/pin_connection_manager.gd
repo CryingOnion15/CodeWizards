@@ -23,7 +23,7 @@ func handle_end_drag(endPos):
 	if(currentPin):
 		currentPin = null;
 		
-	if(hoveredPin):
+	if(hoveredPin && !hoveredPin.isConnected):
 		hoveredPin.hover();
 
 func handle_pin_enter(pin: Pin):
@@ -36,7 +36,7 @@ func handle_pin_enter(pin: Pin):
 			hoveredPin = pin;
 		
 		#Play hover effects
-		if(currentPin == null):
+		if(currentPin == null && !pin.isConnected):
 			pin.hover();
 		elif(currentPin != pin):
 			if(currentPin.check_valid_connection(topPin)):
@@ -46,6 +46,8 @@ func handle_pin_enter(pin: Pin):
 
 func handle_pin_exit(pin: Pin):
 	if(hoveredPin && pin == hoveredPin):
-		print("Hover Pin Null")
-		hoveredPin.reset();
+		if(hoveredPin.isConnected):
+			hoveredPin.connected();
+		else:
+			hoveredPin.reset();
 		hoveredPin = null;
