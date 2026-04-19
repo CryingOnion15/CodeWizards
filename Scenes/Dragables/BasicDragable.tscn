@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://coof0f3lpwuf" path="res://Scenes/Dragables/basic_draggable_controller.gd" id="1_4lsdv"]
 [ext_resource type="Texture2D" uid="uid://cisuk72u1i0bd" path="res://icon.svg" id="2_tvu0l"]
 [ext_resource type="Script" uid="uid://s8wotonwccih" path="res://Components/Dragables/Dragable.gd" id="3_4lsdv"]
-[ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="4_40fbb"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="4_40fbb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvu0l"]
 size = Vector2(125.75, 128)
@@ -22,22 +22,5 @@ texture = ExtResource("2_tvu0l")
 position = Vector2(-1.125, 0)
 shape = SubResource("RectangleShape2D_tvu0l")
 
-[node name="Pin" type="Area2D" parent="." unique_id=501577060]
-script = ExtResource("4_40fbb")
-metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
-
-[node name="Line2D" type="Line2D" parent="Pin" unique_id=1642517872]
-position = Vector2(-85, -51)
-scale = Vector2(0.19999999, 0.19999999)
-width = 20.0
-default_color = Color(1, 0.16470589, 1, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Pin" unique_id=1022895518]
-position = Vector2(-85, -51)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_tvu0l")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Pin" unique_id=1724174948]
-position = Vector2(-85.225, -51)
-scale = Vector2(0.2, 0.2)
-shape = SubResource("RectangleShape2D_tvu0l")
+[node name="Pin" parent="." unique_id=197575604 instance=ExtResource("4_40fbb")]
+position = Vector2(41, -41)
