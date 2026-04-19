@@ -22,8 +22,11 @@ signal pin_hover_incorrect()
 signal pin_connected()
 signal pin_reset()
 
-#CONST
+#stativ variables
 static var LINE_POINT_COUNT = 12;
+static var NUMBER_COLOR = Color('#008794');
+static var STRING_COLOR = Color('#FFDA03');
+static var CONTROL_COLOR = Color('#FEF9F3');
 
 # Properties
 @export var pin_type: PIN_TYPE = PIN_TYPE.BOTH;
@@ -34,9 +37,8 @@ static var LINE_POINT_COUNT = 12;
 
 # Variables
 var curve: Curve2D = null
-var curveStartPosition: Vector2 = Vector2.ZERO
-var curveEndPosition: Vector2 = Vector2.ZERO
 var curvePoints: Array[Vector2] = []
+var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
 var isConnected = false;
 
@@ -53,6 +55,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(isDrawingCurve && line):
+		if(isConnected && connectedTo != null):
+			var localEnd = line.to_local(connectedTo.global_position)
+			curve.set_point_position(1, localEnd);
+		
+		curve.set_point_position(0, line.to_local(global_position));
 		line.points = curve.get_baked_points()
 		
 # Warning tool to ensure right components.
@@ -61,9 +68,8 @@ func _get_configuration_warnings():
 		return ["This node requires a Line2D child to draw the line of the connection."]
 	return []
 		
-func updateCurve():
-	var localStart = line.to_local(curveStartPosition)
-	var localEnd = line.to_local(curveEndPosition)
+func update_curve_on_drag(newPos):
+	var localEnd = line.to_local(newPos)
 	curve.set_point_position(1, localEnd);
 	
 	var rotVector = Vector2(cos(transform.get_rotation()), sin(transform.get_rotation())) * 100.0
@@ -71,18 +77,24 @@ func updateCurve():
 	curve.set_point_in(1, -rotVector)
 	
 func handle_start(event):
+	
+	if(isConnected):
+		if(connectedTo):
+			connectedTo.disconnect_pin();
+		disconnect_pin();
+		hover();
+		
 	if(pin_type != PIN_TYPE.RECIEVER):
-		curveStartPosition = global_position;
-		curveEndPosition = global_position;
+		connectedTo = null;
 		isDrawingCurve = true;
 		
 		#Set up curve
 		curve.clear_points();
-		curve.add_point(line.to_local(curveStartPosition));
+		curve.add_point(line.to_local(global_position));
 		
 		#var midpoint = (curveStartPosition + curveEndPosition) / 2;
 		#curve.add_point(midpoint);
-		curve.add_point(line.to_local(curveEndPosition));
+		curve.add_point(line.to_local(global_position));
 		
 		super.handle_start(event);	
 	
@@ -92,18 +104,22 @@ func handle_end(event):
 	if(dragables.size() > 0):
 		var next_dragable = dragables[dragables.size() - 1];
 		
+		if(next_dragable == self):
+			clear_line();
+			isConnected = false;
+			connectedTo = null;
+			hover();		
 		#If the draggable is a pin
-		if(next_dragable is Pin && check_valid_connection(next_dragable as Pin)):
+		elif(next_dragable is Pin && check_valid_connection(next_dragable as Pin)):
 			var otherPin = next_dragable as Pin;
-			curveEndPosition = next_dragable.global_position;
-			var localEnd = line.to_local(curveEndPosition)
+			var localEnd = line.to_local(next_dragable.global_position);
 			curve.set_point_position(1, localEnd);
 	
 			var rotVector = Vector2(cos(next_dragable.transform.get_rotation()), sin(next_dragable.transform.get_rotation())) * 100.0
 			curve.set_point_in(1, rotVector)
 			
-			connected();
-			otherPin.connected();
+			connect_to_pin(otherPin);
+			otherPin.connect_to_pin(self);
 		else:
 			clear_line();
 			reset();
@@ -148,8 +164,7 @@ func clear_line():
 	
 func drag(newPos):
 	super.drag(newPos);
-	curveEndPosition = newPos;
-	updateCurve();
+	update_curve_on_drag(newPos);
 
 func hover():
 	pin_hover.emit()
@@ -162,10 +177,24 @@ func incorrect_connect_hover():
 	
 func reset():
 	isConnected = false;
+	connectedTo = null;
 	pin_reset.emit();
 	
-func connected():
+func disconnect_pin():
+	clear_line();
+	reset();
+	
+func connect_to_pin(pin: Pin):
+	#Is already connected to another pin.
+	if(isConnected && connectedTo != null):
+		connectedTo.disconnect_pin();
+		disconnect_pin();
+	
 	isConnected = true;
+	connectedTo = pin;
+	pin_connected.emit();
+	
+func emit_connected():
 	pin_connected.emit();
 
 func _mouse_enter() -> void:
