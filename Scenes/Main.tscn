@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/BasicDragable.tscn" id="1_r150o"]
 [ext_resource type="Script" uid="uid://boppumrmai0ee" path="res://Components/Managers/pin_connection_manager.gd" id="2_idj7w"]
+[ext_resource type="PackedScene" uid="uid://mqvrdqrj71yq" path="res://Scenes/Frames/Frame.tscn" id="4_rgh2o"]
 
 [node name="Node2D" type="Node2D" unique_id=370466545]
 
@@ -32,3 +33,9 @@ position = Vector2(0, 162)
 [node name="PinConnectionManager" type="Node" parent="Managers" unique_id=477706189]
 script = ExtResource("2_idj7w")
 metadata/_custom_type_script = "uid://boppumrmai0ee"
+
+[node name="Frame" parent="." unique_id=1901381788 instance=ExtResource("4_rgh2o")]
+offset_left = -409.0
+offset_top = -63.0
+offset_right = -153.0
+offset_bottom = 72.0
