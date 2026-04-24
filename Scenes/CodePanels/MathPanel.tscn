@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://xyrttilk0tbb"]
+
+[ext_resource type="Script" uid="uid://bygottodiqmy" path="res://Components/CodePanel/Basic/CodePanel.gd" id="1_bh64o"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xdwyp"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_uvjcf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
+size = Vector2(256, 135)
+
+[node name="MathPanel" type="Area2D" unique_id=1873615018]
+script = ExtResource("1_bh64o")
+metadata/_custom_type_script = "uid://bygottodiqmy"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+offset_right = 256.0
+offset_bottom = 135.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_xdwyp")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=1438934417]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_filter = 2
+text = "Math"
+scroll_active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778236019]
+position = Vector2(128, 67.5)
+shape = SubResource("RectangleShape2D_ro4dt")
+
+[node name="FlowPins" type="Node2D" parent="." unique_id=1036664156]
+
+[node name="In" parent="FlowPins" unique_id=197575604 instance=ExtResource("3_uvjcf")]
+position = Vector2(18, 18)
+rotation = -3.1415925
+pin_type = 0
+data_type = 2
+
+[node name="Out" parent="FlowPins" unique_id=804416880 instance=ExtResource("3_uvjcf")]
+position = Vector2(238, 117)
+pin_type = 1
+data_type = 2
+
+[node name="InputPins" type="Node2D" parent="." unique_id=717609355]
+
+[node name="Input1" parent="InputPins" unique_id=614188574 instance=ExtResource("3_uvjcf")]
+position = Vector2(18, 56)
+rotation = 3.1415927
+
+[node name="Input2" parent="InputPins" unique_id=1846425676 instance=ExtResource("3_uvjcf")]
+position = Vector2(18, 93)
+rotation = 3.1415927
+
+[node name="OutputPins" type="Node2D" parent="." unique_id=1564872741]
+
+[node name="NumberOutputPin" parent="OutputPins" unique_id=1802125251 instance=ExtResource("3_uvjcf")]
+position = Vector2(238, 56)
+pin_type = 1

@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://d17pdvccg7ghu"]
+
+[ext_resource type="Script" uid="uid://cfat6m8vcf36v" path="res://Components/CodePanel/Control/CodeExitPanel.gd" id="1_gksbb"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_j8to2"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_kglmx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
+size = Vector2(121, 74)
+
+[node name="ExitPanel" type="Area2D" unique_id=916758302]
+script = ExtResource("1_gksbb")
+metadata/_custom_type_script = "uid://cfat6m8vcf36v"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+modulate = Color(1, 0, 0, 1)
+offset_right = 121.0
+offset_bottom = 74.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture = ExtResource("2_j8to2")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=616052463]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -85.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_filter = 2
+text = "Exit"
+scroll_active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778236019]
+position = Vector2(60.5, 37)
+shape = SubResource("RectangleShape2D_ro4dt")
+
+[node name="Pin" parent="." unique_id=197575604 instance=ExtResource("3_kglmx")]
+position = Vector2(18, 18)
+rotation = -3.1415925
+pin_type = 0
+data_type = 2

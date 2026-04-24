@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dqqnnocltwmwf"]
+
+[ext_resource type="Script" uid="uid://bsedgfu15bv3w" path="res://Components/CodePanel/Basic/VariablePanel.gd" id="1_dcjvg"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_hwsch"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_ru58v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
+size = Vector2(256, 135)
+
+[node name="VariablePanel" type="Area2D" unique_id=858681055]
+script = ExtResource("1_dcjvg")
+variable_number_value = 9
+metadata/_custom_type_script = "uid://bsedgfu15bv3w"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+offset_right = 256.0
+offset_bottom = 135.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture = ExtResource("2_hwsch")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=1858868130]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_filter = 2
+text = "Variable"
+scroll_active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778236019]
+position = Vector2(128, 67.5)
+shape = SubResource("RectangleShape2D_ro4dt")
+
+[node name="OutputPin" parent="." unique_id=804416880 instance=ExtResource("3_ru58v")]
+position = Vector2(238, 60)
+pin_type = 1

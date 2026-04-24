@@ -42,6 +42,10 @@ var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
 var isConnected = false;
 
+var _string_value = "";
+var _number_value = 0;
+var _control_value = "";
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("Pin")
@@ -204,3 +208,30 @@ func _mouse_enter() -> void:
 func _mouse_exit() -> void:
 	super._mouse_exit();
 	pin_exit.emit(self);
+	
+func get_value(get_value_from_connection: bool = false):
+	if(get_value_from_connection && isConnected):
+		match connectedTo.data_type:
+			DATA_TYPE.NUMBER:
+				_number_value = connectedTo._number_value;
+			DATA_TYPE.STRING:
+				_string_value = connectedTo._string_value;
+			DATA_TYPE.CONTROL:
+				_control_value = connectedTo._string_value;
+	
+	match data_type:
+		DATA_TYPE.NUMBER:
+			return _number_value;
+		DATA_TYPE.STRING:
+			return _string_value;
+		DATA_TYPE.CONTROL:
+			return _control_value;
+
+func set_value(v):
+	match data_type:
+		DATA_TYPE.NUMBER:
+			_number_value = v;
+		DATA_TYPE.STRING:
+			_string_value = v;
+		DATA_TYPE.CONTROL:
+			_control_value = v;

@@ -1,30 +1,57 @@
 [gd_scene format=3 uid="uid://cfp4520qxta5p"]
 
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="1_kln2b"]
-[ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/BasicDragable.tscn" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/TestDragable.tscn" id="1_r150o"]
 [ext_resource type="Script" uid="uid://boppumrmai0ee" path="res://Components/Managers/pin_connection_manager.gd" id="2_idj7w"]
-[ext_resource type="PackedScene" uid="uid://mqvrdqrj71yq" path="res://Scenes/Frames/Frame.tscn" id="4_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://xyrttilk0tbb" path="res://Scenes/CodePanels/MathPanel.tscn" id="3_rgh2o"]
+[ext_resource type="PackedScene" uid="uid://bgrb6gwo3nd0u" path="res://Scenes/CodePanels/EntryPanel.tscn" id="5_jw32o"]
+[ext_resource type="PackedScene" uid="uid://dqqnnocltwmwf" path="res://Scenes/CodePanels/VariablePanel.tscn" id="5_pbw6q"]
+[ext_resource type="PackedScene" uid="uid://d17pdvccg7ghu" path="res://Scenes/CodePanels/ExitPanel.tscn" id="6_50glp"]
 
 [node name="Node2D" type="Node2D" unique_id=370466545]
 
-[node name="Pin" parent="." unique_id=197575604 instance=ExtResource("1_kln2b")]
+[node name="Draggable Test" type="Node" parent="." unique_id=240735662]
+
+[node name="Pin" parent="Draggable Test" unique_id=197575604 instance=ExtResource("1_kln2b")]
+visible = false
 position = Vector2(280, -180)
-rotation = 3.1415927
+rotation = -3.1415925
 pin_type = 0
 
-[node name="Pin2" parent="." unique_id=1394991970 instance=ExtResource("1_kln2b")]
+[node name="Pin2" parent="Draggable Test" unique_id=1394991970 instance=ExtResource("1_kln2b")]
+visible = false
 position = Vector2(280, -96)
-rotation = 3.1415927
+rotation = -3.1415925
 pin_type = 0
 data_type = 1
 
-[node name="Dragable" parent="." unique_id=2016189920 instance=ExtResource("1_r150o")]
+[node name="Dragable" parent="Draggable Test" unique_id=2016189920 instance=ExtResource("1_r150o")]
+visible = false
 
-[node name="Dragable2" parent="." unique_id=2019694820 instance=ExtResource("1_r150o")]
+[node name="Dragable2" parent="Draggable Test" unique_id=2019694820 instance=ExtResource("1_r150o")]
+visible = false
 position = Vector2(0, -217)
 
-[node name="Dragable3" parent="." unique_id=1178897174 instance=ExtResource("1_r150o")]
+[node name="Dragable3" parent="Draggable Test" unique_id=1178897174 instance=ExtResource("1_r150o")]
+visible = false
 position = Vector2(0, 162)
+
+[node name="MathFlowTest" type="Node" parent="." unique_id=2011345558]
+
+[node name="VariablePanel" parent="MathFlowTest" unique_id=858681055 instance=ExtResource("5_pbw6q")]
+position = Vector2(-361, 152)
+
+[node name="MathPanel" parent="MathFlowTest" unique_id=1873615018 instance=ExtResource("3_rgh2o")]
+position = Vector2(-70, -246)
+
+[node name="MathPanel2" parent="MathFlowTest" unique_id=1490499069 instance=ExtResource("3_rgh2o")]
+position = Vector2(-16, 1)
+
+[node name="CodePanel" parent="MathFlowTest" unique_id=374658350 instance=ExtResource("5_jw32o")]
+position = Vector2(-554, -286)
+
+[node name="ExitPanel" parent="MathFlowTest" unique_id=916758302 instance=ExtResource("6_50glp")]
+position = Vector2(409, 228)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
 
@@ -33,9 +60,3 @@ position = Vector2(0, 162)
 [node name="PinConnectionManager" type="Node" parent="Managers" unique_id=477706189]
 script = ExtResource("2_idj7w")
 metadata/_custom_type_script = "uid://boppumrmai0ee"
-
-[node name="Frame" parent="." unique_id=1901381788 instance=ExtResource("4_rgh2o")]
-offset_left = -409.0
-offset_top = -63.0
-offset_right = -153.0
-offset_bottom = 72.0

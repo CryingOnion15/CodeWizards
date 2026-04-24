@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://mqvrdqrj71yq"]
+
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="1_adb7m"]
+[ext_resource type="Script" uid="uid://bygottodiqmy" path="res://Components/CodePanel/Basic/CodePanel.gd" id="1_geasi"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="2_8374b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
+size = Vector2(256, 135)
+
+[node name="CodePanel" type="Area2D" unique_id=1873615018]
+script = ExtResource("1_geasi")
+metadata/_custom_type_script = "uid://bygottodiqmy"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+offset_right = 256.0
+offset_bottom = 135.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture = ExtResource("1_adb7m")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=500050304]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_filter = 2
+scroll_active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778236019]
+position = Vector2(128, 67.5)
+shape = SubResource("RectangleShape2D_ro4dt")
+
+[node name="FlowPins" type="Node2D" parent="." unique_id=1036664156]
+
+[node name="InputPins" type="Node2D" parent="." unique_id=717609355]
+
+[node name="OutputPins" type="Node2D" parent="." unique_id=1564872741]
+
+[node name="Pin" parent="." unique_id=197575604 instance=ExtResource("2_8374b")]
+position = Vector2(18, 18)
+rotation = 3.1415927
+pin_type = 0
+data_type = 2
+
+[node name="Pin2" parent="." unique_id=804416880 instance=ExtResource("2_8374b")]
+position = Vector2(238, 117)
+pin_type = 1
+data_type = 2
