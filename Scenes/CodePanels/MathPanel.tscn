@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://xyrttilk0tbb"]
 
-[ext_resource type="Script" uid="uid://bygottodiqmy" path="res://Components/CodePanel/Basic/CodePanel.gd" id="1_bh64o"]
+[ext_resource type="Script" uid="uid://b874icemm6o7c" path="res://Components/CodePanel/Function/MathPanel.gd" id="1_bh64o"]
 [ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xdwyp"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_uvjcf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
 size = Vector2(256, 135)
 
-[node name="MathPanel" type="Area2D" unique_id=1873615018]
+[node name="MathPanel" type="Area2D" unique_id=228343004]
 script = ExtResource("1_bh64o")
-metadata/_custom_type_script = "uid://bygottodiqmy"
+metadata/_custom_type_script = "uid://b874icemm6o7c"
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 offset_right = 256.0
@@ -60,10 +60,12 @@ data_type = 2
 [node name="Input1" parent="InputPins" unique_id=614188574 instance=ExtResource("3_uvjcf")]
 position = Vector2(18, 56)
 rotation = 3.1415927
+pin_type = 0
 
 [node name="Input2" parent="InputPins" unique_id=1846425676 instance=ExtResource("3_uvjcf")]
 position = Vector2(18, 93)
 rotation = 3.1415927
+pin_type = 0
 
 [node name="OutputPins" type="Node2D" parent="." unique_id=1564872741]
 

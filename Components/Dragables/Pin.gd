@@ -44,7 +44,7 @@ var isConnected = false;
 
 var _string_value = "";
 var _number_value = 0;
-var _control_value = "";
+var _control_value: CodePanel = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -87,7 +87,8 @@ func handle_start(event):
 			connectedTo.disconnect_pin();
 		disconnect_pin();
 		hover();
-		
+	
+	# TODO might want to remove the reciever if for UX.
 	if(pin_type != PIN_TYPE.RECIEVER):
 		connectedTo = null;
 		isDrawingCurve = true;

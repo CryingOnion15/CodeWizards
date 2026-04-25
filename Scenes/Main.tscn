@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/TestDragable.tscn" id="1_r150o"]
 [ext_resource type="Script" uid="uid://boppumrmai0ee" path="res://Components/Managers/pin_connection_manager.gd" id="2_idj7w"]
+[ext_resource type="Script" uid="uid://vl43xqo6gbc2" path="res://Components/Managers/wand_execution_manager.gd" id="3_50glp"]
 [ext_resource type="PackedScene" uid="uid://xyrttilk0tbb" path="res://Scenes/CodePanels/MathPanel.tscn" id="3_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://bgrb6gwo3nd0u" path="res://Scenes/CodePanels/EntryPanel.tscn" id="5_jw32o"]
 [ext_resource type="PackedScene" uid="uid://dqqnnocltwmwf" path="res://Scenes/CodePanels/VariablePanel.tscn" id="5_pbw6q"]
@@ -37,6 +38,7 @@ visible = false
 position = Vector2(0, 162)
 
 [node name="MathFlowTest" type="Node" parent="." unique_id=2011345558]
+script = ExtResource("3_50glp")
 
 [node name="VariablePanel" parent="MathFlowTest" unique_id=858681055 instance=ExtResource("5_pbw6q")]
 position = Vector2(-361, 152)
@@ -47,7 +49,7 @@ position = Vector2(-70, -246)
 [node name="MathPanel2" parent="MathFlowTest" unique_id=1490499069 instance=ExtResource("3_rgh2o")]
 position = Vector2(-16, 1)
 
-[node name="CodePanel" parent="MathFlowTest" unique_id=374658350 instance=ExtResource("5_jw32o")]
+[node name="EntryPanel" parent="MathFlowTest" unique_id=374658350 instance=ExtResource("5_jw32o")]
 position = Vector2(-554, -286)
 
 [node name="ExitPanel" parent="MathFlowTest" unique_id=916758302 instance=ExtResource("6_50glp")]
