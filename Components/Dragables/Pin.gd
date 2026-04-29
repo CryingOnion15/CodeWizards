@@ -48,6 +48,7 @@ var _control_value: CodePanel = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready();
 	add_to_group("Pin")
 	curve = Curve2D.new();
 	
@@ -58,6 +59,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	return;
 	if(isDrawingCurve && line):
 		if(isConnected && connectedTo != null):
 			var localEnd = line.to_local(connectedTo.global_position)
@@ -68,17 +70,19 @@ func _process(delta: float) -> void:
 		
 # Warning tool to ensure right components.
 func _get_configuration_warnings():
+	return;
 	if not has_node("Line2D"):
 		return ["This node requires a Line2D child to draw the line of the connection."]
 	return []
 		
 func update_curve_on_drag(newPos):
+	return;
 	var localEnd = line.to_local(newPos)
 	curve.set_point_position(1, localEnd);
 	
-	var rotVector = Vector2(cos(transform.get_rotation()), sin(transform.get_rotation())) * 100.0
-	curve.set_point_out(0, rotVector)
-	curve.set_point_in(1, -rotVector)
+	#var rotVector = Vector2(cos(transform.get_rotation()), sin(transform.get_rotation())) * 100.0
+	#curve.set_point_out(0, rotVector)
+	#curve.set_point_in(1, -rotVector)
 	
 func handle_start(event):
 	
@@ -202,12 +206,12 @@ func connect_to_pin(pin: Pin):
 func emit_connected():
 	pin_connected.emit();
 
-func _mouse_enter() -> void:
-	super._mouse_enter();
+func _on_mouse_entered() -> void:
+	super._on_mouse_entered();
 	pin_enter.emit(self);
 
-func _mouse_exit() -> void:
-	super._mouse_exit();
+func _on_mouse_exited() -> void:
+	super._on_mouse_exited();
 	pin_exit.emit(self);
 	
 func get_value(get_value_from_connection: bool = false):

@@ -22,6 +22,5 @@ func Execute():
 	
 func get_next_control() -> CodePanel:
 	if(startPin.connectedTo):
-		var value = startPin.connectedTo.get_value();
 		return startPin.connectedTo.get_value();
 	return null;

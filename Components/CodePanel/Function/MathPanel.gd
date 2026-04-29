@@ -11,11 +11,31 @@ enum MATH_FUNC {
 }
 
 @export var math_type: MATH_FUNC = MATH_FUNC.ADD;
+@export var math_label: RichTextLabel;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
-	pass # Replace with function body.
+	
+	match math_type:
+		MATH_FUNC.ADD:
+			math_label.text = "+";
+			return;
+		MATH_FUNC.SUB:
+			math_label.text = "-";
+			return;
+		MATH_FUNC.MULT:
+			math_label.text = "*";
+			return;
+		MATH_FUNC.DIV:
+			math_label.text = "/";
+			return;
+		MATH_FUNC.MOD:
+			math_label.text = "%";
+			return;
+		MATH_FUNC.EXP:
+			math_label.text = "^";
+			return;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

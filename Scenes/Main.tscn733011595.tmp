@@ -15,21 +15,16 @@
 
 [node name="Pin" parent="Draggable Test" unique_id=197575604 instance=ExtResource("1_kln2b")]
 visible = false
-anchors_preset = 8
-offset_left = 280.0
-offset_top = -180.0
-offset_right = 280.0
-offset_bottom = -180.0
+position = Vector2(280, -180)
 rotation = -3.1415925
+pin_type = 0
 
 [node name="Pin2" parent="Draggable Test" unique_id=1394991970 instance=ExtResource("1_kln2b")]
 visible = false
-anchors_preset = 8
-offset_left = 280.0
-offset_top = -96.0
-offset_right = 280.0
-offset_bottom = -96.0
+position = Vector2(280, -96)
 rotation = -3.1415925
+pin_type = 0
+data_type = 1
 
 [node name="Dragable" parent="Draggable Test" unique_id=2016189920 instance=ExtResource("1_r150o")]
 visible = false
@@ -46,154 +41,88 @@ position = Vector2(0, 162)
 script = ExtResource("3_50glp")
 
 [node name="13" parent="MathFlowTest" unique_id=858681055 instance=ExtResource("5_pbw6q")]
-offset_left = 127.0
-offset_top = 236.0
-offset_right = 127.0
-offset_bottom = 236.0
+position = Vector2(127, 236)
 variable_number_value = 13
 
 [node name="12" parent="MathFlowTest" unique_id=559002142 instance=ExtResource("5_pbw6q")]
-offset_left = -107.0
-offset_top = 230.0
-offset_right = -107.0
-offset_bottom = 230.0
+position = Vector2(-107, 230)
 variable_number_value = 12
 
 [node name="11" parent="MathFlowTest" unique_id=1407480303 instance=ExtResource("5_pbw6q")]
-offset_left = -336.0
-offset_top = 233.0
-offset_right = -336.0
-offset_bottom = 233.0
+position = Vector2(-336, 233)
 variable_number_value = 11
 
 [node name="10" parent="MathFlowTest" unique_id=1639998748 instance=ExtResource("5_pbw6q")]
-offset_left = -565.0
-offset_top = 231.0
-offset_right = -565.0
-offset_bottom = 231.0
+position = Vector2(-565, 231)
 variable_number_value = 10
 
 [node name="9" parent="MathFlowTest" unique_id=1754778662 instance=ExtResource("5_pbw6q")]
-offset_left = 344.0
-offset_top = 126.0
-offset_right = 344.0
-offset_bottom = 126.0
+position = Vector2(344, 126)
 
 [node name="8" parent="MathFlowTest" unique_id=723283455 instance=ExtResource("5_pbw6q")]
-offset_left = 128.0
-offset_top = 124.0
-offset_right = 128.0
-offset_bottom = 124.0
+position = Vector2(128, 124)
 variable_number_value = 8
 
 [node name="7" parent="MathFlowTest" unique_id=1313518182 instance=ExtResource("5_pbw6q")]
-offset_left = -105.0
-offset_top = 122.0
-offset_right = -105.0
-offset_bottom = 122.0
+position = Vector2(-105, 122)
 variable_number_value = 7
 
 [node name="6" parent="MathFlowTest" unique_id=1363483472 instance=ExtResource("5_pbw6q")]
-offset_left = -338.0
-offset_top = 128.0
-offset_right = -338.0
-offset_bottom = 128.0
+position = Vector2(-338, 128)
 variable_number_value = 6
 
 [node name="5" parent="MathFlowTest" unique_id=312646020 instance=ExtResource("5_pbw6q")]
-offset_left = -567.0
-offset_top = 123.0
-offset_right = -567.0
-offset_bottom = 123.0
+position = Vector2(-567, 123)
 variable_number_value = 5
 
 [node name="4" parent="MathFlowTest" unique_id=666519919 instance=ExtResource("5_pbw6q")]
-offset_left = 344.0
-offset_top = 19.0
-offset_right = 344.0
-offset_bottom = 19.0
+position = Vector2(344, 19)
 variable_number_value = 4
 
 [node name="3" parent="MathFlowTest" unique_id=2096926994 instance=ExtResource("5_pbw6q")]
-offset_left = 129.0
-offset_top = 20.0
-offset_right = 129.0
-offset_bottom = 20.0
+position = Vector2(129, 20)
 variable_number_value = 3
 
 [node name="2" parent="MathFlowTest" unique_id=130358757 instance=ExtResource("5_pbw6q")]
-offset_left = -99.0
-offset_top = 13.0
-offset_right = -99.0
-offset_bottom = 13.0
+position = Vector2(-99, 13)
 variable_number_value = 2
 
 [node name="1" parent="MathFlowTest" unique_id=316766047 instance=ExtResource("5_pbw6q")]
-offset_left = -336.0
-offset_top = 6.0
-offset_right = -336.0
-offset_bottom = 6.0
+position = Vector2(-336, 6)
 variable_number_value = 1
 
 [node name="0" parent="MathFlowTest" unique_id=1893437458 instance=ExtResource("5_pbw6q")]
-offset_left = -564.0
-offset_top = 6.0
-offset_right = -564.0
-offset_bottom = 6.0
+position = Vector2(-564, 6)
 variable_number_value = 0
 
 [node name="AddPanel" parent="MathFlowTest" unique_id=1873615018 instance=ExtResource("3_rgh2o")]
-offset_left = -384.0
-offset_top = -316.0
-offset_right = -384.0
-offset_bottom = -316.0
+position = Vector2(-384, -316)
 
 [node name="SubPanel" parent="MathFlowTest" unique_id=228343004 instance=ExtResource("3_rgh2o")]
-offset_left = -103.0
-offset_top = -310.0
-offset_right = -103.0
-offset_bottom = -310.0
+position = Vector2(-103, -310)
 math_type = 1
 
 [node name="MultPanel" parent="MathFlowTest" unique_id=1490499069 instance=ExtResource("3_rgh2o")]
-offset_left = 180.0
-offset_top = -301.0
-offset_right = 180.0
-offset_bottom = -301.0
+position = Vector2(180, -301)
 math_type = 2
 
 [node name="DivPanel" parent="MathFlowTest" unique_id=253621621 instance=ExtResource("3_rgh2o")]
-offset_left = -383.0
-offset_top = -155.0
-offset_right = -383.0
-offset_bottom = -155.0
+position = Vector2(-383, -155)
 math_type = 3
 
 [node name="ModPanel" parent="MathFlowTest" unique_id=1961124867 instance=ExtResource("3_rgh2o")]
-offset_left = -99.0
-offset_top = -145.0
-offset_right = -99.0
-offset_bottom = -145.0
+position = Vector2(-99, -145)
 math_type = 4
 
 [node name="ExpPanel" parent="MathFlowTest" unique_id=981395051 instance=ExtResource("3_rgh2o")]
-offset_left = 189.0
-offset_top = -141.0
-offset_right = 189.0
-offset_bottom = -141.0
+position = Vector2(189, -141)
 math_type = 5
 
 [node name="EntryPanel" parent="MathFlowTest" unique_id=374658350 instance=ExtResource("5_jw32o")]
-offset_left = -554.0
-offset_top = -286.0
-offset_right = -554.0
-offset_bottom = -286.0
+position = Vector2(-554, -286)
 
 [node name="ExitPanel" parent="MathFlowTest" unique_id=916758302 instance=ExtResource("6_50glp")]
-offset_left = 409.0
-offset_top = 228.0
-offset_right = 409.0
-offset_bottom = 228.0
+position = Vector2(409, 228)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
 

@@ -9,10 +9,10 @@ var output_pins: Array[Pin] = []
 func _ready() -> void:
 	super._ready();
 	for pin in availablePins:
-		if(inflow_pin != null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL):
+		if(inflow_pin == null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL):
 			inflow_pin = pin;
 			
-		if(outflow_pin != null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL):
+		if(outflow_pin == null && pin.pin_type == Pin.PIN_TYPE.CONNECTOR && pin.data_type == Pin.DATA_TYPE.CONTROL):
 			outflow_pin = pin;
 			
 		if(outflow_pin != null && inflow_pin != null):
@@ -26,6 +26,11 @@ func _ready() -> void:
 		func(pin):
 			return pin.pin_type == Pin.PIN_TYPE.CONNECTOR && pin.data_type != Pin.DATA_TYPE.CONTROL;
 	)
+	
+func get_next_control() -> CodePanel:
+	if(outflow_pin.connectedTo):
+		return outflow_pin.connectedTo.get_value();
+	return null;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

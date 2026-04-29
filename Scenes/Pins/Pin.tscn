@@ -113,21 +113,28 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_p7agy"]
-radius = 16.03122
-
-[node name="Pin" type="Area2D" unique_id=197575604]
-z_index = 1
+[node name="Pin" type="Control" unique_id=2102211022]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_hu4s4")
 metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1171012510]
+position = Vector2(16, 16)
 sprite_frames = SubResource("SpriteFrames_08ots")
 animation = &"Idle"
 script = ExtResource("3_h50ra")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=249325266]
+position = Vector2(16, 16)
 width = 4.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=298421843]
-shape = SubResource("CircleShape2D_p7agy")

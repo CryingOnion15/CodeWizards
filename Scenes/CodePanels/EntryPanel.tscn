@@ -3,18 +3,25 @@
 [ext_resource type="Script" uid="uid://d20vphpdm608p" path="res://Components/CodePanel/Control/CodeEntryPanel.gd" id="1_46yjf"]
 [ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xumy6"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_mt56r"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_xumy6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
-size = Vector2(121, 74)
-
-[node name="CodePanel" type="Area2D" unique_id=374658350]
+[node name="CodeEntryPanel" type="Control" unique_id=2002945207]
+custom_minimum_size = Vector2(120, 76)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 120.0
+offset_bottom = 76.0
 script = ExtResource("1_46yjf")
 metadata/_custom_type_script = "uid://d20vphpdm608p"
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 modulate = Color(0, 1, 0, 1)
-offset_right = 121.0
-offset_bottom = 74.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
@@ -29,20 +36,19 @@ axis_stretch_vertical = 1
 [node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=428065152]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -85.0
+offset_left = 36.0
 offset_top = 2.0
 offset_right = -2.0
 offset_bottom = 34.0
-grow_horizontal = 0
+grow_horizontal = 2
 mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_xumy6")
+theme_override_font_sizes/normal_font_size = 24
 text = "Entry"
 scroll_active = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778236019]
-position = Vector2(60.5, 37)
-shape = SubResource("RectangleShape2D_ro4dt")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="FlowPins" type="Node2D" parent="." unique_id=1036664156]
 
@@ -51,6 +57,14 @@ shape = SubResource("RectangleShape2D_ro4dt")
 [node name="OutputPins" type="Node2D" parent="." unique_id=1564872741]
 
 [node name="Pin2" parent="." unique_id=804416880 instance=ExtResource("3_mt56r")]
-position = Vector2(103, 56)
-pin_type = 1
-data_type = 2
+layout_mode = 1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0

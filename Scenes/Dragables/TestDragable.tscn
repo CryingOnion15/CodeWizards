@@ -8,10 +8,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tvu0l"]
 size = Vector2(125.75, 128)
 
-[node name="BasicDragable" type="Node2D" unique_id=2019694820]
+[node name="BasicDragable" type="Node2D" unique_id=215267030]
 script = ExtResource("1_4lsdv")
 
-[node name="Dragable" type="Area2D" parent="." unique_id=1632888725]
+[node name="Dragable" type="Control" parent="." unique_id=1199902343]
+physics_interpolation_mode = 0
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("3_4lsdv")
 metadata/_custom_type_script = "uid://s8wotonwccih"
 
@@ -23,4 +26,7 @@ position = Vector2(-1.125, 0)
 shape = SubResource("RectangleShape2D_tvu0l")
 
 [node name="Pin" parent="." unique_id=197575604 instance=ExtResource("4_40fbb")]
-position = Vector2(41, -41)
+offset_left = 41.0
+offset_top = -41.0
+offset_right = 41.0
+offset_bottom = -41.0

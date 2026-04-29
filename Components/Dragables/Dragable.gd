@@ -1,4 +1,4 @@
-class_name Dragable extends Area2D
+class_name Dragable extends Control
 
 signal drag_event(oldPosition, newPosition)
 signal start_drag(startPosition)
@@ -14,21 +14,23 @@ var newPos: Vector2 = Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-
+	mouse_entered.connect(_on_mouse_entered);
+	mouse_exited.connect(_on_mouse_exited);
+	gui_input.connect(_on_gui_input)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 		
-func _input(event: InputEvent) -> void:
+func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if(isEntered && event.is_action_pressed("Mouse1")):
-			var dragables = get_intersected_dragables_at_mouse();
-			
-			if(dragables.size() > 0) :				
-				#Use the highest node.
-				if(dragables[dragables.size() - 1] == self):
-					handle_start(event)
+			#var dragables = get_intersected_dragables_at_mouse();
+			#
+			#if(dragables.size() > 0) :				
+				##Use the highest node.
+				#if(dragables[dragables.size() - 1] == self):
+			handle_start(event)
 					
 		if(isDragging && event.is_action_released("Mouse1")):
 			handle_end(event)
@@ -37,10 +39,10 @@ func _input(event: InputEvent) -> void:
 		drag(get_global_mouse_position());
 		
 	
-func _mouse_enter() -> void:
+func _on_mouse_entered() -> void:
 	isEntered = true;
 
-func _mouse_exit() -> void:
+func _on_mouse_exited() -> void:
 	isEntered = false;
 	
 func handle_start(event):
@@ -57,6 +59,7 @@ func drag(newPos):
 	oldPos = newPos;
 	
 func get_intersected_dragables_at_mouse():
+	return;
 	#Test the intersection points.
 	var pointParmeters: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 	pointParmeters.position = get_global_mouse_position()

@@ -4,14 +4,15 @@
 [ext_resource type="Script" uid="uid://bygottodiqmy" path="res://Components/CodePanel/Basic/CodePanel.gd" id="1_geasi"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="2_8374b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro4dt"]
-size = Vector2(256, 135)
-
-[node name="CodePanel" type="Area2D" unique_id=1873615018]
+[node name="CodePanel" type="Control" unique_id=387707963]
+physics_interpolation_mode = 0
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_geasi")
 metadata/_custom_type_script = "uid://bygottodiqmy"
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+layout_mode = 0
 offset_right = 256.0
 offset_bottom = 135.0
 size_flags_horizontal = 3
@@ -38,10 +39,6 @@ grow_horizontal = 0
 mouse_filter = 2
 scroll_active = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1778236019]
-position = Vector2(128, 67.5)
-shape = SubResource("RectangleShape2D_ro4dt")
-
 [node name="FlowPins" type="Node2D" parent="." unique_id=1036664156]
 
 [node name="InputPins" type="Node2D" parent="." unique_id=717609355]
@@ -49,12 +46,16 @@ shape = SubResource("RectangleShape2D_ro4dt")
 [node name="OutputPins" type="Node2D" parent="." unique_id=1564872741]
 
 [node name="Pin" parent="." unique_id=197575604 instance=ExtResource("2_8374b")]
-position = Vector2(18, 18)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = 18.0
+offset_bottom = 18.0
 rotation = 3.1415927
-pin_type = 0
-data_type = 2
 
 [node name="Pin2" parent="." unique_id=804416880 instance=ExtResource("2_8374b")]
-position = Vector2(238, 117)
-pin_type = 1
-data_type = 2
+layout_mode = 0
+offset_left = 238.0
+offset_top = 117.0
+offset_right = 238.0
+offset_bottom = 117.0

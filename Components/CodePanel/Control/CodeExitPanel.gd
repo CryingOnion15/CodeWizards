@@ -10,17 +10,15 @@ var exitPin: Pin = null;
 func _ready() -> void:
 	super._ready();
 	exitPin = availablePins[0];
-	availablePins.remove_at(0);
-	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 	
 func Execute():
-	print("Exit");
 	var params: Dictionary = Dictionary();
 	for i in range(1, availablePins.size()):
 		params[availablePins[i].name] = availablePins[i].get_value(true);
 		
+	print(params);
 	exit_called.emit(params);

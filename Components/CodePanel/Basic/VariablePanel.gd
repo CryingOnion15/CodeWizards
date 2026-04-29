@@ -1,14 +1,17 @@
 class_name VariablePanel extends CodePanel
 
 @export var variable_number_value: int = 0;
+@export var value_label: RichTextLabel;
 
 var outputPin: Pin = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super._ready();
 	if($OutputPin is Pin):
 		outputPin = $OutputPin as Pin;
 		##DEBUG this only works with number values currently.
 		outputPin.set_value(variable_number_value);
+		value_label.text = "%s" % [variable_number_value];
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
