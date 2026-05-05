@@ -14,7 +14,7 @@ func _ready():
 	
 func drag(newPos):
 	var difference = newPos - oldPos;
-	global_position += difference;
+	position += difference;
 	super.drag(newPos);
 	
 func Execute():

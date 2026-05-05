@@ -24,9 +24,13 @@ signal pin_reset()
 
 #stativ variables
 static var LINE_POINT_COUNT = 12;
-static var NUMBER_COLOR = Color('#008794');
-static var STRING_COLOR = Color('#FFDA03');
-static var CONTROL_COLOR = Color('#FEF9F3');
+static var NUMBER_COLOR: Color = Color('#008794');
+static var STRING_COLOR: Color = Color('#FFDA03');
+static var CONTROL_COLOR: Color = Color('#FEF9F3');
+static var CorrectColor: Color = Color(0,128,0)
+static var IncorrectColor: Color = Color(128,0,0)
+static var ACTIVE_PIN: Pin = null;
+static var SECONDARY_PIN = null;
 
 # Properties
 @export var pin_type: PIN_TYPE = PIN_TYPE.BOTH;
@@ -41,10 +45,12 @@ var curvePoints: Array[Vector2] = []
 var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
 var isConnected = false;
+var half_size: Vector2;
 
 var _string_value = "";
 var _number_value = 0;
 var _control_value: CodePanel = null;
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -56,117 +62,115 @@ func _ready() -> void:
 		curvePoints.append(Vector2(0,0));
 		
 	reset();
+	half_size = size / 2;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	return;
 	if(isDrawingCurve && line):
 		if(isConnected && connectedTo != null):
-			var localEnd = line.to_local(connectedTo.global_position)
+			var localEnd = line.to_local(connectedTo.global_position + connectedTo.half_size)
 			curve.set_point_position(1, localEnd);
 		
-		curve.set_point_position(0, line.to_local(global_position));
+		curve.set_point_position(0, line.to_local(global_position + half_size));
 		line.points = curve.get_baked_points()
+		
+func _on_mouse_entered() -> void:
+	super._on_mouse_entered();
+	print("Pin Entered");
+	if(Pin.ACTIVE_PIN != null):
+		Pin.SECONDARY_PIN = self;
+		
+		if(check_valid_connection(Pin.ACTIVE_PIN)):
+			correct_connect_hover();
+		else:
+			incorrect_connect_hover();
+	elif not isConnected:
+		hover();
+
+func _on_mouse_exited() -> void:
+	super._on_mouse_entered();
+	
+	if(Pin.SECONDARY_PIN == self):
+		Pin.SECONDARY_PIN = null;
+	
+	if not isConnected:
+		reset();
+	else:
+		emit_connected();		
 		
 # Warning tool to ensure right components.
 func _get_configuration_warnings():
-	return;
 	if not has_node("Line2D"):
 		return ["This node requires a Line2D child to draw the line of the connection."]
 	return []
 		
 func update_curve_on_drag(newPos):
-	return;
 	var localEnd = line.to_local(newPos)
 	curve.set_point_position(1, localEnd);
-	
-	#var rotVector = Vector2(cos(transform.get_rotation()), sin(transform.get_rotation())) * 100.0
-	#curve.set_point_out(0, rotVector)
-	#curve.set_point_in(1, -rotVector)
-	
+
+func handle_mouse_buttons(event: InputEvent):	
+	## Handle Start Drag.
+	if(isEntered && event.is_action_pressed("Mouse1")):
+		handle_start(event)
+
+	## Handle End Drag
+	if(isDragging && event.is_action_released("Mouse1")):
+		handle_end(event)
+
 func handle_start(event):
-	
 	if(isConnected):
 		if(connectedTo):
 			connectedTo.disconnect_pin();
 		disconnect_pin();
 		hover();
 	
-	# TODO might want to remove the reciever if for UX.
-	if(pin_type != PIN_TYPE.RECIEVER):
-		connectedTo = null;
-		isDrawingCurve = true;
-		
-		#Set up curve
-		curve.clear_points();
-		curve.add_point(line.to_local(global_position));
-		
-		#var midpoint = (curveStartPosition + curveEndPosition) / 2;
-		#curve.add_point(midpoint);
-		curve.add_point(line.to_local(global_position));
-		
-		super.handle_start(event);	
+	connectedTo = null;
+	Pin.ACTIVE_PIN = self;
+	isDrawingCurve = true;
 	
-func handle_end(event):
-	var dragables = get_intersected_dragables_at_mouse();
+	#Set up curve
+	curve.clear_points();
+	curve.add_point(line.to_local(global_position + half_size));
+	curve.add_point(line.to_local(global_position));
 	
-	if(dragables.size() > 0):
-		var next_dragable = dragables[dragables.size() - 1];
-		
-		if(next_dragable == self):
-			clear_line();
-			isConnected = false;
-			connectedTo = null;
-			hover();		
-		#If the draggable is a pin
-		elif(next_dragable is Pin && check_valid_connection(next_dragable as Pin)):
-			var otherPin = next_dragable as Pin;
-			var localEnd = line.to_local(next_dragable.global_position);
-			curve.set_point_position(1, localEnd);
+	super.handle_start(event);	
 	
-			var rotVector = Vector2(cos(next_dragable.transform.get_rotation()), sin(next_dragable.transform.get_rotation())) * 100.0
-			curve.set_point_in(1, rotVector)
-			
-			connect_to_pin(otherPin);
-			otherPin.connect_to_pin(self);
+func handle_end(event):		
+	if(Pin.ACTIVE_PIN == self):
+		if(Pin.SECONDARY_PIN != null && check_valid_connection(Pin.SECONDARY_PIN)):	
+			connect_to_pin(Pin.SECONDARY_PIN);
+			Pin.SECONDARY_PIN.connect_to_pin(self);
+			Pin.SECONDARY_PIN = null;
 		else:
 			clear_line();
 			reset();
-	else:
-		clear_line();
-		reset();
+		
+		Pin.ACTIVE_PIN = null;
 		
 	super.handle_end(event)
 	
-func get_intersected_pins_at_mouse() -> Array[Pin]:
-	#Test the intersection points.
-	var pointParmeters: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
-	pointParmeters.position = get_global_mouse_position()
-	pointParmeters.collide_with_areas = true
-	
-	var objects_clicked = get_world_2d().direct_space_state.intersect_point(pointParmeters)
-	
-	if(objects_clicked.size() > 0):	
-		var pins: Array[Pin] = []
-
-		for obj in objects_clicked:
-			if obj.collider is Pin:
-				pins.append(obj.collider as Pin)
-
-		pins.sort_custom(
-			func(c1: Pin, c2: Pin):
-				return c1.z_index < c2.z_index
-		)
-
-		return pins
-	return []
-	
-func check_valid_connection(otherPin: Pin) -> bool:
-	if(otherPin.pin_type != PIN_TYPE.CONNECTOR && data_type == otherPin.data_type):
-		return true;
-	else:
-		return false;
-		
+#func get_intersected_pins_at_mouse() -> Array[Pin]:
+	##Test the intersection points.
+	#var pointParmeters: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	#pointParmeters.position = get_global_mouse_position()
+	#pointParmeters.collide_with_areas = true
+	#
+	#var objects_clicked = get_world_2d().direct_space_state.intersect_point(pointParmeters)
+	#
+	#if(objects_clicked.size() > 0):	
+		#var pins: Array[Pin] = []
+#
+		#for obj in objects_clicked:
+			#if obj.collider is Pin:
+				#pins.append(obj.collider as Pin)
+#
+		#pins.sort_custom(
+			#func(c1: Pin, c2: Pin):
+				#return c1.z_index < c2.z_index
+		#)
+#
+		#return pins
+	#return []
 func clear_line():
 	isDrawingCurve = false;
 	line.points = [];
@@ -203,16 +207,27 @@ func connect_to_pin(pin: Pin):
 	connectedTo = pin;
 	pin_connected.emit();
 	
+	if(self == Pin.ACTIVE_PIN):
+		var localEnd = line.to_local(pin.global_position + pin.half_size);
+		curve.set_point_position(1, localEnd);
+
+		var rotVector = Vector2(cos(pin.rotation), sin(pin.rotation)) * 100.0
+		curve.set_point_in(1, rotVector)
+	
 func emit_connected():
 	pin_connected.emit();
-
-func _on_mouse_entered() -> void:
-	super._on_mouse_entered();
-	pin_enter.emit(self);
-
-func _on_mouse_exited() -> void:
-	super._on_mouse_exited();
-	pin_exit.emit(self);
+	
+func check_valid_connection(otherPin: Pin) -> bool:
+	match pin_type:
+		PIN_TYPE.RECIEVER:
+			var validPinType = otherPin.pin_type == PIN_TYPE.CONNECTOR || otherPin.pin_type == PIN_TYPE.BOTH
+			return validPinType && data_type == otherPin.data_type;
+		PIN_TYPE.CONNECTOR:
+			var validPinType = otherPin.pin_type == PIN_TYPE.RECIEVER || otherPin.pin_type == PIN_TYPE.BOTH
+			return validPinType && data_type == otherPin.data_type;
+		PIN_TYPE.BOTH:
+			return data_type == otherPin.data_type;
+	return false;
 	
 func get_value(get_value_from_connection: bool = false):
 	if(get_value_from_connection && isConnected):

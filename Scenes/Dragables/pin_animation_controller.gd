@@ -12,8 +12,8 @@ func _ready() -> void:
 	get_parent().connect("pin_hover_incorrect", play_incorrect)
 	get_parent().connect("pin_connected", set_connected)
 	get_parent().connect("pin_reset", set_reset)
+	var parent = get_parent();
 	data_type = (get_parent() as Pin).data_type;
-	pass # Replace with function body.
 
 func play_hover():
 	if(animation != "Hover"):
