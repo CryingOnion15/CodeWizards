@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://db65srmiso8tw"]
 
 [ext_resource type="Script" uid="uid://d0tysv85dfgxi" path="res://Components/Graphs/WandGraph.gd" id="1_4yr3h"]
-[ext_resource type="Texture2D" uid="uid://cisuk72u1i0bd" path="res://icon.svg" id="2_a6qpf"]
+[ext_resource type="Texture2D" uid="uid://dwsxbl6dkxh7d" path="res://Assets/Sprites/GridBackground128-128.png" id="2_4yr3h"]
 
 [node name="WandEditGraph" type="Control" unique_id=2145066972]
 clip_contents = true
@@ -31,5 +31,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_a6qpf")
+texture = ExtResource("2_4yr3h")
+expand_mode = 1
 stretch_mode = 1

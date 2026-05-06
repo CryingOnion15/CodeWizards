@@ -1,5 +1,9 @@
 class_name Dropable extends Dragable
 
+@export var default_texture: Texture = null;
+@export var valid_drop_texture: Texture = null;
+@export var invalid_drop_texture: Texture = null;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
