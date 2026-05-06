@@ -1,43 +1,13 @@
 [gd_scene format=3 uid="uid://md51vpeuqv8"]
 
-[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="1_kln2b"]
-[ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/TestDragable.tscn" id="1_r150o"]
+[ext_resource type="PackedScene" uid="uid://eqssc3c62ftu" path="res://Scenes/Dropables/Dropable.tscn" id="2_kln2b"]
 [ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
 
 [node name="Node2D" type="Node2D" unique_id=370466545]
 
-[node name="Draggable Test" type="Node" parent="." unique_id=240735662]
-
-[node name="Pin" parent="Draggable Test" unique_id=197575604 instance=ExtResource("1_kln2b")]
-visible = false
-offset_left = 280.0
-offset_top = -180.0
-offset_right = 280.0
-offset_bottom = -180.0
-rotation = -3.1415925
-
-[node name="Pin2" parent="Draggable Test" unique_id=1394991970 instance=ExtResource("1_kln2b")]
-visible = false
-offset_left = 280.0
-offset_top = -96.0
-offset_right = 280.0
-offset_bottom = -96.0
-rotation = -3.1415925
-
-[node name="Dragable" parent="Draggable Test" unique_id=2016189920 instance=ExtResource("1_r150o")]
-visible = false
-
-[node name="Dragable2" parent="Draggable Test" unique_id=2019694820 instance=ExtResource("1_r150o")]
-visible = false
-position = Vector2(0, -217)
-
-[node name="Dragable3" parent="Draggable Test" unique_id=1178897174 instance=ExtResource("1_r150o")]
-visible = false
-position = Vector2(0, 162)
-
 [node name="UITest" type="Control" parent="." unique_id=416148092]
-custom_minimum_size = Vector2(1920, 1080)
+custom_minimum_size = Vector2(640, 360)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,15 +16,62 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_vy5pj")
 
+[node name="Panel" type="Panel" parent="UITest" unique_id=1384949865]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+offset_top = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UITest/Panel" unique_id=1114115341]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.15
+anchor_right = 1.0
+anchor_bottom = 0.85
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Dropable" parent="UITest/Panel/HBoxContainer" unique_id=19305839 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable2" parent="UITest/Panel/HBoxContainer" unique_id=2022414427 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable3" parent="UITest/Panel/HBoxContainer" unique_id=1292019089 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable4" parent="UITest/Panel/HBoxContainer" unique_id=946646570 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable5" parent="UITest/Panel/HBoxContainer" unique_id=1597017613 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable6" parent="UITest/Panel/HBoxContainer" unique_id=1080329331 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable7" parent="UITest/Panel/HBoxContainer" unique_id=1388222198 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable8" parent="UITest/Panel/HBoxContainer" unique_id=1287558802 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable9" parent="UITest/Panel/HBoxContainer" unique_id=1844618850 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable10" parent="UITest/Panel/HBoxContainer" unique_id=1632943250 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
+[node name="Dropable11" parent="UITest/Panel/HBoxContainer" unique_id=1934538623 instance=ExtResource("2_kln2b")]
+layout_mode = 2
+
 [node name="WandEditGraph" parent="UITest" unique_id=2145066972 instance=ExtResource("9_vy5pj")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.99
-anchor_bottom = 0.97
-grow_horizontal = 0
-grow_vertical = 0
+anchor_top = 0.2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
 visible = false

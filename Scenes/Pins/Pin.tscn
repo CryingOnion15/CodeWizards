@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="1_hu4s4"]
 [ext_resource type="Texture2D" uid="uid://dw5hpd2kwv5l4" path="res://Assets/SpriteSheets/PinHoverSpriteSheet.png" id="2_m817y"]
-[ext_resource type="Script" uid="uid://c5iyma4f06eyx" path="res://Scenes/Dragables/pin_animation_controller.gd" id="3_h50ra"]
+[ext_resource type="Script" uid="uid://c5iyma4f06eyx" path="res://Components/Dragables/pin_animation_controller.gd" id="3_h50ra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hu4s4"]
 atlas = ExtResource("2_m817y")
@@ -116,17 +116,9 @@ animations = [{
 [node name="Pin" type="Control" unique_id=2102211022]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -16.0
-offset_top = -16.0
-offset_right = 16.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
 script = ExtResource("1_hu4s4")
 metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
 
@@ -137,5 +129,6 @@ animation = &"Idle"
 script = ExtResource("3_h50ra")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=249325266]
+z_index = 2
 position = Vector2(16, 16)
 width = 4.0

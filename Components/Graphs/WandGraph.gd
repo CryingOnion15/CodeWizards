@@ -9,6 +9,7 @@ var exitScene = preload("res://Scenes/CodePanels/ExitPanel.tscn");
 
 var entryPanel: CodeEntryPanel = null;
 var exitPanel: CodeExitPanel = null;
+var currentPanel: CodePanel = null;
 var panels: Array[CodePanel] = [];
 
 # Called when the node enters the scene tree for the first time.
@@ -28,12 +29,22 @@ func _ready() -> void:
 	position =  -parentSize * .5;
 	
 	add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
-	add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .9);
+	add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if(Input.is_action_just_pressed("Run")):
+		Run();
+
+func Run():
+	if(entryPanel):
+		currentPanel = entryPanel;
+		while(currentPanel != null):
+			currentPanel.Execute();
+			currentPanel = currentPanel.get_next_control();
+			print(currentPanel);
+	else:
+		print("No Entry Point");
 	
 func drag(newPos):
 	var difference = newPos - oldPos;
@@ -54,9 +65,9 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 			return;
 			
 		#TODO probably need some sort of signal for connections.
-		if(entryPanel != null && panel is CodeEntryPanel):
+		if(entryPanel == null && panel is CodeEntryPanel):
 			entryPanel = panel;
-		elif(exitPanel != null && panel is CodeExitPanel):
+		elif(exitPanel == null && panel is CodeExitPanel):
 			exitPanel = panel;
 		else:
 			panels.push_back(panel);
@@ -64,8 +75,6 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 		add_child(panel);
 		panel.position = location;
 			
-		
-
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):
 		if(panel == entryPanel || panel == exitPanel):

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://eqssc3c62ftu"]
+
+[ext_resource type="Script" uid="uid://0yl5imxxip8r" path="res://Components/Dragables/Dropable.gd" id="1_uioew"]
+
+[node name="Dropable" type="Control" unique_id=19305839]
+modulate = Color(0.22745098, 1, 1, 1)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_uioew")
+metadata/_custom_type_script = "uid://0yl5imxxip8r"
+
+[node name="Panel" type="Panel" parent="." unique_id=1534505308]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1

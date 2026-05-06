@@ -40,7 +40,6 @@ func handle_mouse_buttons(event):
 
 func _on_mouse_entered() -> void:
 	isEntered = true;
-	
 
 func _on_mouse_exited() -> void:
 	isEntered = false;

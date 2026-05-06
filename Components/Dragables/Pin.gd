@@ -22,7 +22,7 @@ signal pin_hover_incorrect()
 signal pin_connected()
 signal pin_reset()
 
-#stativ variables
+#static variables
 static var LINE_POINT_COUNT = 12;
 static var NUMBER_COLOR: Color = Color('#008794');
 static var STRING_COLOR: Color = Color('#FFDA03');
@@ -45,7 +45,6 @@ var curvePoints: Array[Vector2] = []
 var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
 var isConnected = false;
-var half_size: Vector2;
 
 var _string_value = "";
 var _number_value = 0;
@@ -62,16 +61,15 @@ func _ready() -> void:
 		curvePoints.append(Vector2(0,0));
 		
 	reset();
-	half_size = size / 2;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(isDrawingCurve && line):
 		if(isConnected && connectedTo != null):
-			var localEnd = line.to_local(connectedTo.global_position + connectedTo.half_size)
+			var localEnd = line.to_local(connectedTo.get_global_rect().get_center())
 			curve.set_point_position(1, localEnd);
 		
-		curve.set_point_position(0, line.to_local(global_position + half_size));
+		curve.set_point_position(0, line.to_local(get_global_rect().get_center()));
 		line.points = curve.get_baked_points()
 		
 func _on_mouse_entered() -> void:
@@ -130,8 +128,9 @@ func handle_start(event):
 	
 	#Set up curve
 	curve.clear_points();
-	curve.add_point(line.to_local(global_position + half_size));
+	curve.add_point(line.to_local(get_global_rect().get_center()));
 	curve.add_point(line.to_local(global_position));
+	curve.set_point_out(0, get_line_direction() * 100);
 	
 	super.handle_start(event);	
 	
@@ -208,10 +207,10 @@ func connect_to_pin(pin: Pin):
 	pin_connected.emit();
 	
 	if(self == Pin.ACTIVE_PIN):
-		var localEnd = line.to_local(pin.global_position + pin.half_size);
+		var localEnd = line.to_local(pin.get_global_rect().get_center());
 		curve.set_point_position(1, localEnd);
 
-		var rotVector = Vector2(cos(pin.rotation), sin(pin.rotation)) * 100.0
+		var rotVector = pin.get_line_direction() * 100.0
 		curve.set_point_in(1, rotVector)
 	
 func emit_connected():
@@ -255,3 +254,13 @@ func set_value(v):
 			_string_value = v;
 		DATA_TYPE.CONTROL:
 			_control_value = v;
+			
+func get_line_direction() -> Vector2:
+	match pin_type:
+		PIN_TYPE.RECIEVER:
+			return Vector2.LEFT;
+		PIN_TYPE.CONNECTOR:
+			return Vector2.RIGHT;
+		PIN_TYPE.BOTH:
+			return Vector2.LEFT;
+	return Vector2.LEFT;
