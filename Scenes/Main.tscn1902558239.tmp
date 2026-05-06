@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bix8krudobhcd" path="res://Components/Managers/DropManager.gd" id="1_rgh2o"]
 [ext_resource type="PackedScene" uid="uid://eqssc3c62ftu" path="res://Scenes/Dropables/Dropable.tscn" id="2_kln2b"]
 [ext_resource type="Script" uid="uid://cdnlfufr6b2nq" path="res://Scenes/mouse_tracker.gd" id="2_pbw6q"]
-[ext_resource type="Texture2D" uid="uid://20j3wg8i1l5" path="res://Assets/Textures/PinTextures/PinDefault.tres" id="3_v1gob"]
 [ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
 
@@ -17,11 +16,7 @@ metadata/_custom_type_script = "uid://bix8krudobhcd"
 
 [node name="MouseTracker" type="Node2D" parent="." unique_id=758852499]
 visible = false
-z_index = 4
 script = ExtResource("2_pbw6q")
-
-[node name="Sprite2D" type="Sprite2D" parent="MouseTracker" unique_id=1679878783]
-texture = ExtResource("3_v1gob")
 
 [node name="UITest" type="Control" parent="." unique_id=416148092]
 custom_minimum_size = Vector2(640, 360)
