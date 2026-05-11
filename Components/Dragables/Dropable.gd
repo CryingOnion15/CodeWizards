@@ -1,6 +1,10 @@
 class_name Dropable extends Dragable
 
+
 @export var type: DropData.DropType = DropData.DropType.PANEL;
+@export var sceneToCreate: PackedScene = null;
+
+@export_group("Drop Textures")
 @export var default_texture: Texture = null;
 @export var valid_drop_texture: Texture = null;
 @export var invalid_drop_texture: Texture = null;

@@ -1,9 +1,11 @@
 class_name DropArea extends Control
 
+signal drop_success(dropable)
+
 @export var type: DropData.DropType = DropData.DropType.PANEL;
 
-var currentDropable
-var dropLocation
+var currentDropable: Dropable
+var dropLocation: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,7 +26,7 @@ func check_valid_dropable(drop: Dropable):
 func on_update_drop_pos(pos: Vector2):
 	dropLocation = pos;
 	
-	#TODO fix valid and invalid drop events.
+	#TODO fix valid and invalid drop events. Maybe move stuff here. This is kind implemented in MouseTracker
 	
 func on_drop(drop: Dropable):
 	DropManager.instance.drop_location_updated.disconnect(on_update_drop_pos);
@@ -37,8 +39,7 @@ func on_drop(drop: Dropable):
 	deactivate_area();
 
 func drop_action(drop: Dropable):
-	print("Working");
-	pass
+	drop_success.emit(drop, dropLocation);
 
 func activate_area():
 	pass

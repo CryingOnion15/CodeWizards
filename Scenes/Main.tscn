@@ -4,8 +4,19 @@
 [ext_resource type="PackedScene" uid="uid://eqssc3c62ftu" path="res://Scenes/Dropables/Dropable.tscn" id="2_kln2b"]
 [ext_resource type="Script" uid="uid://cdnlfufr6b2nq" path="res://Scenes/mouse_tracker.gd" id="2_pbw6q"]
 [ext_resource type="Texture2D" uid="uid://20j3wg8i1l5" path="res://Assets/Textures/PinTextures/PinDefault.tres" id="3_v1gob"]
+[ext_resource type="PackedScene" uid="uid://bsmitp6m8omkq" path="res://Scenes/CodePanels/VariablePanels/Variable0.tscn" id="6_2w5on"]
+[ext_resource type="Texture2D" uid="uid://cisuk72u1i0bd" path="res://icon.svg" id="6_50glp"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="7_vy5pj"]
 [ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
+[ext_resource type="PackedScene" uid="uid://clal2pgy7xtq0" path="res://Scenes/CodePanels/VariablePanels/Variable1.tscn" id="9_346fj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
+[ext_resource type="PackedScene" uid="uid://336qt05nqjfk" path="res://Scenes/CodePanels/VariablePanels/Variable2.tscn" id="10_0sclb"]
+[ext_resource type="PackedScene" uid="uid://cn2f4bbvmbr4y" path="res://Scenes/CodePanels/VariablePanels/Variable3.tscn" id="11_sxkr1"]
+[ext_resource type="PackedScene" uid="uid://cnso0m4ke7pg1" path="res://Scenes/CodePanels/VariablePanels/Variable4.tscn" id="12_fq0cl"]
+[ext_resource type="PackedScene" uid="uid://mct1vf322p28" path="res://Scenes/CodePanels/VariablePanels/Variable5.tscn" id="13_hwpts"]
+[ext_resource type="PackedScene" uid="uid://bak6feln07f20" path="res://Scenes/CodePanels/VariablePanels/Variable6.tscn" id="14_jyqft"]
+[ext_resource type="PackedScene" uid="uid://bt1exgxtnho1j" path="res://Scenes/CodePanels/VariablePanels/Variable7.tscn" id="15_3tgeq"]
+[ext_resource type="PackedScene" uid="uid://cfqn12lsowd8l" path="res://Scenes/CodePanels/VariablePanels/Variable8.tscn" id="16_c4ay3"]
 
 [node name="Node2D" type="Node2D" unique_id=370466545]
 
@@ -21,6 +32,7 @@ z_index = 4
 script = ExtResource("2_pbw6q")
 
 [node name="Sprite2D" type="Sprite2D" parent="MouseTracker" unique_id=1679878783]
+modulate = Color(1, 1, 1, 0.5176471)
 texture = ExtResource("3_v1gob")
 
 [node name="UITest" type="Control" parent="." unique_id=416148092]
@@ -54,35 +66,49 @@ alignment = 1
 
 [node name="Dropable" parent="UITest/Panel/HBoxContainer" unique_id=19305839 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("6_2w5on")
+default_texture = ExtResource("6_50glp")
+valid_drop_texture = ExtResource("3_v1gob")
+invalid_drop_texture = ExtResource("7_vy5pj")
 
 [node name="Dropable2" parent="UITest/Panel/HBoxContainer" unique_id=2022414427 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("9_346fj")
 
 [node name="Dropable3" parent="UITest/Panel/HBoxContainer" unique_id=1292019089 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("10_0sclb")
 
 [node name="Dropable4" parent="UITest/Panel/HBoxContainer" unique_id=946646570 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("11_sxkr1")
 
 [node name="Dropable5" parent="UITest/Panel/HBoxContainer" unique_id=1597017613 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("12_fq0cl")
 
 [node name="Dropable6" parent="UITest/Panel/HBoxContainer" unique_id=1080329331 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("13_hwpts")
 
 [node name="Dropable7" parent="UITest/Panel/HBoxContainer" unique_id=1388222198 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("14_jyqft")
 
 [node name="Dropable8" parent="UITest/Panel/HBoxContainer" unique_id=1287558802 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("15_3tgeq")
 
 [node name="Dropable9" parent="UITest/Panel/HBoxContainer" unique_id=1844618850 instance=ExtResource("2_kln2b")]
 layout_mode = 2
+sceneToCreate = ExtResource("16_c4ay3")
 
 [node name="Dropable10" parent="UITest/Panel/HBoxContainer" unique_id=1632943250 instance=ExtResource("2_kln2b")]
+visible = false
 layout_mode = 2
 
 [node name="Dropable11" parent="UITest/Panel/HBoxContainer" unique_id=1934538623 instance=ExtResource("2_kln2b")]
+visible = false
 layout_mode = 2
 
 [node name="WandEditGraph" parent="UITest" unique_id=2145066972 instance=ExtResource("9_vy5pj")]

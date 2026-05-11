@@ -3,10 +3,14 @@ class_name WandGraph extends Dragable
 @export_range(1, 5, 0.1) var xBoundScale = 2;
 @export_range(1, 5, 0.1) var yBoundScale = 2;
 
+# On Ready
+@onready var drop_area = $DropArea;
+
 #Scene References
 var entryScene = preload("res://Scenes/CodePanels/EntryPanel.tscn");
 var exitScene = preload("res://Scenes/CodePanels/ExitPanel.tscn");
 
+# Other Vars
 var entryPanel: CodeEntryPanel = null;
 var exitPanel: CodeExitPanel = null;
 var currentPanel: CodePanel = null;
@@ -30,6 +34,8 @@ func _ready() -> void:
 	
 	add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
 	add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
+	
+	drop_area.connect("drop_success", on_drop_success);
 	
 
 func _process(delta: float) -> void:
@@ -83,4 +89,10 @@ func remove_panel_from_graph(panel: CodePanel):
 			var rIndex = panels.find(panel);
 			if(rIndex != -1):
 				panels.remove_at(rIndex);
+
+func on_drop_success(drop: Dropable):
+	var newPanel: CodePanel = drop.sceneToCreate.instantiate() as CodePanel;
+	
+	add_panel_to_graph(newPanel, get_local_mouse_position());
+	
 			
