@@ -17,7 +17,7 @@ func on_dropable_updated(dropable: Dropable):
 		sprite.texture = null;
 		activeDropable = null;
 		visible = false;
-		
+
 func on_location_updated(loc: Vector2):
 	var hoveredControl = get_viewport().gui_get_hovered_control();
 	
@@ -28,10 +28,7 @@ func on_location_updated(loc: Vector2):
 			sprite.texture = activeDropable.invalid_drop_texture;
 	else:
 		sprite.texture = activeDropable.default_texture; 
-			
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	global_position = get_global_mouse_position();
-	pass

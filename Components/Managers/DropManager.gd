@@ -19,16 +19,16 @@ static func set_dropable(dropable: Dropable):
 	if(instance != null):
 		instance.current_dropable = dropable;
 		instance.dropable_updated.emit(instance.current_dropable);
-		
+
 static func get_current() -> Dropable:
 	if(instance != null):
 		return instance.current_dropable;
 	return null;
-	
+
 static func update_drop_location(loc: Vector2):
 	if(instance != null):
 		instance.drop_location_updated.emit(loc);
-	
+
 static func drop():
 	if(instance != null):
 		instance.drop_event.emit(get_current());

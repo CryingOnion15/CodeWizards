@@ -51,7 +51,7 @@ func Run():
 			print(currentPanel);
 	else:
 		print("No Entry Point");
-	
+
 func drag(newPos):
 	var difference = newPos - oldPos;
 	position += difference;
@@ -80,7 +80,7 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 		
 		add_child(panel);
 		panel.position = location;
-			
+
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):
 		if(panel == entryPanel || panel == exitPanel):
@@ -92,7 +92,7 @@ func remove_panel_from_graph(panel: CodePanel):
 
 func on_drop_success(drop: Dropable):
 	var newPanel: CodePanel = drop.sceneToCreate.instantiate() as CodePanel;
+	await get_tree().process_frame;
+	newPanel.set_data(drop.get_data());
 	
 	add_panel_to_graph(newPanel, get_local_mouse_position());
-	
-			

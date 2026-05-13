@@ -10,7 +10,6 @@ var dropLocation: Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	DropManager.instance.dropable_updated.connect(check_valid_dropable);
-	pass # Replace with function body.
 
 func check_valid_dropable(drop: Dropable):
 	currentDropable = drop;
@@ -22,7 +21,7 @@ func check_valid_dropable(drop: Dropable):
 		activate_area();
 	else:
 		deactivate_area();
-		
+
 func on_update_drop_pos(pos: Vector2):
 	dropLocation = pos;
 	
@@ -39,13 +38,10 @@ func on_drop(drop: Dropable):
 	deactivate_area();
 
 func drop_action(drop: Dropable):
-	drop_success.emit(drop, dropLocation);
+	drop_success.emit(drop);
 
 func activate_area():
 	pass
 	
 func deactivate_area():
 	pass
-
-
-	

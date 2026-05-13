@@ -1,0 +1,102 @@
+{
+	"cards": {
+		"variable0": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 0
+			}
+		},
+		"variable1": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 1
+			}
+		},
+		"variable2": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 2
+			}
+		},
+		"variable3": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 3
+			}
+		},
+		"variable4": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 4
+			}
+		},
+		"variable5": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 5
+			}
+		},
+		"variable6": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 6
+			}
+		},
+		"variable7": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 7
+			}
+		},
+		"variable8": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 8
+			}
+		},
+		"variable9": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 9
+			}
+		},
+		"variable10": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 10
+			}
+		},
+		"variable11": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 11
+			}
+		},
+		"variable12": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 12
+			}
+		},
+		"variable13": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 13
+			}
+		},
+	}
+}

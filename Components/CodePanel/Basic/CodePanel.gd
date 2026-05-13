@@ -1,6 +1,7 @@
 class_name CodePanel extends Dragable
 
 var availablePins: Array[Pin] = []
+var save_data: Dictionary
 
 func _ready():
 	super._ready();
@@ -22,3 +23,6 @@ func Execute():
 	
 func get_next_control() -> CodePanel:
 	return null;
+	
+func set_data(data: Dictionary):
+	save_data = data;
