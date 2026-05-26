@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cisuk72u1i0bd" path="res://icon.svg" id="2_e7iat"]
 
 [node name="Dropable" type="Control" unique_id=19305839]
-modulate = Color(0.22745098, 1, 1, 1)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0

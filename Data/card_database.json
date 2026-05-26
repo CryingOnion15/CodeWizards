@@ -3,6 +3,9 @@
 		"variable0": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var0-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var0-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var0-incorrect.tres",
 			"data": {
 				"value": 0
 			}
@@ -10,6 +13,9 @@
 		"variable1": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var1-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var1-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var1-incorrect.tres",
 			"data": {
 				"value": 1
 			}
@@ -17,6 +23,9 @@
 		"variable2": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var2-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var2-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var2-incorrect.tres",
 			"data": {
 				"value": 2
 			}
@@ -24,6 +33,9 @@
 		"variable3": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var3-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var3-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var3-incorrect.tres",
 			"data": {
 				"value": 3
 			}
@@ -31,6 +43,9 @@
 		"variable4": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var4-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var4-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var4-incorrect.tres",
 			"data": {
 				"value": 4
 			}
@@ -38,6 +53,9 @@
 		"variable5": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var5-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var5-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var5-incorrect.tres",
 			"data": {
 				"value": 5
 			}
@@ -45,6 +63,9 @@
 		"variable6": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var6-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var6-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var6-incorrect.tres",
 			"data": {
 				"value": 6
 			}
@@ -52,6 +73,9 @@
 		"variable7": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var7-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var7-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var7-incorrect.tres",
 			"data": {
 				"value": 7
 			}
@@ -59,6 +83,9 @@
 		"variable8": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var8-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var8-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var8-incorrect.tres",
 			"data": {
 				"value": 8
 			}
@@ -66,6 +93,9 @@
 		"variable9": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var9-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var9-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var9-incorrect.tres",
 			"data": {
 				"value": 9
 			}
@@ -73,6 +103,9 @@
 		"variable10": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var10-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var10-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var10-incorrect.tres",
 			"data": {
 				"value": 10
 			}
@@ -80,6 +113,9 @@
 		"variable11": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var11-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var11-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var11-incorrect.tres",
 			"data": {
 				"value": 11
 			}
@@ -87,6 +123,9 @@
 		"variable12": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var12-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var12-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var12-incorrect.tres",
 			"data": {
 				"value": 12
 			}
@@ -94,6 +133,9 @@
 		"variable13": {
 			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
 			"panelPath": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"defaultTexture": "res://Assets/Textures/BlockTextures/Variable/Var13-default.tres",
+			"correctTexture": "res://Assets/Textures/BlockTextures/Variable/Var13-correct.tres",
+			"incorrectTexture": "res://Assets/Textures/BlockTextures/Variable/Var13-incorrect.tres",
 			"data": {
 				"value": 13
 			}

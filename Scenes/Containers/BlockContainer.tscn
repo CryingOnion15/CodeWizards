@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bmerek1ky6gx2"]
+
+[ext_resource type="Script" uid="uid://crnistifjkbdd" path="res://Components/Cards/BlockContainer.gd" id="1_1e5s2"]
+[ext_resource type="Script" uid="uid://bjxvb2yme3bwy" path="res://Components/Drop/DropArea.gd" id="2_ufsw3"]
+
+[node name="BlockContainer" type="Control" unique_id=354968545]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1e5s2")
+metadata/_custom_type_script = "uid://crnistifjkbdd"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=956357138]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="DropArea" type="Control" parent="." unique_id=1163000494]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_ufsw3")
+metadata/_custom_type_script = "uid://bjxvb2yme3bwy"
