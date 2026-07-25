@@ -68,8 +68,8 @@ func drag(delta):
 	var diffX = size.x - parent_size.x;
 	var diffY = size.y - parent_size.y
 	
-	position.x = clamp(position.x, -diffX - 10, 0 + 10);
-	position.y = clamp(position.y, -diffY - 10, 0 + 10);
+	position.x = clamp(position.x, -diffX, 0);
+	position.y = clamp(position.y, -diffY, 0);
 	super.drag(delta);
 	
 func set_size_of_panels(size: CodePanel.THEME_SIZE):

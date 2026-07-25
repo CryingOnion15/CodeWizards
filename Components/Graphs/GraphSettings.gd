@@ -5,9 +5,9 @@ signal medium_pressed;
 signal large_pressed;
 
 #On ready
-@onready var large_btn: Button = $Large;
-@onready var medium_btn: Button = $Medium;
-@onready var small_btn: Button = $Small;
+@export var large_btn: Button = null;
+@export var medium_btn: Button = null;
+@export var small_btn: Button = null;
 
 func _ready() -> void:
 	large_btn.pressed.connect(on_large_pressed);

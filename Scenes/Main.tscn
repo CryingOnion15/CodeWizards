@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bix8krudobhcd" path="res://Components/Managers/DropManager.gd" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://cdnlfufr6b2nq" path="res://Scenes/mouse_tracker.gd" id="2_pbw6q"]
 [ext_resource type="Texture2D" uid="uid://20j3wg8i1l5" path="res://Assets/Textures/PinTextures/PinDefault.tres" id="3_v1gob"]
-[ext_resource type="PackedScene" uid="uid://bmerek1ky6gx2" path="res://Scenes/Containers/BlockContainer.tscn" id="5_v1gob"]
 [ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
 
@@ -34,21 +33,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_vy5pj")
 
-[node name="Panel" type="Panel" parent="UITest" unique_id=1384949865]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.2
-offset_top = -1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-
-[node name="BlockContainer" parent="UITest/Panel" unique_id=354968545 instance=ExtResource("5_v1gob")]
-layout_mode = 1
-
 [node name="WandEditGraph" parent="UITest" unique_id=2145066972 instance=ExtResource("9_vy5pj")]
 texture_filter = 1
 layout_mode = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=1079431470]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
 visible = false
