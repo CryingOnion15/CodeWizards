@@ -1,0 +1,11 @@
+[gd_resource type="Theme" format=3 uid="uid://b42yktl2svnqq"]
+
+[resource]
+CodePanel/constants/large_height = 150
+CodePanel/constants/large_width = 200
+CodePanel/constants/medium_height = 100
+CodePanel/constants/medium_width = 125
+CodePanel/constants/small_height = 74
+CodePanel/constants/small_width = 100
+CodePanel/font_sizes/number_size = 16
+CodePanel/font_sizes/title_size = 16

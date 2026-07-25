@@ -3,8 +3,9 @@ class_name WandGraph extends Dragable
 @export_range(1, 5, 0.1) var xBoundScale = 2;
 @export_range(1, 5, 0.1) var yBoundScale = 2;
 
-# On Ready
-@onready var drop_area = $DropArea;
+#@export var node_canvas: Node2D = null;
+@export var drop_area: DropArea = null;
+@export var graph_settings: GraphSettings = null;
 
 #Scene References
 var entryScene = preload("res://Scenes/CodePanels/EntryPanel.tscn");
@@ -35,13 +36,19 @@ func _ready() -> void:
 	add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
 	add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
 	
+	#Subscribe to signals.
 	drop_area.connect("drop_success", on_drop_success);
-	
+	graph_settings.large_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.LARGE));
+	graph_settings.medium_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.MEDIUM))
+	graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL))	
 
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("Run")):
 		Run();
-
+		
+func _on_gui_input(event: InputEvent) -> void:
+	super._on_gui_input(event);
+			
 func Run():
 	if(entryPanel):
 		currentPanel = entryPanel;
@@ -52,9 +59,9 @@ func Run():
 	else:
 		print("No Entry Point");
 
-func drag(newPos):
-	var difference = newPos - oldPos;
-	position += difference;
+func drag(delta):
+	position += delta;
+	position = position.round();
 	
 	#Position Clamping
 	var parent_size = get_parent().size;
@@ -63,8 +70,15 @@ func drag(newPos):
 	
 	position.x = clamp(position.x, -diffX - 10, 0 + 10);
 	position.y = clamp(position.y, -diffY - 10, 0 + 10);
-	super.drag(newPos);
-
+	super.drag(delta);
+	
+func set_size_of_panels(size: CodePanel.THEME_SIZE):
+	entryPanel.set_theme_size(size);
+	exitPanel.set_theme_size(size);
+	
+	for panel in panels:
+		panel.set_theme_size(size);
+	
 func add_panel_to_graph(panel: CodePanel, location: Vector2):
 	if(panel != null):
 		if(panel == entryPanel || panel == exitPanel):
@@ -78,7 +92,7 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 		else:
 			panels.push_back(panel);
 		
-		add_child(panel);
+		drop_area.add_child(panel);
 		panel.position = location;
 
 func remove_panel_from_graph(panel: CodePanel):

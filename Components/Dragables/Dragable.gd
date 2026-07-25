@@ -1,6 +1,6 @@
 class_name Dragable extends Control
 
-signal drag_event(oldPosition, newPosition)
+signal drag_event(delta)
 signal start_drag(startPosition)
 signal end_drag(endPosition)
 
@@ -9,8 +9,9 @@ var isDragging: bool = false;
 var isEntered: bool = false;
 
 #Drag variables
-var oldPos: Vector2 = Vector2.ZERO;
-var newPos: Vector2 = Vector2.ZERO;
+#var dragDelta: float = 0;
+#var oldPos: Vector2 = Vector2.ZERO;
+#var newPos: Vector2 = Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,7 +28,7 @@ func _on_gui_input(event: InputEvent) -> void:
 		handle_mouse_buttons(event);
 		
 	elif isDragging && event is InputEventMouseMotion:
-		drag(get_global_mouse_position());
+		drag(event.relative);
 
 func handle_mouse_buttons(event):
 	if(isEntered && event.is_action_pressed("Mouse1")):
@@ -44,13 +45,11 @@ func _on_mouse_exited() -> void:
 
 func handle_start(event):
 	isDragging = true;
-	oldPos = get_global_mouse_position();
 	start_drag.emit(get_global_mouse_position());	
 
 func handle_end(event):
 	isDragging = false;
 	end_drag.emit(get_global_mouse_position());
 
-func drag(newPos):
-	drag_event.emit(oldPos, newPos);
-	oldPos = newPos;
+func drag(mouseDelta):
+	drag_event.emit(mouseDelta);

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bgrb6gwo3nd0u"]
 
 [ext_resource type="Script" uid="uid://d20vphpdm608p" path="res://Components/CodePanel/Control/CodeEntryPanel.gd" id="1_46yjf"]
+[ext_resource type="Theme" uid="uid://qmtbh6726mdd" path="res://Assets/Themes/entry_panel_theme.tres" id="1_mt56r"]
 [ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xumy6"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_mt56r"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_xumy6"]
@@ -11,6 +12,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 120.0
 offset_bottom = 76.0
+theme = ExtResource("1_mt56r")
 script = ExtResource("1_46yjf")
 metadata/_custom_type_script = "uid://d20vphpdm608p"
 

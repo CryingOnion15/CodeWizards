@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dvq4oxn7hio21"]
+
+[ext_resource type="Script" uid="uid://cvm3oo6iyc5k2" path="res://Components/Graphs/GraphSettings.gd" id="1_sjtp4"]
+[ext_resource type="ButtonGroup" uid="uid://bo4oux8bxqjiw" path="res://Scenes/Graphs/panel_size_group.tres" id="1_vgnpa"]
+
+[node name="GraphSizeController" type="Control" unique_id=1660778362]
+custom_minimum_size = Vector2(0, 68)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 68.0
+grow_horizontal = 2
+script = ExtResource("1_sjtp4")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=689459663]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.47058824, 0.47058824, 0.47058824, 1)
+
+[node name="Large" type="Button" parent="." unique_id=1853842919]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -66.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 66.0
+grow_horizontal = 0
+toggle_mode = true
+button_group = ExtResource("1_vgnpa")
+
+[node name="Label" type="Label" parent="Large" unique_id=1399844424]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "L"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Medium" type="Button" parent="." unique_id=1493837491]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -132.0
+offset_top = 2.0
+offset_right = -68.0
+offset_bottom = 66.0
+grow_horizontal = 0
+toggle_mode = true
+button_pressed = true
+button_group = ExtResource("1_vgnpa")
+
+[node name="Label" type="Label" parent="Medium" unique_id=1167721033]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "M"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Small" type="Button" parent="." unique_id=1798443632]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -198.0
+offset_top = 2.0
+offset_right = -134.0
+offset_bottom = 66.0
+grow_horizontal = 0
+toggle_mode = true
+button_group = ExtResource("1_vgnpa")
+
+[node name="Label" type="Label" parent="Small" unique_id=1510679869]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1

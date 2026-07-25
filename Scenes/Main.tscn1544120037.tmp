@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
 
-[node name="MainScene" type="Node2D" unique_id=370466545]
+[node name="Node2D" type="Node2D" unique_id=370466545]
 
 [node name="Managers" type="Node" parent="." unique_id=173369814]
 
@@ -47,8 +47,10 @@ grow_horizontal = 2
 layout_mode = 1
 
 [node name="WandEditGraph" parent="UITest" unique_id=2145066972 instance=ExtResource("9_vy5pj")]
-texture_filter = 1
+texture_filter = 2
 layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
 visible = false

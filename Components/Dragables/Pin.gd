@@ -174,9 +174,9 @@ func clear_line():
 	isDrawingCurve = false;
 	line.points = [];
 	
-func drag(newPos):
-	super.drag(newPos);
-	update_curve_on_drag(newPos);
+func drag(delta):
+	super.drag(delta);
+	update_curve_on_drag(get_global_mouse_position());
 
 func hover():
 	pin_hover.emit()

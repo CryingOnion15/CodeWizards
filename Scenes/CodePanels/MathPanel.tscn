@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://xyrttilk0tbb"]
 
 [ext_resource type="Script" uid="uid://b874icemm6o7c" path="res://Components/CodePanel/Function/MathPanel.gd" id="1_bh64o"]
+[ext_resource type="Theme" uid="uid://dkgew5lea7bvo" path="res://Assets/Themes/math_panel_theme.tres" id="1_uvjcf"]
 [ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xdwyp"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_uvjcf"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_xdwyp"]
@@ -12,6 +13,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 210.0
 offset_bottom = 136.0
+theme = ExtResource("1_uvjcf")
 script = ExtResource("1_bh64o")
 math_label = NodePath("InputPins/MathLabel")
 metadata/_custom_type_script = "uid://b874icemm6o7c"
