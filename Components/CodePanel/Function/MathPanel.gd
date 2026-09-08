@@ -36,11 +36,6 @@ func _ready() -> void:
 		MATH_FUNC.EXP:
 			math_label.text = "^";
 			return;
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	super._process(delta);
-	pass
 	
 func Execute():
 	var input1 = input_pins[0].get_value(true);

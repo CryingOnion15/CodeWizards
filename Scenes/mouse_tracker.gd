@@ -22,12 +22,12 @@ func on_location_updated(loc: Vector2):
 	var hoveredControl = get_viewport().gui_get_hovered_control();
 	
 	if(hoveredControl is DropArea):
-		if((hoveredControl as DropArea).type == activeDropable.type):
-			sprite.texture = activeDropable.valid_drop_texture;
+		if((hoveredControl as DropArea).type & activeDropable.drop_type):
+			print("Correct Area");
 		else:
-			sprite.texture = activeDropable.invalid_drop_texture;
-	else:
-		sprite.texture = activeDropable.default_texture; 
+			print("Incorrect Area");
+	#else:
+		#sprite.texture = activeDropable.default_texture; 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

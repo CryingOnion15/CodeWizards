@@ -12,6 +12,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 100.0
 offset_bottom = 74.0
+scale = Vector2(1.0113525, 1.0125736)
 theme = ExtResource("1_kglmx")
 script = ExtResource("1_gksbb")
 metadata/_custom_type_script = "uid://cfat6m8vcf36v"

@@ -28,26 +28,16 @@ func _ready() -> void:
 		if(dropable && panel):
 			var drop: Dropable = dropable.instantiate() as Dropable;
 			var rect: TextureRect = drop.get_node("TextureRect");
-			drop.sceneToCreate = panel;
+			drop.drop_scene = panel;
 			drop.set_data(cardData["data"]);
+			drop.init_drop();
 			
-			#Load and set textures.
-			var defaultTex: Texture = load(cardData["defaultTexture"]);
-			var correctTex: Texture = load(cardData["correctTexture"]);
-			var incorrectTex: Texture = load(cardData["incorrectTexture"]);
+			##Load and set textures.
+			var cardTex: Texture = load(cardData["cardTexture"]);
 			
-			if(rect && defaultTex):
-				rect.texture = defaultTex;
-			
-			if(defaultTex):
-				drop.default_texture = defaultTex;
-			
-			if(correctTex):
-				drop.valid_drop_texture = correctTex;
-				
-			if(incorrectTex):
-				drop.invalid_drop_texture = incorrectTex;
-			
+			if(rect && cardTex):
+				rect.texture = cardTex;
+							
 			add_block(drop);
 		else:
 			continue;

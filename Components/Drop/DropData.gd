@@ -1,6 +1,8 @@
 class_name DropData
 
 enum DropType {
-	PANEL,
-	RAM,
+	GRID = 1,
+	CARD = 2,
+	NEST = 4,
+	RAM = 8,
 }

@@ -1,4 +1,4 @@
-class_name CodePanel extends Dragable
+class_name CodePanel extends Dropable
 
 enum THEME_SIZE {
 	SMALL = 0,
@@ -23,6 +23,10 @@ func _ready():
 		
 	set_size_via_theme();
 	
+	#Dropable settings.
+	drop_type = DropData.DropType.CARD | DropData.DropType.NEST;
+	drag_node = self;
+	
 func set_size_via_theme():
 	var width = 0;
 	var height = 0;
@@ -45,8 +49,8 @@ func set_size_via_theme():
 	size = Vector2(width,height);
 
 func drag(delta):
-	position += delta;
-	position = position.round();
+	#position += delta;
+	#position = position.round();
 	super.drag(delta);
 	
 func Execute():

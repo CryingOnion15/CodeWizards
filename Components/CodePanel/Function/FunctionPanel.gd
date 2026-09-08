@@ -31,7 +31,3 @@ func get_next_control() -> CodePanel:
 	if(outflow_pin.connectedTo):
 		return outflow_pin.connectedTo.get_value();
 	return null;
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

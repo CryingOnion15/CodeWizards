@@ -5,6 +5,7 @@ signal drop_location_updated(loc: Vector2);
 signal drop_event(dropable: Dropable);
 
 static var instance: DropManager = null;
+static var SCENE_GRAVEYARD: Vector2 = Vector2(5000, 5000);
 
 var current_dropable: Dropable;
 
