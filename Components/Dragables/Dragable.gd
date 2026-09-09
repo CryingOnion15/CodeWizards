@@ -17,13 +17,12 @@ var isEntered: bool = false;
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);
 	mouse_exited.connect(_on_mouse_exited);
-	gui_input.connect(_on_gui_input);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
-func _on_gui_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		handle_mouse_buttons(event);
 		

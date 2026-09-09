@@ -7,7 +7,6 @@ func _ready() -> void:
 	super._ready();
 	
 	startPin = availablePins[0];
-	print(startPin.name)
 	#TODO add support for parameters in the Entry Panel.
 	# Idea is that all of the parameters passed to this wand,
 	# are added as pins to drag out to.
@@ -17,7 +16,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func Execute():
-	print("Started");
+	pass
 	# TODO Set starting pin values.
 	
 func get_next_control() -> CodePanel:

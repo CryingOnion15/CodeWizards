@@ -5,7 +5,7 @@ signal drop_location_updated(loc: Vector2);
 signal drop_event(dropable: Dropable);
 
 static var instance: DropManager = null;
-static var SCENE_GRAVEYARD: Vector2 = Vector2(5000, 5000);
+static var DROP_POOL: Vector2 = Vector2(5000, 5000);
 
 var current_dropable: Dropable;
 
@@ -34,3 +34,7 @@ static func drop():
 	if(instance != null):
 		instance.drop_event.emit(get_current());
 		instance.set_dropable(null);
+
+static func add_dropable_to_pool(drop: Dropable):
+	drop.position = DROP_POOL;
+	drop.reparent(instance);

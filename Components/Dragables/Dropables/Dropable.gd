@@ -10,6 +10,8 @@ var drag_node: Node;
 # Data Vars
 #var drop_node: Node = null;
 var drop_data: Dictionary = {};
+var current_parent: Node = null;
+var start_position: Vector2 = Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,7 +22,9 @@ func init_drop():
 
 func handle_start(event):
 	super.handle_start(event);
-	modulate.a = .5;	
+	modulate.a = .5;
+	current_parent = get_parent();
+	start_position = position;	
 	DropManager.set_dropable(self);
 
 func handle_end(event):
@@ -40,12 +44,13 @@ func set_data(data: Dictionary):
 	
 func get_data():
 	return drop_data;
-	
-#Maybe need these?
+
 func success():
 	drop_success.emit();
 	
 func cancel():
+	reparent(current_parent);
+	position = start_position;
 	drop_cancel.emit();
 	
 func get_drop_data(drop_type: DropData.DropType):
@@ -60,16 +65,19 @@ func get_drop_data(drop_type: DropData.DropType):
 			DropData.DropType.RAM:
 				return _get_ram_data();
 				
-func set_valid_state(isValid: bool, type: DropData.DropType):
+func set_valid_state(isValid: bool = false, drop_area: DropArea = null):
 	if(isValid):
-		update_valid(type);
+		update_valid(drop_area);
 	else:
-		update_invalid(type);
+		update_invalid(drop_area);
 
-func update_valid(type: DropData.DropType):
+func update_valid(drop_area: DropArea):
 	pass;
 	
-func update_invalid(type: DropData.DropType):
+func update_invalid(drop_area: DropArea):
+	pass;
+	
+func update_to_default_state():
 	pass;
 
 func _get_grid_data():

@@ -74,7 +74,7 @@ func _process(delta: float) -> void:
 		
 func _on_mouse_entered() -> void:
 	super._on_mouse_entered();
-	print("Pin Entered");
+	
 	if(Pin.ACTIVE_PIN != null):
 		Pin.SECONDARY_PIN = self;
 		
@@ -86,7 +86,7 @@ func _on_mouse_entered() -> void:
 		hover();
 
 func _on_mouse_exited() -> void:
-	super._on_mouse_entered();
+	super._on_mouse_exited();
 	
 	if(Pin.SECONDARY_PIN == self):
 		Pin.SECONDARY_PIN = null;
@@ -106,14 +106,14 @@ func update_curve_on_drag(newPos):
 	var localEnd = line.to_local(newPos)
 	curve.set_point_position(1, localEnd);
 
-func handle_mouse_buttons(event: InputEvent):	
-	## Handle Start Drag.
-	if(isEntered && event.is_action_pressed("Mouse1")):
-		handle_start(event)
-
-	## Handle End Drag
-	if(isDragging && event.is_action_released("Mouse1")):
-		handle_end(event)
+#func handle_mouse_buttons(event: InputEvent):	
+	### Handle Start Drag.
+	#if(isEntered && event.is_action_pressed("Mouse1")):
+		#handle_start(event)
+#
+	### Handle End Drag
+	#if(isDragging && event.is_action_released("Mouse1")):
+		#handle_end(event)
 
 func handle_start(event):
 	if(isConnected):

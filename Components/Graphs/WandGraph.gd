@@ -45,9 +45,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("Run")):
 		Run();
-		
-func _on_gui_input(event: InputEvent) -> void:
-	super._on_gui_input(event);
 			
 func Run():
 	if(entryPanel):
@@ -55,7 +52,6 @@ func Run():
 		while(currentPanel != null):
 			currentPanel.Execute();
 			currentPanel = currentPanel.get_next_control();
-			print(currentPanel);
 	else:
 		print("No Entry Point");
 
@@ -111,5 +107,6 @@ func on_drop_success(drop: Dropable):
 	var newPanel: CodePanel = drop.get_drop_data(drop_area.type) as CodePanel;
 	await get_tree().process_frame;
 	newPanel.set_data(drop.get_data());
+	var offset = Vector2(1,0) * newPanel.size.x / 2
 	
-	add_panel_to_graph(newPanel, get_local_mouse_position());
+	add_panel_to_graph(newPanel, get_local_mouse_position() - offset); 

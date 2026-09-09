@@ -1,6 +1,7 @@
 class_name BlockContainer extends Control
 
-@onready var hBox = $HBoxContainer
+@onready var hBox = $HBoxContainer;
+@onready var drop_area = $DropArea;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,6 +44,7 @@ func _ready() -> void:
 			continue;
 	
 	DropManager.instance.dropable_updated.connect(check_ownership)
+	drop_area.connect("drop_success", on_drop_success);
 
 func add_block(dropable: Dropable):
 	hBox.add_child(dropable);
@@ -63,10 +65,10 @@ func check_ownership(dropable):
 	
 	var found = children.find(dropable);
 	
+	# Need to look into why this is here.
 	if found != -1:
 		print("Test");
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+		
+func on_drop_success(drop: Dropable):
+	var card = drop.get_drop_data(drop_area.type);
+	card.reparent(hBox);

@@ -10,8 +10,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_1e5s2")
 metadata/_custom_type_script = "uid://crnistifjkbdd"
+
+[node name="DropArea" type="Control" parent="." unique_id=1163000494]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_ufsw3")
+type = 2
+metadata/_custom_type_script = "uid://bjxvb2yme3bwy"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=956357138]
 clip_contents = true
@@ -23,12 +35,5 @@ anchor_right = 0.9
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 alignment = 1
-
-[node name="DropArea" type="Control" parent="." unique_id=1163000494]
-visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_ufsw3")
-metadata/_custom_type_script = "uid://bjxvb2yme3bwy"
