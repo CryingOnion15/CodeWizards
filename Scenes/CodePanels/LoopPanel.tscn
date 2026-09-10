@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://biu12jrpqe2ue"]
+
+[ext_resource type="Script" uid="uid://c3k47y01b8qmf" path="res://Components/CodePanel/Function/LoopPanel.gd" id="1_isrc0"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_whmtx"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_wkphf"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="4_tom4s"]
+[ext_resource type="Script" uid="uid://bjxvb2yme3bwy" path="res://Components/Drop/DropArea.gd" id="5_wkphf"]
+
+[node name="LoopPanel" type="Control" unique_id=155735698]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 199.0
+offset_bottom = 137.0
+script = ExtResource("1_isrc0")
+metadata/_custom_type_script = "uid://c3k47y01b8qmf"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+texture = ExtResource("2_whmtx")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NameLabel" type="RichTextLabel" parent="Sprite" unique_id=2017191188]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 2
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("3_wkphf")
+theme_override_font_sizes/normal_font_size = 24
+text = "LOOP"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FlowPins" type="Control" parent="." unique_id=207844225]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="In" parent="FlowPins" unique_id=2102211022 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+offset_left = 34.0
+offset_top = 34.0
+offset_right = 0.0
+offset_bottom = 0.0
+rotation = -3.1415925
+
+[node name="Out" parent="FlowPins" unique_id=1512256263 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="InputPins" type="Control" parent="." unique_id=1220294379]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 34.0
+offset_bottom = -2.0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Input1" parent="InputPins" unique_id=1926392184 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+offset_left = 34.0
+offset_top = 34.0
+rotation = 3.1415927
+
+[node name="Input2" parent="InputPins" unique_id=762008375 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+offset_left = 34.0
+offset_top = 68.0
+offset_right = 0.0
+offset_bottom = 0.0
+rotation = 3.1415927
+
+[node name="MathLabel" type="RichTextLabel" parent="InputPins" unique_id=990225584]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 38.0
+offset_top = 18.0
+mouse_filter = 1
+theme_override_fonts/normal_font = ExtResource("3_wkphf")
+theme_override_font_sizes/normal_font_size = 30
+text = "%"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OutputPins" type="Control" parent="." unique_id=2029033879]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = 36.0
+offset_right = -2.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="NumberOutputPin" parent="OutputPins" unique_id=1243142184 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_right = 0.0
+grow_horizontal = 0
+
+[node name="DropArea" type="Control" parent="." unique_id=663130311]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_wkphf")
+metadata/_custom_type_script = "uid://bjxvb2yme3bwy"
