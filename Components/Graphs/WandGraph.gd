@@ -92,7 +92,7 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 			panel.reparent(drop_area);
 		else:
 			drop_area.add_child(panel);
-		panel.position = location;
+		panel.drop_node.position = location;
 
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):

@@ -36,5 +36,10 @@ static func drop():
 		instance.set_dropable(null);
 
 static func add_dropable_to_pool(drop: Dropable):
-	drop.position = DROP_POOL;
-	drop.reparent(instance);
+	drop.drop_node.position = DROP_POOL;
+	if(drop.drop_node.get_parent()):
+			drop.drop_node.reparent(instance);
+	else:
+		instance.add_child(drop.drop_node);
+	
+	

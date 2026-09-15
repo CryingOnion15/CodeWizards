@@ -47,7 +47,7 @@ func _ready() -> void:
 	drop_area.connect("drop_success", on_drop_success);
 
 func add_block(dropable: Dropable):
-	hBox.add_child(dropable);
+	hBox.add_child(dropable.drop_node);
 
 func remove_block(dropable: Dropable):
 	var children = hBox.get_children();

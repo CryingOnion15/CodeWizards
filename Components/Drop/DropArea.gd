@@ -1,4 +1,3 @@
-@tool
 class_name DropArea extends Control
 
 signal drop_success(dropable);
@@ -9,25 +8,8 @@ signal deactivate_area_sig(area);
 
 @export var type: DropData.DropType = DropData.DropType.GRID;
 
-var currentDropable: Dropable
-var dropLocation: Vector2
-
-#func _get_minimum_size() -> Vector2:
-	#var size = Vector2.ZERO;
-#
-	#for child in get_children():
-		#if child is Control:
-			#size = size.max(child.position + child.size);
-#
-	#return size;
-	#
-#func _notification(what: int) -> void:
-	#match what:
-		#NOTIFICATION_CHILD_ORDER_CHANGED:
-			#update_size();
-		#
-#func update_size():
-	#size = _get_minimum_size();
+var currentDropable: Dropable;
+var dropLocation: Vector2;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

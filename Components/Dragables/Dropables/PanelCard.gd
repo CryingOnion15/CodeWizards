@@ -26,9 +26,19 @@ func handle_end(event):
 	drop_panel.modulate.a = 1;
 	
 func init_drop():
-	drop_panel = drop_scene.instantiate();
-	drop_panel.panel_card = self;
-	self.add_child(drop_panel);
+	var new_panel = drop_scene.instantiate();
+	
+	if new_panel is CodePanel:
+		drop_panel = new_panel;
+	else:
+		var panels = new_panel.find_children("*", "CodePanel", true, false);
+		if panels.size() > 0:
+			drop_panel = panels[0];
+		else:
+			drop_panel = null;
+	
+	if(drop_panel):
+		drop_panel.panel_card = self;
 	DropManager.add_dropable_to_pool(drop_panel);
 
 func success(dropType: DropData.DropType):
@@ -61,9 +71,9 @@ func update_valid(drop_area: DropArea):
 	
 	match drop_area.type:
 		DropData.DropType.GRID:
-			drop_panel.reparent(drop_area);
+			drop_panel.drop_node.reparent(drop_area);
 			var offset = Vector2(1,0) * drop_panel.size.x / 2;
-			drop_panel.position = drop_area.get_local_mouse_position() - offset;
+			drop_panel.drop_node.position = drop_area.get_local_mouse_position() - offset;
 			drag_node = drop_panel;
 		#TODO for nesting.
 		DropData.DropType.NEST:
@@ -79,6 +89,6 @@ func update_invalid(drop_area: DropArea):
 	
 func update_to_default_state():
 	drag_node = self;
-	drop_panel.reparent(self);
+	drop_panel.drop_node.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	position = get_parent().get_local_mouse_position() - (size / 2);

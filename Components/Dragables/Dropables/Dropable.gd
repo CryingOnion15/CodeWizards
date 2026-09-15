@@ -6,6 +6,16 @@ signal drop_cancel
 
 var drop_type: int = 0;
 var drag_node: Node;
+var _drop_node: Node;
+
+@export var drop_node: Node:
+	get:
+		if _drop_node == null:
+			return self;
+		else:
+			return _drop_node;
+	set(value):
+		_drop_node = value;
 
 # Data Vars
 #var drop_node: Node = null;
