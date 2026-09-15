@@ -31,9 +31,19 @@ func init_drop():
 	self.add_child(drop_panel);
 	DropManager.add_dropable_to_pool(drop_panel);
 
-func success():
-	super.success();
-	DropManager.add_dropable_to_pool(self);
+func success(dropType: DropData.DropType):
+	match dropType:
+		DropData.DropType.NEST:
+			DropManager.add_dropable_to_pool(self);
+		DropData.DropType.GRID:
+			DropManager.add_dropable_to_pool(self);
+		DropData.DropType.CARD:
+			pass;
+		DropData.DropType.RAM:
+			pass;
+	
+	super.success(dropType);
+	
 
 func cancel():
 	super.cancel();

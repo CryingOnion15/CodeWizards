@@ -71,34 +71,45 @@ func init_drop():
 	#DropManager.add_dropable_to_pool(drop_panel);
 
 func handle_start(event):
-	drag_node = self;
-	mouse_filter = Control.MOUSE_FILTER_IGNORE;
-	panel_card.mouse_filter = Control.MOUSE_FILTER_IGNORE;
-	panel_card.modulate.a = .5;
-	
 	super.handle_start(event);
+	drag_node = self;
 	
 func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
-	mouse_filter = Control.MOUSE_FILTER_STOP;
-	panel_card.mouse_filter = Control.MOUSE_FILTER_STOP;
-	panel_card.modulate.a = 1;
-
+	
 func _get_nest_data():
 	return self;
 	
 func _get_card_data():
 	return panel_card;
 
-func success():
-	super.success();
-	DropManager.add_dropable_to_pool(self);
+func success(dropType: DropData.DropType):
+	super.success(dropType);
+	
+	match dropType:
+		DropData.DropType.GRID:
+			DropManager.add_dropable_to_pool(self);
+		DropData.DropType.CARD:
+			DropManager.add_dropable_to_pool(self);
+		DropData.DropType.NEST:
+			pass;
+		DropData.DropType.RAM:
+			pass;
+		
 
 func cancel():
-	super.cancel();
-	panel_card.reparent(self);
-	DropManager.add_dropable_to_pool(panel_card);
+	drop_cancel.emit();
+	
+	var current_control = get_viewport().gui_get_hovered_control();
+	
+	if(current_control != current_parent):
+		reparent(current_parent);
+		position = start_position;
+	
+	if panel_card:
+		panel_card.reparent(self);
+		DropManager.add_dropable_to_pool(panel_card);
 
 func update_valid(drop_area: DropArea):
 	position = start_position;
@@ -118,11 +129,15 @@ func update_valid(drop_area: DropArea):
 func update_invalid(drop_area: DropArea):
 	drag_node = self;
 	position = get_parent().get_local_mouse_position() - (size / 2);
-	panel_card.reparent(self);
-	DropManager.add_dropable_to_pool(panel_card);
+	
+	if panel_card:
+		panel_card.reparent(self);
+		DropManager.add_dropable_to_pool(panel_card);
 	
 func update_to_default_state():
 	drag_node = self;
-	panel_card.reparent(self);
-	DropManager.add_dropable_to_pool(panel_card);
 	position = get_parent().get_local_mouse_position() - (size / 2);
+	
+	if panel_card:
+		panel_card.reparent(self);
+		DropManager.add_dropable_to_pool(panel_card);

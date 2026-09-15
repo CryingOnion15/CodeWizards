@@ -112,5 +112,21 @@
 				"value": 13
 			}
 		},
+		"test_loop": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/LoopPanel.tscn",
+			"cardTexture": "res://icon.svg",
+			"data": {
+				"value": 13
+			}
+		},
+		"test_math": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/MathPanel.tscn",
+			"cardTexture": "res://icon.svg",
+			"data": {
+				"value": 13
+			}
+		},
 	}
 }

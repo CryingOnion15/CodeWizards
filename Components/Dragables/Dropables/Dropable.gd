@@ -1,7 +1,7 @@
 class_name Dropable extends Dragable
 
 #Maybe need these?
-signal drop_success
+signal drop_success(dropType)
 signal drop_cancel
 
 var drop_type: int = 0;
@@ -26,11 +26,21 @@ func handle_start(event):
 	current_parent = get_parent();
 	start_position = position;	
 	DropManager.set_dropable(self);
+	
+	set_mouse_filter_rec(self, Control.MOUSE_FILTER_IGNORE);
 
 func handle_end(event):
 	super.handle_end(event);
 	modulate.a = 1;
 	DropManager.drop();
+	
+	set_mouse_filter_rec(self, Control.MOUSE_FILTER_STOP);
+
+func set_mouse_filter_rec(node: Node, filter: Control.MouseFilter):
+	if node is Control:
+		node.mouse_filter = filter;
+	for child in node.get_children():
+		set_mouse_filter_rec(child, filter);
 
 func drag(delta):
 	if(drag_node):
@@ -45,8 +55,8 @@ func set_data(data: Dictionary):
 func get_data():
 	return drop_data;
 
-func success():
-	drop_success.emit();
+func success(dropType: DropData.DropType):
+	drop_success.emit(dropType);
 	
 func cancel():
 	reparent(current_parent);

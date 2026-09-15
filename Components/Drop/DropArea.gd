@@ -1,13 +1,33 @@
+@tool
 class_name DropArea extends Control
 
-signal drop_success(dropable)
-signal drop_cancel(dropable)
+signal drop_success(dropable);
+signal drop_cancel(dropable);
 
-@export() 
-var type: DropData.DropType = DropData.DropType.GRID;
+signal activate_area_sig(area);
+signal deactivate_area_sig(area);
+
+@export var type: DropData.DropType = DropData.DropType.GRID;
 
 var currentDropable: Dropable
 var dropLocation: Vector2
+
+#func _get_minimum_size() -> Vector2:
+	#var size = Vector2.ZERO;
+#
+	#for child in get_children():
+		#if child is Control:
+			#size = size.max(child.position + child.size);
+#
+	#return size;
+	#
+#func _notification(what: int) -> void:
+	#match what:
+		#NOTIFICATION_CHILD_ORDER_CHANGED:
+			#update_size();
+		#
+#func update_size():
+	#size = _get_minimum_size();
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,22 +49,26 @@ func on_update_drop_pos(pos: Vector2):
 	
 func on_drop(drop: Dropable):	
 	var current_gui = get_viewport().gui_get_hovered_control();
-	print("Current " + current_gui.name);
-	
-	#Verify location is on this area then do the drop action.
-	if(get_viewport().gui_get_hovered_control() == self):
-		if(type & drop.drop_type):
-			print("<><> SUCCESS <><>");
-			drop_success.emit(drop);
-			drop.success();
-		else:
-			print("<><> CANCEL <><>");
-			drop_cancel.emit(drop);
-			drop.cancel();
+	if(current_gui == self):
+		print("Current " + current_gui.name + " Drop: " + drop.name);
+		
+		#Verify location is on this area then do the drop action.
+		if(get_viewport().gui_get_hovered_control() == self && !already_has_drop(drop)):
+			if(type & drop.drop_type):
+				print("<><> SUCCESS <><>");
+				drop_success.emit(drop);
+				drop.success(type);
+			else:
+				print("<><> CANCEL <><>");
+				drop_cancel.emit(drop);
+				drop.cancel();
 	deactivate_area();
+	
+func already_has_drop(drop) -> bool:	
+	return get_children().find(drop) != -1;
 
 func activate_area():
-	pass
+	activate_area_sig.emit(self);
 	
 func deactivate_area():
-	pass
+	deactivate_area_sig.emit(self);

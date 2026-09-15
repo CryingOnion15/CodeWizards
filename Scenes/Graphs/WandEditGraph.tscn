@@ -27,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_4yr3h")
-drop_area = NodePath("DropArea")
+drop_area = NodePath("GraphDropArea")
 graph_settings = NodePath("../GraphSizeController")
 metadata/_custom_type_script = "uid://d0tysv85dfgxi"
 
@@ -43,7 +43,7 @@ texture = ExtResource("2_52k0g")
 expand_mode = 1
 stretch_mode = 1
 
-[node name="DropArea" type="Control" parent="WandGraph" unique_id=1860464546]
+[node name="GraphDropArea" type="Control" parent="WandGraph" unique_id=1138521975]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15

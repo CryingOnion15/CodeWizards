@@ -14,7 +14,7 @@ mouse_filter = 2
 script = ExtResource("1_1e5s2")
 metadata/_custom_type_script = "uid://crnistifjkbdd"
 
-[node name="DropArea" type="Control" parent="." unique_id=1163000494]
+[node name="DropArea" type="Control" parent="." unique_id=1266271577]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

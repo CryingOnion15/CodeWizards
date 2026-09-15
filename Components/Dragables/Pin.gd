@@ -35,6 +35,7 @@ static var SECONDARY_PIN = null;
 # Properties
 @export var pin_type: PIN_TYPE = PIN_TYPE.BOTH;
 @export var data_type: DATA_TYPE = DATA_TYPE.NUMBER;
+@export var nested: bool = false;
 
 #On Ready Var
 @onready var line: Line2D = $Line2D

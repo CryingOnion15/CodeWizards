@@ -1,9 +1,9 @@
 class_name FunctionPanel extends CodePanel
 
-var inflow_pin: Pin = null
-var outflow_pin: Pin = null
-var input_pins: Array[Pin] = []
-var output_pins: Array[Pin] = []
+var inflow_pin: Pin = null;
+var outflow_pin: Pin = null;
+var input_pins: Array[Pin] = [];
+var output_pins: Array[Pin] = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,7 +26,13 @@ func _ready() -> void:
 		func(pin):
 			return pin.pin_type == Pin.PIN_TYPE.CONNECTOR && pin.data_type != Pin.DATA_TYPE.CONTROL;
 	)
+
+func handle_start(event):
+	super.handle_start(event);
 	
+func handle_end(event):
+	super.handle_end(event);
+
 func get_next_control() -> CodePanel:
 	if(outflow_pin.connectedTo):
 		return outflow_pin.connectedTo.get_value();

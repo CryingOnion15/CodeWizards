@@ -18,7 +18,6 @@ func _process(delta: float) -> void:
 	pass
 	
 func updateVisuals():
-	##DEBUG this only works with number values currently.
 	outputPin.set_value(variable_number_value);
 	value_label.text = "%s" % [variable_number_value];
 	
@@ -28,4 +27,5 @@ func set_data(data: Dictionary):
 	
 	if(outputPin == null && $OutputPin is Pin):
 		outputPin = $OutputPin as Pin;
-		updateVisuals();	
+	
+	updateVisuals();	

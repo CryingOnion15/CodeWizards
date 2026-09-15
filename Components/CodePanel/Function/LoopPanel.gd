@@ -1,4 +1,4 @@
-class_name LoopPanel extends FunctionPanel
+class_name LoopPanel extends NestedPanel
 
 func Execute():
 	var input1 = input_pins[0].get_value(true);

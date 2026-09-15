@@ -1,16 +1,36 @@
 class_name NestedPanel extends FunctionPanel
 
 
-@onready var drop_area: DropArea = $DropArea;
+var nested_inflow_pins: Array[Pin] = [];
+var nested_outflow_pins: Array[Pin] = [];
+var drop_areas: Array[DropArea] = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	drop_area.connect("drop_success", on_drop_success);
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	super._ready();
+	setup_nests();
 	
-func on_drop_success():
+func handle_start(event):
+	super.handle_start(event);
+	
+func handle_end(event):
+	super.handle_end(event);
+	
+func setup_nests():
+	drop_areas.clear();
+	var areas = find_children("*", "DropArea", true, false);
+	
+	for area: DropArea in areas:
+		area.drop_success.connect(on_drop_success.bind(area));
+		drop_areas.push_back(area);
+
+func on_drop_success(dropable: Dropable, area: DropArea):
+	var panel = dropable.get_drop_data(area.type);
+	panel.reparent(area);
+	panel.position = Vector2.ZERO;
+	
+	if(dropable is PanelCard):
+		DropManager.add_dropable_to_pool(dropable);
+	print("Dropable: " + dropable.name);
+	print("Area: " + area.name);
 	pass;
