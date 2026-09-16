@@ -27,12 +27,13 @@ patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_node")]
+[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_areas", "drop_node")]
 layout_direction = 2
 layout_mode = 2
 mouse_behavior_recursive = 2
 theme = ExtResource("1_tom4s")
 script = ExtResource("1_isrc0")
+drop_areas = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/DropArea")]
 drop_node = NodePath("..")
 metadata/_custom_type_script = "uid://c3k47y01b8qmf"
 
@@ -102,10 +103,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 mouse_behavior_recursive = 1
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 7
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 22
 
 [node name="Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn" unique_id=606241356]
 layout_mode = 2
@@ -116,7 +117,6 @@ expand_mode = 1
 stretch_mode = 1
 
 [node name="DropArea" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn" unique_id=529983921]
-clip_contents = true
 layout_mode = 2
 mouse_behavior_recursive = 2
 script = ExtResource("8_rohc0")
