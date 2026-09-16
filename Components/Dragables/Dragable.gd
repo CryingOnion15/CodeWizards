@@ -8,11 +8,6 @@ signal end_drag(endPosition)
 var isDragging: bool = false;
 var isEntered: bool = false;
 
-#Drag variables
-#var dragDelta: float = 0;
-#var oldPos: Vector2 = Vector2.ZERO;
-#var newPos: Vector2 = Vector2.ZERO;
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);

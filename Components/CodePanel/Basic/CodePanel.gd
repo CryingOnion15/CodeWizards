@@ -26,7 +26,7 @@ func _ready():
 	
 	#Dropable settings.
 	drop_type = DropData.DropType.CARD | DropData.DropType.NEST;
-	drag_node = self;
+	drag_node = drop_node;
 
 func set_size_via_theme():
 	var width = 0;
@@ -72,11 +72,16 @@ func init_drop():
 
 func handle_start(event):
 	super.handle_start(event);
-	drag_node = self;
+	drag_node = drop_node;
+	
+	if(panel_card):
+		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 	
 func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
+	if(panel_card):
+		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 	
 func _get_nest_data():
 	return self;
@@ -107,19 +112,19 @@ func cancel():
 		reparent(current_parent);
 		position = start_position;
 	
-	if panel_card:
-		panel_card.reparent(self);
-		DropManager.add_dropable_to_pool(panel_card);
+	if panel_card.drop_node:
+		panel_card.drop_node.reparent(self);
+		DropManager.add_dropable_to_pool(panel_card.drop_node);
 
 func update_valid(drop_area: DropArea):
 	position = start_position;
 	
 	match drop_area.type:
 		DropData.DropType.CARD:
-			panel_card.reparent(drop_area);
-			var offset = Vector2(1,0) * panel_card.size.x / 2;
-			panel_card.position = drop_area.get_local_mouse_position() - offset;
-			drag_node = panel_card;
+			panel_card.drop_node.reparent(drop_area);
+			var offset = Vector2(1,0) * panel_card.drop_node.size.x / 2;
+			panel_card.drop_node.position = drop_area.get_local_mouse_position() - offset;
+			drag_node = panel_card.drop_node;
 		#TODO for nesting.
 		DropData.DropType.NEST:
 			pass;
@@ -127,17 +132,17 @@ func update_valid(drop_area: DropArea):
 			update_to_default_state();
 
 func update_invalid(drop_area: DropArea):
-	drag_node = self;
+	drag_node = drop_node;
 	position = get_parent().get_local_mouse_position() - (size / 2);
 	
 	if panel_card:
-		panel_card.reparent(self);
+		panel_card.drop_node.reparent(self);
 		DropManager.add_dropable_to_pool(panel_card);
 	
 func update_to_default_state():
-	drag_node = self;
+	drag_node = drop_node;
 	position = get_parent().get_local_mouse_position() - (size / 2);
 	
 	if panel_card:
-		panel_card.reparent(self);
+		panel_card.drop_node.reparent(self);
 		DropManager.add_dropable_to_pool(panel_card);

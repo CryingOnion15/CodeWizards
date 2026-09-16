@@ -12,9 +12,11 @@ func _ready() -> void:
 	
 func handle_start(event):
 	super.handle_start(event);
+	drag_node = drop_node;
 	
 func handle_end(event):
 	super.handle_end(event);
+	drag_node = null;
 	
 func setup_nests():
 	drop_areas.clear();
@@ -26,7 +28,7 @@ func setup_nests():
 
 func on_drop_success(dropable: Dropable, area: DropArea):
 	var panel = dropable.get_drop_data(area.type);
-	panel.reparent(area);
+	panel.drop_node.reparent(area);
 	panel.position = Vector2.ZERO;
 	
 	if(dropable is PanelCard):

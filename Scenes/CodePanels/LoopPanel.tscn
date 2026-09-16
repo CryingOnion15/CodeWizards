@@ -7,20 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="4_tom4s"]
 [ext_resource type="Texture2D" uid="uid://dwsxbl6dkxh7d" path="res://Assets/Sprites/GridBackground128-128.png" id="6_e8g3i"]
 [ext_resource type="Script" uid="uid://cirej4g541wd6" path="res://Components/Drop/NestedDropArea.gd" id="8_rohc0"]
-[ext_resource type="PackedScene" uid="uid://xyrttilk0tbb" path="res://Scenes/CodePanels/MathPanel.tscn" id="8_vimve"]
 
 [node name="PanelContainer" type="PanelContainer" unique_id=1968308107]
 custom_minimum_size = Vector2(210, 136)
 offset_right = 210.0
 offset_bottom = 136.0
-
-[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_node")]
-visible = false
-layout_mode = 2
-theme = ExtResource("1_tom4s")
-script = ExtResource("1_isrc0")
-drop_node = NodePath("..")
-metadata/_custom_type_script = "uid://c3k47y01b8qmf"
+mouse_behavior_recursive = 1
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
 layout_mode = 2
@@ -35,6 +27,15 @@ patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_node")]
+layout_direction = 2
+layout_mode = 2
+mouse_behavior_recursive = 2
+theme = ExtResource("1_tom4s")
+script = ExtResource("1_isrc0")
+drop_node = NodePath("..")
+metadata/_custom_type_script = "uid://c3k47y01b8qmf"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1912789353]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -42,6 +43,8 @@ theme_override_constants/separation = 0
 [node name="InputColumn" type="Control" parent="HBoxContainer" unique_id=1838668856]
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
 
 [node name="In" parent="HBoxContainer/InputColumn" unique_id=2102211022 instance=ExtResource("4_tom4s")]
 layout_mode = 1
@@ -74,6 +77,8 @@ pin_type = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1590350940]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_constants/separation = 0
 
 [node name="NameLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer" unique_id=2017191188]
@@ -95,6 +100,8 @@ size_flags_vertical = 3
 [node name="DropColumn" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1459238891]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -102,6 +109,8 @@ theme_override_constants/margin_bottom = 7
 
 [node name="Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn" unique_id=606241356]
 layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
 texture = ExtResource("6_e8g3i")
 expand_mode = 1
 stretch_mode = 1
@@ -114,13 +123,11 @@ script = ExtResource("8_rohc0")
 type = 4
 metadata/_custom_type_script = "uid://cirej4g541wd6"
 
-[node name="MathPanel" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn" unique_id=57691080 instance=ExtResource("8_vimve")]
-visible = false
-layout_mode = 2
-
 [node name="OutputColumn" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1983261650]
 custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
 
 [node name="Out" parent="HBoxContainer/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1512256263 instance=ExtResource("4_tom4s")]
 layout_mode = 1

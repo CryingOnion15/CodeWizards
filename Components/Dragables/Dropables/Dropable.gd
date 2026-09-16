@@ -37,14 +37,14 @@ func handle_start(event):
 	start_position = position;	
 	DropManager.set_dropable(self);
 	
-	set_mouse_filter_rec(self, Control.MOUSE_FILTER_IGNORE);
+	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_IGNORE);
 
 func handle_end(event):
 	super.handle_end(event);
 	modulate.a = 1;
 	DropManager.drop();
 	
-	set_mouse_filter_rec(self, Control.MOUSE_FILTER_STOP);
+	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_STOP);
 
 func set_mouse_filter_rec(node: Node, filter: Control.MouseFilter):
 	if node is Control:
@@ -56,6 +56,7 @@ func drag(delta):
 	if(drag_node):
 		drag_node.position += delta;
 		drag_node.position = drag_node.position.round();
+		
 	super.drag(delta);
 	DropManager.update_drop_location(delta);
 	
@@ -69,7 +70,7 @@ func success(dropType: DropData.DropType):
 	drop_success.emit(dropType);
 	
 func cancel():
-	reparent(current_parent);
+	drop_node.reparent(current_parent);
 	position = start_position;
 	drop_cancel.emit();
 	

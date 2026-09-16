@@ -11,19 +11,14 @@ func _ready() -> void:
 	print(drop_type);
 	
 func handle_start(event):
-	drag_node = self;
-	mouse_filter = Control.MOUSE_FILTER_IGNORE;
-	drop_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE;
-	drop_panel.modulate.a = .5;
-	
 	super.handle_start(event);
+	drop_panel.set_mouse_filter_rec(drop_panel.drop_node,Control.MOUSE_FILTER_IGNORE);
+	
+	
 	
 func handle_end(event):
 	super.handle_end(event);
-	drag_node = null;
-	mouse_filter = Control.MOUSE_FILTER_STOP;
-	drop_panel.mouse_filter = Control.MOUSE_FILTER_STOP;
-	drop_panel.modulate.a = 1;
+	drop_panel.set_mouse_filter_rec(drop_panel.drop_node,Control.MOUSE_FILTER_STOP);
 	
 func init_drop():
 	var new_panel = drop_scene.instantiate();
@@ -57,7 +52,7 @@ func success(dropType: DropData.DropType):
 
 func cancel():
 	super.cancel();
-	drop_panel.reparent(self);
+	drop_panel.drop_node.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	
 func _get_grid_data():
@@ -72,9 +67,9 @@ func update_valid(drop_area: DropArea):
 	match drop_area.type:
 		DropData.DropType.GRID:
 			drop_panel.drop_node.reparent(drop_area);
-			var offset = Vector2(1,0) * drop_panel.size.x / 2;
+			var offset = Vector2(1,0) * drop_panel.drop_node.size.x / 2;
 			drop_panel.drop_node.position = drop_area.get_local_mouse_position() - offset;
-			drag_node = drop_panel;
+			drag_node = drop_panel.drop_node;
 		#TODO for nesting.
 		DropData.DropType.NEST:
 			pass;
@@ -84,7 +79,7 @@ func update_valid(drop_area: DropArea):
 func update_invalid(drop_area: DropArea):
 	drag_node = self;
 	position = get_parent().get_local_mouse_position() - (size / 2);
-	drop_panel.reparent(self);
+	drop_panel.drop_node.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	
 func update_to_default_state():

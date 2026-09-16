@@ -89,7 +89,7 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 			panels.push_back(panel);
 		
 		if(panel.get_parent()):
-			panel.reparent(drop_area);
+			panel.drop_node.reparent(drop_area);
 		else:
 			drop_area.add_child(panel);
 		panel.drop_node.position = location;
@@ -107,6 +107,6 @@ func on_drop_success(drop: Dropable):
 	var newPanel: CodePanel = drop.get_drop_data(drop_area.type) as CodePanel;
 	await get_tree().process_frame;
 	newPanel.set_data(drop.get_data());
-	var offset = Vector2(1,0) * newPanel.size.x / 2;
+	var offset = Vector2(1,0) * newPanel.drop_node.size.x / 2;
 	
 	add_panel_to_graph(newPanel, get_local_mouse_position() - offset); 
