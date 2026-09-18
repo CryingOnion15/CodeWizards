@@ -32,7 +32,17 @@ static func update_drop_location(loc: Vector2):
 
 static func drop():
 	if(instance != null):
-		instance.drop_event.emit(get_current(), instance.get_viewport().gui_get_hovered_control() as DropArea);
+		
+		var drop = get_current();
+		
+		if drop.valid_drop:
+			var drop_area = instance.get_viewport().gui_get_hovered_control();
+		
+			if drop_area is DropArea:
+				instance.drop_event.emit(get_current(), instance.get_viewport().gui_get_hovered_control() as DropArea);
+		else:
+			drop.cancel();
+			
 		DropManager.set_dropable(null);
 
 static func add_dropable_to_pool(dropable: Dropable):

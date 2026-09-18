@@ -10,6 +10,7 @@ var availablePins: Array[Pin] = [];
 var panel_card: PanelCard = null;
 var save_data: Dictionary;
 var is_nested: bool = false;
+var can_be_nested: bool = false;
 #var nested_area: DropArea = null;
 
 #drop types.
@@ -139,6 +140,7 @@ func cancel():
 		DropManager.add_dropable_to_pool(panel_card.drop_node);
 
 func update_valid(drop_area: DropArea):
+	super.update_valid(drop_area);
 	position = start_position;
 	
 	match drop_area.type:
@@ -167,6 +169,8 @@ func update_valid(drop_area: DropArea):
 			update_to_default_state();
 
 func update_invalid(drop_area: DropArea):
+	super.update_valid(drop_area);
+	
 	if get_parent() != current_parent:
 		drop_node.reparent(current_parent);
 	
@@ -184,13 +188,10 @@ func update_invalid(drop_area: DropArea):
 		DropManager.add_dropable_to_pool(panel_card);
 	
 func update_to_default_state():
+	super.update_to_default_state();
+	
 	if get_parent() != current_parent:
 		drop_node.reparent(current_parent);
-	
-	#if nested_area:
-		#await get_tree().process_frame;
-		#nested_area.reset_area();
-		#nested_area = null;
 
 	if !is_nested:
 		drag_node = drop_node;

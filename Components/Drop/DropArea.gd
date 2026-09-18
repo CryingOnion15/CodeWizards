@@ -42,6 +42,7 @@ func on_drop(drop: Dropable, drop_area: DropArea):
 		else:
 			drop_canceled(drop);
 	else:
+		
 		if (already_has_drop(drop)):
 			dropables.erase(drop);
 				
@@ -66,6 +67,9 @@ func drop_canceled(drop):
 	print("<><> CANCEL <><>");
 	drop_cancel.emit(drop);
 	drop.cancel();
+
+func can_drop()-> bool:
+	return true;
 
 func resize_area():
 	pass;

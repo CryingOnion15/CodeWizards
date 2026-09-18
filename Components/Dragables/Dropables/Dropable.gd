@@ -7,6 +7,7 @@ signal drop_cancel
 var drop_type: int = 0;
 var drag_node: Node;
 var _drop_node: Node;
+var valid_drop: bool = false;
 
 @export var drop_node: Node:
 	get:
@@ -93,13 +94,13 @@ func set_valid_state(isValid: bool = false, drop_area: DropArea = null):
 		update_invalid(drop_area);
 
 func update_valid(_drop_area: DropArea):
-	pass;
+	valid_drop = true;
 	
 func update_invalid(_drop_area: DropArea):
-	pass;
+	valid_drop = false;
 	
 func update_to_default_state():
-	pass;
+	valid_drop = false;
 
 func _get_grid_data():
 	return null;

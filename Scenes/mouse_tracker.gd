@@ -36,8 +36,14 @@ func on_location_updated(_loc: Vector2):
 			if(current_drop_area != hoveredControl):
 				reset_most_recent_drop_area();
 				current_drop_area = hoveredControl as DropArea;
-				var is_valid = (current_drop_area.type & active_dropable.drop_type) != 0;
-				active_dropable.set_valid_state(is_valid, current_drop_area);
+				if (current_drop_area):
+					var is_valid = (current_drop_area.type & active_dropable.drop_type) != 0;
+					is_valid = is_valid && current_drop_area.can_drop;
+					
+					if(!hoveredControl.already_has_drop(active_dropable)):
+						active_dropable.set_valid_state(is_valid, current_drop_area);
+					else:
+						active_dropable.update_to_default_state();
 		else:
 			reset_most_recent_drop_area();
 			current_drop_area = null;

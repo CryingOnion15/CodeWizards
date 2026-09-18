@@ -18,8 +18,8 @@ func _ready() -> void:
 			nested_outflow_pin = pin;
 			
 		if(nested_outflow_pin != null && nested_inflow_pin != null):
-			break
-	
+			break;
+
 func handle_start(event):
 	super.handle_start(event);
 	drag_node = drop_node;
@@ -29,7 +29,7 @@ func handle_end(event):
 	drag_node = null;
 	
 	for area in drop_areas:
-		area.resize_area();
+		area.resize_area();	
 	
 func setup_nests():	
 	for area: DropArea in drop_areas:

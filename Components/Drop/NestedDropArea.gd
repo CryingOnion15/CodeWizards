@@ -37,3 +37,6 @@ func resize_area():
 	
 func reset_area():
 	resize_area();
+	
+func can_drop()-> bool:
+	return dropables.size() == 0;

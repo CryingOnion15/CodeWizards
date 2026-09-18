@@ -10,10 +10,10 @@ var nested_out_connection: Pin = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	# Modify the drop types to account for nesting.
 	normal_type = normal_type | DropData.DropType.NEST;
 	nest_type = nest_type | DropData.DropType.NEST;
+	can_be_nested = true;
 	
 	super._ready();
 	for pin in availablePins:
@@ -41,8 +41,12 @@ func handle_start(event):
 	if is_nested:
 		nested_in_connection = inflow_pin.connectedTo;
 		nested_out_connection = outflow_pin.connectedTo;
-		nested_in_connection.disconnect_pin();
-		nested_out_connection.disconnect_pin();
+		
+		if nested_in_connection:
+			nested_in_connection.disconnect_pin();
+		if nested_out_connection:
+			nested_out_connection.disconnect_pin();
+			
 		inflow_pin.disconnect_pin();
 		outflow_pin.disconnect_pin();
 		
