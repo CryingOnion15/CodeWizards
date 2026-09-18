@@ -19,10 +19,6 @@ func _ready() -> void:
 	
 func on_drop(drop: Dropable, drop_area: DropArea):
 	if(already_has_drop(drop) && drop_area != self):
-		#if(drop is CodePanel && drop_area.type != DropData.DropType.NEST):
-			#var panel = drop;
-			#panel.is_nested = false;
-			#panel.drop_type = panel.normal_type;
 		resize_area();
 	
 	super.on_drop(drop, drop_area);

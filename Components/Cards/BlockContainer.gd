@@ -44,9 +44,8 @@ func _ready() -> void:
 		else:
 			continue;
 	
-	DropManager.instance.dropable_updated.connect(check_ownership)
+	DropManager.instance.dropable_updated.connect(check_ownership) #TODO this looks unused.
 	drop_area.connect("drop_success", on_drop_success);
-	#drop_area.dropables.append_array()
 
 func add_block(dropable: Dropable):
 	hBox.add_child(dropable.drop_node);
@@ -87,7 +86,7 @@ func on_drop_success(drop: Dropable):
 				
 				if dropable is FunctionPanel:
 					dropable.disconnect_all_pins();
-					dropable.is_nested = false;
+					dropable.unnest_panel();
 				
 				nest_card.reparent(hBox);
 				nest_card.set_mouse_filter_rec(nest_card.drop_node,Control.MOUSE_FILTER_STOP);
@@ -95,6 +94,8 @@ func on_drop_success(drop: Dropable):
 			
 			area.dropables.clear();
 			area.resize_area();
+			
+		nest.drop_node.size = nest.drop_node.custom_minimum_size;
 	
 	card.reparent(hBox);
 	card.set_mouse_filter_rec(card.drop_node,Control.MOUSE_FILTER_STOP);

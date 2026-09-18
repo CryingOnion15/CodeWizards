@@ -41,6 +41,8 @@ func success(dropType: DropData.DropType):
 	match dropType:
 		DropData.DropType.NEST:
 			DropManager.add_dropable_to_pool(self);
+			if(drop_panel is FunctionPanel):
+				drop_panel.nest_panel();
 		DropData.DropType.GRID:
 			DropManager.add_dropable_to_pool(self);
 		DropData.DropType.CARD:

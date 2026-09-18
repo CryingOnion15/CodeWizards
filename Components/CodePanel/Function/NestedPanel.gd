@@ -28,6 +28,9 @@ func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
 	
+	for area in drop_areas:
+		area.resize_area();
+	
 func setup_nests():	
 	for area: DropArea in drop_areas:
 		area.drop_success.connect(on_drop_success.bind(area));
@@ -41,7 +44,6 @@ func on_drop_success(dropable: Dropable, area: DropArea):
 		#TODO need to calculate this when we have the array of drop areas involved,
 		# but for now this is fine.
 		nested_inflow_pin.connect_from_event(panel.inflow_pin, Vector2.LEFT, 1.0);
-		
 		nested_outflow_pin.connect_from_event(panel.outflow_pin, Vector2.RIGHT, 1.0);
 		
 	panel.drop_node.reparent(area);

@@ -84,11 +84,16 @@ func handle_start(event):
 		drag_node = drop_node;
 	
 	if panel_card:
+		panel_card.drop_node.modulate.a = .5;
 		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 	
 func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
+	
+	if panel_card:
+		panel_card.drop_node.modulate.a = 1;
+		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_STOP);
 	
 	
 func _get_nest_data():
@@ -109,6 +114,9 @@ func success(drop_type: DropData.DropType):
 				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 			#DropManager.add_dropable_to_pool(self);
 		DropData.DropType.CARD:
+			if panel_card:
+				panel_card.drop_node.modulate.a = 1;
+				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_STOP);
 			DropManager.add_dropable_to_pool(self);
 		DropData.DropType.NEST:
 			if panel_card:
@@ -135,10 +143,11 @@ func update_valid(drop_area: DropArea):
 	
 	match drop_area.type:
 		DropData.DropType.CARD:
-			panel_card.drop_node.reparent(drop_area);
-			var offset = Vector2(1,0) * panel_card.drop_node.size.x / 2;
-			panel_card.drop_node.position = drop_area.get_local_mouse_position() - offset;
+			drop_node.position = start_position;
 			drag_node = panel_card.drop_node;
+			panel_card.drop_node.reparent(drop_area);
+			var offset = Vector2(1,1) * panel_card.drop_node.size.x / 2;
+			panel_card.drop_node.position = drop_area.get_local_mouse_position() - offset;
 
 		DropData.DropType.NEST:
 			drag_node = null;
@@ -150,30 +159,21 @@ func update_valid(drop_area: DropArea):
 			print("GRID");
 			if is_nested:
 				drop_node.reparent(drop_area);
-				var offset = Vector2(1,0) * drop_node.size.x / 2;
-				drop_node.position = drop_area.get_local_mouse_position() - offset;
 				drag_node = drop_node;
 				
+			var offset = Vector2(1,0) * drop_node.size.x / 2;
+			drop_node.position = drop_area.get_local_mouse_position() - offset;
 		_:
 			update_to_default_state();
-			
-	#if nested_area && drop_area != nested_area:
-		#nested_area.reset_area();
-		#nested_area = null;
 
 func update_invalid(drop_area: DropArea):
 	if get_parent() != current_parent:
 		drop_node.reparent(current_parent);
 	
-	#if nested_area:
-		#print("RESET AREA");
-		#await get_tree().process_frame;
-		#nested_area.reset_area();
-		#nested_area = null;
-	
 	if !is_nested:
 		drag_node = drop_node;
-		drop_node.position = drop_node.get_parent().get_local_mouse_position() - (drop_node.size / 2);
+		var offset = Vector2(1,0) * drop_node.size.x / 2;
+		drop_node.position = drop_node.get_parent().get_local_mouse_position() - offset;
 	else:
 		drag_node = null;
 		drop_node.position = Vector2.ZERO;
@@ -194,7 +194,8 @@ func update_to_default_state():
 
 	if !is_nested:
 		drag_node = drop_node;
-		drop_node.position = drop_node.get_parent().get_local_mouse_position() - (drop_node.size / 2);
+		var offset = Vector2(1,0) * drop_node.size.x / 2;
+		drop_node.position = drop_node.get_parent().get_local_mouse_position() - offset;
 	else:
 		drag_node = null;
 		drop_node.position = Vector2.ZERO;

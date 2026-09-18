@@ -32,16 +32,16 @@ func init_drop():
 
 func handle_start(event):
 	super.handle_start(event);
-	modulate.a = .5;
+	drop_node.modulate.a = .5;
 	current_parent = get_parent();
-	start_position = position;	
+	start_position = drop_node.position;	
 	DropManager.set_dropable(self);
 	
 	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_IGNORE);
 
 func handle_end(event):
 	super.handle_end(event);
-	modulate.a = 1;
+	drop_node.modulate.a = 1;
 	DropManager.drop();
 	
 	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_STOP);
