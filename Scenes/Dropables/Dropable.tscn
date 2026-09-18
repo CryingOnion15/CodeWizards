@@ -22,5 +22,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+mouse_behavior_recursive = 1
 texture = ExtResource("2_e7iat")
 expand_mode = 3

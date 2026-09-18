@@ -20,6 +20,7 @@ z_index = 4
 script = ExtResource("2_pbw6q")
 
 [node name="Sprite2D" type="Sprite2D" parent="MouseTracker" unique_id=1679878783]
+visible = false
 modulate = Color(1, 1, 1, 0.5176471)
 texture = ExtResource("3_v1gob")
 

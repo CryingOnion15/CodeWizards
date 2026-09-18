@@ -11,12 +11,7 @@ func _ready() -> void:
 	if(outputPin == null && $OutputPin is Pin):
 		outputPin = $OutputPin as Pin;
 		updateVisuals();
-		
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
 func updateVisuals():
 	outputPin.set_value(variable_number_value);
 	value_label.text = "%s" % [variable_number_value];

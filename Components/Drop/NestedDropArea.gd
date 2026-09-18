@@ -1,5 +1,5 @@
+@tool
 class_name NestedDropArea extends DropArea
-
 
 func _get_minimum_size() -> Vector2:
 	var required_size := Vector2.ZERO
@@ -11,7 +11,7 @@ func _get_minimum_size() -> Vector2:
 			required_size.x = max(required_size.x, child_end.x)
 			required_size.y = max(required_size.y, child_end.y)
 
-	return required_size;
+	return custom_minimum_size if required_size == Vector2.ZERO else required_size;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,17 +19,25 @@ func _ready() -> void:
 	
 func on_drop(drop: Dropable, drop_area: DropArea):
 	if(already_has_drop(drop) && drop_area != self):
-		if(drop is CodePanel && drop_area.type != DropData.DropType.NEST):
-			var panel = drop as CodePanel;
-			panel.is_nested = false;
-			panel.drop_type = panel.normal_type;
-			
-		size = custom_minimum_size;
-		minimum_size_changed.emit();
+		#if(drop is CodePanel && drop_area.type != DropData.DropType.NEST):
+			#var panel = drop;
+			#panel.is_nested = false;
+			#panel.drop_type = panel.normal_type;
+		resize_area();
 	
 	super.on_drop(drop, drop_area);
 	
 func drop_succeeded(drop: Dropable):
 	super.drop_succeeded(drop);
+	resize_area();
+	
+func resize_area():
+	print("RESET AREA");
+	visible = false;
+	await get_tree().process_frame;
 	size = _get_minimum_size();
+	visible = true;
 	minimum_size_changed.emit();
+	
+func reset_area():
+	resize_area();

@@ -10,10 +10,6 @@ var exitPin: Pin = null;
 func _ready() -> void:
 	super._ready();
 	exitPin = availablePins[0];
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func Execute():
 	var params: Dictionary = Dictionary();

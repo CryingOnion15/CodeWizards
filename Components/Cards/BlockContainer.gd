@@ -1,7 +1,7 @@
 class_name BlockContainer extends Control
 
-@onready var hBox = $HBoxContainer;
-@onready var drop_area = $DropArea;
+@export var hBox: Node = null;
+@export var drop_area: DropArea = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,11 +40,13 @@ func _ready() -> void:
 				rect.texture = cardTex;
 							
 			add_block(drop);
+			drop_area.dropables.push_back(drop);
 		else:
 			continue;
 	
 	DropManager.instance.dropable_updated.connect(check_ownership)
 	drop_area.connect("drop_success", on_drop_success);
+	#drop_area.dropables.append_array()
 
 func add_block(dropable: Dropable):
 	hBox.add_child(dropable.drop_node);
@@ -71,4 +73,28 @@ func check_ownership(dropable):
 		
 func on_drop_success(drop: Dropable):
 	var card = drop.get_drop_data(drop_area.type);
+	
+	if drop is FunctionPanel:
+		drop.disconnect_all_pins();
+		
+	#TODO this is not full recursive. So that will need to be adjusted in the future.
+	if drop is NestedPanel:
+		# Get all nested panels and then disconned and add cards back to list.
+		var nest = drop as NestedPanel;
+		for area in nest.drop_areas:
+			for dropable in area.dropables:
+				var nest_card = dropable.get_drop_data(drop_area.type);
+				
+				if dropable is FunctionPanel:
+					dropable.disconnect_all_pins();
+					dropable.is_nested = false;
+				
+				nest_card.reparent(hBox);
+				nest_card.set_mouse_filter_rec(nest_card.drop_node,Control.MOUSE_FILTER_STOP);
+				DropManager.add_dropable_to_pool(dropable);
+			
+			area.dropables.clear();
+			area.resize_area();
+	
 	card.reparent(hBox);
+	card.set_mouse_filter_rec(card.drop_node,Control.MOUSE_FILTER_STOP);

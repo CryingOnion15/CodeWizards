@@ -33,13 +33,13 @@ static func update_drop_location(loc: Vector2):
 static func drop():
 	if(instance != null):
 		instance.drop_event.emit(get_current(), instance.get_viewport().gui_get_hovered_control() as DropArea);
-		instance.set_dropable(null);
+		DropManager.set_dropable(null);
 
-static func add_dropable_to_pool(drop: Dropable):
-	drop.drop_node.position = DROP_POOL;
-	if(drop.drop_node.get_parent()):
-			drop.drop_node.reparent(instance);
+static func add_dropable_to_pool(dropable: Dropable):
+	dropable.drop_node.position = DROP_POOL;
+	if(dropable.drop_node.get_parent()):
+			dropable.drop_node.reparent(instance);
 	else:
-		instance.add_child(drop.drop_node);
+		instance.add_child(dropable.drop_node);
 	
 	

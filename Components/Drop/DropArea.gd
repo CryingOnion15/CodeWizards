@@ -33,6 +33,8 @@ func on_drop(drop: Dropable, drop_area: DropArea):
 		
 		#Verify location is on this area then do the drop action.
 		if(!already_has_drop(drop)):
+			print(type);
+			print(drop.drop_type);
 			if(type & drop.drop_type):
 				drop_succeeded(drop);
 			else:
@@ -54,9 +56,9 @@ func activate_area():
 func deactivate_area():
 	deactivate_area_sig.emit(self);
 	
-func drop_succeeded(drop):
+func drop_succeeded(drop: Dropable):
 	print("<><> SUCCESS <><>");
-	dropables.push_back(drop);
+	dropables.push_back(drop.get_drop_data(type));
 	drop_success.emit(drop);
 	drop.success(type);
 	
@@ -64,4 +66,9 @@ func drop_canceled(drop):
 	print("<><> CANCEL <><>");
 	drop_cancel.emit(drop);
 	drop.cancel();
+
+func resize_area():
+	pass;
 	
+func reset_area():
+	pass;	

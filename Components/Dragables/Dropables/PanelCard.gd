@@ -3,23 +3,24 @@ class_name PanelCard extends Dropable
 @export var drop_scene: PackedScene = null;
 
 var drop_panel: CodePanel = null;
+var nested_area: NestedDropArea = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
 	drop_type = DropData.DropType.GRID | DropData.DropType.NEST;
-	print(drop_type);
 	
 func handle_start(event):
 	super.handle_start(event);
 	drop_panel.set_mouse_filter_rec(drop_panel.drop_node,Control.MOUSE_FILTER_IGNORE);
-	
+	drop_panel.drop_node.modulate.a = .5;
 	
 	
 func handle_end(event):
 	super.handle_end(event);
 	drop_panel.set_mouse_filter_rec(drop_panel.drop_node,Control.MOUSE_FILTER_STOP);
-	
+	drop_panel.drop_node.modulate.a = 1;
+
 func init_drop():
 	var new_panel = drop_scene.instantiate();
 	
@@ -48,7 +49,6 @@ func success(dropType: DropData.DropType):
 			pass;
 	
 	super.success(dropType);
-	
 
 func cancel():
 	super.cancel();
@@ -62,7 +62,11 @@ func _get_nest_data():
 	return drop_panel;
 
 func update_valid(drop_area: DropArea):
-	position = start_position;
+	drag_node.position = start_position;
+	
+	if nested_area && drop_area != nested_area:
+		nested_area.reset_area();
+		nested_area = null;
 	
 	match drop_area.type:
 		DropData.DropType.GRID:
@@ -72,17 +76,30 @@ func update_valid(drop_area: DropArea):
 			drag_node = drop_panel.drop_node;
 		#TODO for nesting.
 		DropData.DropType.NEST:
-			pass;
+			drop_panel.drop_node.reparent(drop_area);
+			drop_panel.drop_node.position = Vector2.ZERO;
+			drag_node = null;
+			nested_area = drop_area as NestedDropArea;
+			nested_area.minimum_size_changed.emit();
 		_:
 			update_to_default_state();
 
-func update_invalid(drop_area: DropArea):
+func update_invalid(_drop_area: DropArea):
+	
+	if nested_area:
+		nested_area.reset_area();
+		nested_area = null;
+	
 	drag_node = self;
 	position = get_parent().get_local_mouse_position() - (size / 2);
 	drop_panel.drop_node.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	
 func update_to_default_state():
+	if nested_area:
+		nested_area.reset_area();
+		nested_area = null;
+	
 	drag_node = self;
 	drop_panel.drop_node.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);

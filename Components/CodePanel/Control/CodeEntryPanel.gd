@@ -10,10 +10,6 @@ func _ready() -> void:
 	#TODO add support for parameters in the Entry Panel.
 	# Idea is that all of the parameters passed to this wand,
 	# are added as pins to drag out to.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func Execute():
 	pass

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var sprite = $Sprite2D;
+#@onready var sprite = $Sprite2D;
 
 var active_dropable: Dropable = null;
 var current_control: Node = null;
@@ -17,11 +17,11 @@ func on_dropable_updated(dropable: Dropable):
 		active_dropable = dropable;
 		on_location_updated(Vector2.ZERO);
 	else:
-		sprite.texture = null;
+		#sprite.texture = null;
 		active_dropable = null;
 		visible = false;
 
-func on_location_updated(loc: Vector2):
+func on_location_updated(_loc: Vector2):
 	var hoveredControl = get_viewport().gui_get_hovered_control();
 	
 	# This might need to be removed I am not sure.
@@ -34,13 +34,19 @@ func on_location_updated(loc: Vector2):
 		current_control = hoveredControl;
 		if(hoveredControl is DropArea):
 			if(current_drop_area != hoveredControl):
+				reset_most_recent_drop_area();
 				current_drop_area = hoveredControl as DropArea;
 				var is_valid = (current_drop_area.type & active_dropable.drop_type) != 0;
 				active_dropable.set_valid_state(is_valid, current_drop_area);
 		else:
+			reset_most_recent_drop_area();
 			current_drop_area = null;
 			active_dropable.update_to_default_state();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global_position = get_global_mouse_position();
+	
+func reset_most_recent_drop_area():
+	if current_drop_area:
+		current_drop_area.reset_area();

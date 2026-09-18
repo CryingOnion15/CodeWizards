@@ -10,16 +10,18 @@ var availablePins: Array[Pin] = [];
 var panel_card: PanelCard = null;
 var save_data: Dictionary;
 var is_nested: bool = false;
+#var nested_area: DropArea = null;
 
 #drop types.
-var nest_type = DropData.DropType.GRID | DropData.DropType.NEST | DropData.DropType.CARD;
-var normal_type = DropData.DropType.NEST | DropData.DropType.CARD;
+var nest_type = DropData.DropType.GRID | DropData.DropType.CARD;
+var normal_type = DropData.DropType.CARD;
 
 @export var size_theme: THEME_SIZE = THEME_SIZE.MEDIUM;
+@export var pin_root: Node = self;
 
 func _ready():
 	super._ready();
-	var children = find_children("*", "Pin", true, false);
+	var children = pin_root.find_children("*", "Pin", true, false);
 	for child in children:
 		var pin = child as Pin;
 		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
@@ -30,7 +32,7 @@ func _ready():
 	set_size_via_theme();
 	
 	#Dropable settings.
-	drop_type = DropData.DropType.CARD | DropData.DropType.NEST;
+	drop_type = normal_type;
 	drag_node = drop_node;
 
 func set_size_via_theme():
@@ -63,8 +65,8 @@ func get_next_control() -> CodePanel:
 func set_data(data: Dictionary):
 	save_data = data;
 	
-func set_theme_size(size: THEME_SIZE):
-	size_theme = size;
+func set_theme_size(t_size: THEME_SIZE):
+	size_theme = t_size;
 	set_size_via_theme();
 
 func init_drop():
@@ -78,17 +80,16 @@ func init_drop():
 func handle_start(event):
 	super.handle_start(event);
 	
-	if (!is_nested):
+	if !is_nested:
 		drag_node = drop_node;
 	
-	if (panel_card):
+	if panel_card:
 		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 	
 func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
-	if(panel_card):
-		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
+	
 	
 func _get_nest_data():
 	return self;
@@ -99,17 +100,19 @@ func _get_grid_data():
 func _get_card_data():
 	return panel_card;
 
-func success(dropType: DropData.DropType):
-	super.success(dropType);
+func success(drop_type: DropData.DropType):
+	super.success(drop_type);
 	
-	match dropType:
+	match drop_type:
 		DropData.DropType.GRID:
-			pass;
+			if panel_card:
+				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 			#DropManager.add_dropable_to_pool(self);
 		DropData.DropType.CARD:
 			DropManager.add_dropable_to_pool(self);
 		DropData.DropType.NEST:
-			pass;
+			if panel_card:
+				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
 		DropData.DropType.RAM:
 			pass;
 		
@@ -119,7 +122,7 @@ func cancel():
 	
 	var current_control = get_viewport().gui_get_hovered_control();
 	
-	if(current_control != current_parent):
+	if current_control != current_parent:
 		reparent(current_parent);
 		position = start_position;
 	
@@ -136,11 +139,13 @@ func update_valid(drop_area: DropArea):
 			var offset = Vector2(1,0) * panel_card.drop_node.size.x / 2;
 			panel_card.drop_node.position = drop_area.get_local_mouse_position() - offset;
 			drag_node = panel_card.drop_node;
-		#TODO for nesting.
+
 		DropData.DropType.NEST:
-			print("NEST");
 			drag_node = null;
 			drop_node.reparent(drop_area);
+			drop_node.position = Vector2.ZERO;
+			drop_area.resize_area();
+			
 		DropData.DropType.GRID:
 			print("GRID");
 			if is_nested:
@@ -148,29 +153,53 @@ func update_valid(drop_area: DropArea):
 				var offset = Vector2(1,0) * drop_node.size.x / 2;
 				drop_node.position = drop_area.get_local_mouse_position() - offset;
 				drag_node = drop_node;
+				
 		_:
 			update_to_default_state();
+			
+	#if nested_area && drop_area != nested_area:
+		#nested_area.reset_area();
+		#nested_area = null;
 
 func update_invalid(drop_area: DropArea):
+	if get_parent() != current_parent:
+		drop_node.reparent(current_parent);
+	
+	#if nested_area:
+		#print("RESET AREA");
+		#await get_tree().process_frame;
+		#nested_area.reset_area();
+		#nested_area = null;
+	
 	if !is_nested:
 		drag_node = drop_node;
 		drop_node.position = drop_node.get_parent().get_local_mouse_position() - (drop_node.size / 2);
 	else:
 		drag_node = null;
 		drop_node.position = Vector2.ZERO;
+		drop_area.minimum_size_changed.emit();
 	
 	if panel_card:
 		panel_card.drop_node.reparent(self);
 		DropManager.add_dropable_to_pool(panel_card);
 	
 func update_to_default_state():
+	if get_parent() != current_parent:
+		drop_node.reparent(current_parent);
+	
+	#if nested_area:
+		#await get_tree().process_frame;
+		#nested_area.reset_area();
+		#nested_area = null;
+
 	if !is_nested:
 		drag_node = drop_node;
 		drop_node.position = drop_node.get_parent().get_local_mouse_position() - (drop_node.size / 2);
 	else:
 		drag_node = null;
 		drop_node.position = Vector2.ZERO;
-	
+		current_parent.minimum_size_changed.emit();
+
 	if panel_card:
 		panel_card.drop_node.reparent(self);
 		DropManager.add_dropable_to_pool(panel_card);

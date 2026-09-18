@@ -36,9 +36,12 @@ static var SECONDARY_PIN = null;
 @export var pin_type: PIN_TYPE = PIN_TYPE.BOTH;
 @export var data_type: DATA_TYPE = DATA_TYPE.NUMBER;
 @export var nested: bool = false;
+@export var locked: bool = false;
 
 #On Ready Var
-@onready var line: Line2D = $Line2D
+@onready var line: Line2D = $Line2D;
+@onready var pin_animation: AnimatedSprite2D = $AnimatedSprite2D;
+@onready var lock_sprite: Sprite2D = $Lock;
 
 # Variables
 var curve: Curve2D = null
@@ -62,9 +65,14 @@ func _ready() -> void:
 		curvePoints.append(Vector2(0,0));
 		
 	reset();
+	
+	if locked:
+		locked_display();
+	else:
+		unlocked_display();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if(isDrawingCurve && line):
 		if(isConnected && connectedTo != null):
 			var localEnd = line.to_local(connectedTo.get_global_rect().get_center())
@@ -74,6 +82,9 @@ func _process(delta: float) -> void:
 		line.points = curve.get_baked_points()
 		
 func _on_mouse_entered() -> void:
+	if locked:
+		return;
+	
 	super._on_mouse_entered();
 	
 	if(Pin.ACTIVE_PIN != null):
@@ -87,6 +98,9 @@ func _on_mouse_entered() -> void:
 		hover();
 
 func _on_mouse_exited() -> void:
+	if locked:
+		return;
+		
 	super._on_mouse_exited();
 	
 	if(Pin.SECONDARY_PIN == self):
@@ -117,6 +131,9 @@ func update_curve_on_drag(newPos):
 		#handle_end(event)
 
 func handle_start(event):
+	if locked:
+		return;
+	
 	if(isConnected):
 		if(connectedTo):
 			connectedTo.disconnect_pin();
@@ -135,7 +152,10 @@ func handle_start(event):
 	
 	super.handle_start(event);	
 	
-func handle_end(event):		
+func handle_end(event):
+	if locked:
+		return;
+			
 	if(Pin.ACTIVE_PIN == self):
 		if(Pin.SECONDARY_PIN != null && check_valid_connection(Pin.SECONDARY_PIN)):	
 			connect_to_pin(Pin.SECONDARY_PIN);
@@ -148,29 +168,7 @@ func handle_end(event):
 		Pin.ACTIVE_PIN = null;
 		
 	super.handle_end(event)
-	
-#func get_intersected_pins_at_mouse() -> Array[Pin]:
-	##Test the intersection points.
-	#var pointParmeters: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
-	#pointParmeters.position = get_global_mouse_position()
-	#pointParmeters.collide_with_areas = true
-	#
-	#var objects_clicked = get_world_2d().direct_space_state.intersect_point(pointParmeters)
-	#
-	#if(objects_clicked.size() > 0):	
-		#var pins: Array[Pin] = []
-#
-		#for obj in objects_clicked:
-			#if obj.collider is Pin:
-				#pins.append(obj.collider as Pin)
-#
-		#pins.sort_custom(
-			#func(c1: Pin, c2: Pin):
-				#return c1.z_index < c2.z_index
-		#)
-#
-		#return pins
-	#return []
+
 func clear_line():
 	isDrawingCurve = false;
 	line.points = [];
@@ -196,8 +194,19 @@ func reset():
 func disconnect_pin():
 	clear_line();
 	reset();
+
+func connect_from_event(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStrength: float = 100.0):
+	Pin.ACTIVE_PIN = self;
+	isDrawingCurve = true;
 	
-func connect_to_pin(pin: Pin):
+	curve.clear_points();
+	curve.add_point(line.to_local(get_global_rect().get_center()));
+	curve.add_point(line.to_local(pin.get_global_rect().get_center()));
+	
+	connect_to_pin(pin, rotOverride, bezzierStrength);
+	pin.connect_to_pin(self);
+	
+func connect_to_pin(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStrength: float = 100.0):
 	#Is already connected to another pin.
 	if(isConnected && connectedTo != null):
 		connectedTo.disconnect_pin();
@@ -207,11 +216,14 @@ func connect_to_pin(pin: Pin):
 	connectedTo = pin;
 	pin_connected.emit();
 	
+	if(!isDrawingCurve):
+		isDrawingCurve;
+	
 	if(self == Pin.ACTIVE_PIN):
 		var localEnd = line.to_local(pin.get_global_rect().get_center());
 		curve.set_point_position(1, localEnd);
 
-		var rotVector = pin.get_line_direction() * 100.0
+		var rotVector = pin.get_line_direction() * bezzierStrength if rotOverride == Vector2.ZERO else rotOverride * bezzierStrength;
 		curve.set_point_in(1, rotVector)
 	
 func emit_connected():
@@ -265,3 +277,19 @@ func get_line_direction() -> Vector2:
 		PIN_TYPE.BOTH:
 			return Vector2.LEFT;
 	return Vector2.LEFT;
+
+func set_locked_state(locked_state: bool):
+	locked = locked_state;
+	
+	if locked:
+		locked_display()
+	else:
+		unlocked_display();
+
+func locked_display():
+	lock_sprite.visible = true;
+	pin_animation.modulate.a = .5;
+	
+func unlocked_display():
+	lock_sprite.visible = false;
+	pin_animation.modulate.a = 1;

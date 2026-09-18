@@ -74,9 +74,9 @@ func cancel():
 	position = start_position;
 	drop_cancel.emit();
 	
-func get_drop_data(drop_type: DropData.DropType):
-	if(drop_type & drop_type):
-		match drop_type:
+func get_drop_data(type: DropData.DropType):
+	if(drop_type & type):
+		match type:
 			DropData.DropType.GRID:
 				return _get_grid_data();
 			DropData.DropType.NEST:
@@ -92,10 +92,10 @@ func set_valid_state(isValid: bool = false, drop_area: DropArea = null):
 	else:
 		update_invalid(drop_area);
 
-func update_valid(drop_area: DropArea):
+func update_valid(_drop_area: DropArea):
 	pass;
 	
-func update_invalid(drop_area: DropArea):
+func update_invalid(_drop_area: DropArea):
 	pass;
 	
 func update_to_default_state():

@@ -19,7 +19,7 @@ var panels: Array[CodePanel] = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	super._ready()
+	super._ready();
 	anchor_left = 0;
 	anchor_top = 0;
 	anchor_right = xBoundScale;
@@ -27,8 +27,7 @@ func _ready() -> void:
 	
 	#Wait a frame so the ui is in the right place and right size.
 	await get_tree().process_frame;
-	var parent = get_parent();
-	var parentSize = get_parent_control().get_rect().size
+	var parentSize = get_parent_control().get_rect().size;
 	
 	#Offset panel to center.
 	position =  -parentSize * .5;
@@ -39,10 +38,12 @@ func _ready() -> void:
 	#Subscribe to signals.
 	drop_area.connect("drop_success", on_drop_success);
 	graph_settings.large_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.LARGE));
-	graph_settings.medium_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.MEDIUM))
-	graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL))	
+	graph_settings.medium_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.MEDIUM));
+	graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL));
+	
+	DropManager.instance.dropable_updated.connect(on_dropable_updated);	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if(Input.is_action_just_pressed("Run")):
 		Run();
 			
@@ -68,12 +69,12 @@ func drag(delta):
 	position.y = clamp(position.y, -diffY, 0);
 	super.drag(delta);
 	
-func set_size_of_panels(size: CodePanel.THEME_SIZE):
-	entryPanel.set_theme_size(size);
-	exitPanel.set_theme_size(size);
+func set_size_of_panels(t_size: CodePanel.THEME_SIZE):
+	entryPanel.set_theme_size(t_size);
+	exitPanel.set_theme_size(t_size);
 	
 	for panel in panels:
-		panel.set_theme_size(size);
+		panel.set_theme_size(t_size);
 	
 func add_panel_to_graph(panel: CodePanel, location: Vector2):
 	if(panel != null):
@@ -109,4 +110,10 @@ func on_drop_success(drop: Dropable):
 	newPanel.set_data(drop.get_data());
 	var offset = Vector2(1,0) * newPanel.drop_node.size.x / 2;
 	
-	add_panel_to_graph(newPanel, get_local_mouse_position() - offset); 
+	add_panel_to_graph(newPanel, get_local_mouse_position() - offset);
+	
+func on_dropable_updated(dropable: Dropable):
+	if dropable:
+		drop_area.mouse_filter = Control.MOUSE_FILTER_STOP;
+	else:
+		drop_area.mouse_filter = Control.MOUSE_FILTER_PASS;

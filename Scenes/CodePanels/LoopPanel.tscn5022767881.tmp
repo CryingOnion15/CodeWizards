@@ -12,8 +12,6 @@
 custom_minimum_size = Vector2(210, 136)
 offset_right = 210.0
 offset_bottom = 136.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
 mouse_behavior_recursive = 1
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
@@ -29,14 +27,13 @@ patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_areas", "pin_root", "drop_node")]
+[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_areas", "drop_node")]
 layout_direction = 2
 layout_mode = 2
 mouse_behavior_recursive = 2
 theme = ExtResource("1_tom4s")
 script = ExtResource("1_isrc0")
-drop_areas = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/VBoxContainer/DropArea")]
-pin_root = NodePath("../HBoxContainer")
+drop_areas = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/DropArea")]
 drop_node = NodePath("..")
 metadata/_custom_type_script = "uid://c3k47y01b8qmf"
 
@@ -81,7 +78,6 @@ pin_type = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1590350940]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
 mouse_filter = 2
 mouse_behavior_recursive = 1
 theme_override_constants/separation = 0
@@ -100,13 +96,11 @@ vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=2121199004]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 3
 
 [node name="DropColumn" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1459238891]
-custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
 mouse_filter = 2
 mouse_behavior_recursive = 1
 theme_override_constants/margin_left = 20
@@ -124,24 +118,7 @@ mouse_behavior_recursive = 1
 texture = ExtResource("6_e8g3i")
 expand_mode = 1
 
-[node name="VBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn" unique_id=660891033]
-layout_mode = 2
-
-[node name="InputColumn" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/VBoxContainer" unique_id=431826212]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-mouse_filter = 2
-mouse_behavior_recursive = 1
-
-[node name="Nested In Flow Pin" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/VBoxContainer/InputColumn" unique_id=1148497074 instance=ExtResource("4_tom4s")]
-layout_mode = 1
-mouse_behavior_recursive = 2
-pin_type = 0
-data_type = 2
-nested = true
-locked = true
-
-[node name="DropArea" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/VBoxContainer" unique_id=529983921]
+[node name="DropArea" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn" unique_id=529983921]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -150,29 +127,6 @@ mouse_behavior_recursive = 2
 script = ExtResource("8_rohc0")
 type = 4
 metadata/_custom_type_script = "uid://cirej4g541wd6"
-
-[node name="OutputColumn" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/VBoxContainer" unique_id=1269861440]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Nested Out Flow Pin" parent="HBoxContainer/VBoxContainer/HBoxContainer/DropColumn/VBoxContainer/OutputColumn" unique_id=115360865 instance=ExtResource("4_tom4s")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 0
-grow_vertical = 0
-pin_type = 1
-data_type = 2
-nested = true
-locked = true
 
 [node name="OutputColumn" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1983261650]
 custom_minimum_size = Vector2(36, 0)

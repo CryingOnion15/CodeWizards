@@ -13,10 +13,6 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);
 	mouse_exited.connect(_on_mouse_exited);
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		handle_mouse_buttons(event);
@@ -37,11 +33,11 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	isEntered = false;
 
-func handle_start(event):
+func handle_start(_event):
 	isDragging = true;
 	start_drag.emit(get_global_mouse_position());	
 
-func handle_end(event):
+func handle_end(_event):
 	isDragging = false;
 	end_drag.emit(get_global_mouse_position());
 
