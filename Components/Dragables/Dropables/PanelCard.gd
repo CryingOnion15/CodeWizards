@@ -36,6 +36,8 @@ func init_drop():
 		DropManager.add_dropable_to_pool(drop_panel);
 		drop_panel.panel_card = self;
 		
+		drop_panel.set_data(get_data());
+		
 		#If this panel can be nested then add the type.
 		if drop_panel.can_be_nested:
 			drop_type = drop_type | DropData.DropType.NEST;

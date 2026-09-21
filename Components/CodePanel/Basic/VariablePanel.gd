@@ -10,9 +10,12 @@ func _ready() -> void:
 	super._ready();
 	if(outputPin == null && $OutputPin is Pin):
 		outputPin = $OutputPin as Pin;
-		updateVisuals();
+	update_visuals();
 
-func updateVisuals():
+func init_drop():
+	update_visuals();
+
+func update_visuals():
 	outputPin.set_value(variable_number_value);
 	value_label.text = "%s" % [variable_number_value];
 	
@@ -23,4 +26,4 @@ func set_data(data: Dictionary):
 	if(outputPin == null && $OutputPin is Pin):
 		outputPin = $OutputPin as Pin;
 	
-	updateVisuals();	
+	update_visuals();	

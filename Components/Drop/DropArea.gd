@@ -2,6 +2,7 @@ class_name DropArea extends Control
 
 signal drop_success(dropable);
 signal drop_cancel(dropable);
+signal on_drop_removed(dropable);
 
 signal activate_area_sig(area);
 signal deactivate_area_sig(area);
@@ -42,9 +43,9 @@ func on_drop(drop: Dropable, drop_area: DropArea):
 		else:
 			drop_canceled(drop);
 	else:
-		
 		if (already_has_drop(drop)):
 			dropables.erase(drop);
+			on_drop_removed.emit(drop);
 				
 	deactivate_area();
 	

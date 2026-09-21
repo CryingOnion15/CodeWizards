@@ -40,3 +40,9 @@ func reset_area():
 	
 func can_drop()-> bool:
 	return dropables.size() == 0;
+
+func get_panel()-> FunctionPanel:
+	if(dropables.size() > 0):
+		return dropables[0] as FunctionPanel;
+	else:
+		return null;

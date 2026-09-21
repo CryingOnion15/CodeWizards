@@ -128,5 +128,13 @@
 				"value": 13
 			}
 		},
+		"test_cond": {
+			"dragPath": "res://Scenes/Dropables/Dropable.tscn",
+			"panelPath": "res://Scenes/CodePanels/ConditionPanel.tscn",
+			"cardTexture": "res://icon.svg",
+			"data": {
+				"value": 13
+			}
+		}
 	}
 }

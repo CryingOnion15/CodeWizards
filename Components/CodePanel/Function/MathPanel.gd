@@ -38,6 +38,7 @@ func _ready() -> void:
 			return;
 	
 func Execute():
+	print("Math Panel Woo.");
 	var input1 = input_pins[0].get_value(true);
 	var input2 = input_pins[1].get_value(true);
 	
