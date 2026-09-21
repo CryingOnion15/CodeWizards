@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bgrb6gwo3nd0u"]
+
+[ext_resource type="Script" uid="uid://d20vphpdm608p" path="res://Components/CodePanel/Control/CodeEntryPanel.gd" id="1_46yjf"]
+[ext_resource type="Theme" uid="uid://qmtbh6726mdd" path="res://Assets/Themes/entry_panel_theme.tres" id="1_mt56r"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xumy6"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_mt56r"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_xumy6"]
+
+[node name="CodeEntryPanel" type="Control" unique_id=2002945207]
+custom_minimum_size = Vector2(120, 76)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 120.0
+offset_bottom = 76.0
+theme = ExtResource("1_mt56r")
+script = ExtResource("1_46yjf")
+metadata/_custom_type_script = "uid://d20vphpdm608p"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+mouse_behavior_recursive = 1
+texture = ExtResource("2_xumy6")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=428065152]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_xumy6")
+theme_override_font_sizes/normal_font_size = 24
+text = "Entry"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" parent="." unique_id=804416880 instance=ExtResource("3_mt56r")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+pin_type = 1
+data_type = 2

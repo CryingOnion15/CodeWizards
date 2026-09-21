@@ -1,0 +1,11 @@
+{
+	"cards": [
+		{
+			"dragID": "res://Scenes/Dropables/Dropable.tscn",
+			"panelID": "res://Scenes/CodePanels/VariablePanel.tscn",
+			"data": {
+				"value": 9
+			}
+		}
+	]
+}

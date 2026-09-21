@@ -1,34 +1,50 @@
-[gd_scene format=3 uid="uid://cfp4520qxta5p"]
+[gd_scene format=3 uid="uid://md51vpeuqv8"]
 
-[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="1_kln2b"]
-[ext_resource type="PackedScene" uid="uid://c143g3rde0h2a" path="res://Scenes/Dragables/BasicDragable.tscn" id="1_r150o"]
-[ext_resource type="Script" uid="uid://boppumrmai0ee" path="res://Components/Managers/pin_connection_manager.gd" id="2_idj7w"]
+[ext_resource type="Script" uid="uid://bix8krudobhcd" path="res://Components/Managers/DropManager.gd" id="1_rgh2o"]
+[ext_resource type="Script" uid="uid://cdnlfufr6b2nq" path="res://Scenes/mouse_tracker.gd" id="2_pbw6q"]
+[ext_resource type="Texture2D" uid="uid://20j3wg8i1l5" path="res://Assets/Textures/PinTextures/PinDefault.tres" id="3_v1gob"]
+[ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
+[ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
 
-[node name="Node2D" type="Node2D" unique_id=370466545]
-
-[node name="Pin" parent="." unique_id=197575604 instance=ExtResource("1_kln2b")]
-position = Vector2(280, -180)
-rotation = 3.1415927
-pin_type = 0
-
-[node name="Pin2" parent="." unique_id=1394991970 instance=ExtResource("1_kln2b")]
-position = Vector2(280, -96)
-rotation = 3.1415927
-pin_type = 0
-data_type = 1
-
-[node name="Dragable" parent="." unique_id=2016189920 instance=ExtResource("1_r150o")]
-
-[node name="Dragable2" parent="." unique_id=2019694820 instance=ExtResource("1_r150o")]
-position = Vector2(0, -217)
-
-[node name="Dragable3" parent="." unique_id=1178897174 instance=ExtResource("1_r150o")]
-position = Vector2(0, 162)
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
+[node name="MainScene" type="Node2D" unique_id=370466545]
 
 [node name="Managers" type="Node" parent="." unique_id=173369814]
 
-[node name="PinConnectionManager" type="Node" parent="Managers" unique_id=477706189]
-script = ExtResource("2_idj7w")
-metadata/_custom_type_script = "uid://boppumrmai0ee"
+[node name="DropManager" type="Node" parent="Managers" unique_id=1829666957]
+script = ExtResource("1_rgh2o")
+metadata/_custom_type_script = "uid://bix8krudobhcd"
+
+[node name="MouseTracker" type="Node2D" parent="." unique_id=758852499]
+visible = false
+z_index = 4
+script = ExtResource("2_pbw6q")
+
+[node name="Sprite2D" type="Sprite2D" parent="MouseTracker" unique_id=1679878783]
+visible = false
+modulate = Color(1, 1, 1, 0.5176471)
+texture = ExtResource("3_v1gob")
+
+[node name="UITest" type="Control" parent="." unique_id=416148092]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("8_vy5pj")
+
+[node name="WandEditGraph" parent="UITest" unique_id=2145066972 instance=ExtResource("9_vy5pj")]
+texture_filter = 1
+layout_mode = 1
+
+[node name="Panel" type="Panel" parent="." unique_id=1079431470]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1765430689]
+visible = false

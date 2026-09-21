@@ -1,0 +1,275 @@
+[gd_scene format=3 uid="uid://biu12jrpqe2ue"]
+
+[ext_resource type="Script" uid="uid://c3k47y01b8qmf" path="res://Components/CodePanel/Function/LoopPanel.gd" id="1_isrc0"]
+[ext_resource type="Theme" uid="uid://b42yktl2svnqq" path="res://Assets/Themes/loop_panel_theme.tres" id="1_tom4s"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_whmtx"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_wkphf"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="4_tom4s"]
+[ext_resource type="Texture2D" uid="uid://jnsuwfhmnl3p" path="res://Assets/Sprites/nest-add-panel.png" id="6_e8g3i"]
+[ext_resource type="Script" uid="uid://cirej4g541wd6" path="res://Components/Drop/NestedDropArea.gd" id="8_rohc0"]
+
+[node name="PanelContainer" type="PanelContainer" unique_id=1630782722]
+custom_minimum_size = Vector2(252, 142)
+offset_right = 252.0
+offset_bottom = 142.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_behavior_recursive = 1
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_behavior_recursive = 1
+texture = ExtResource("2_whmtx")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="LoopPanel" type="Control" parent="." unique_id=74825205 node_paths=PackedStringArray("drop_areas", "pin_root", "drop_node")]
+layout_direction = 2
+layout_mode = 2
+mouse_behavior_recursive = 2
+theme = ExtResource("1_tom4s")
+script = ExtResource("1_isrc0")
+drop_areas = [NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest1/DropArea1"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest2/DropArea2"), NodePath("../HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest3/DropArea3")]
+pin_root = NodePath("../HBoxContainer")
+drop_node = NodePath("..")
+metadata/_custom_type_script = "uid://c3k47y01b8qmf"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1912789353]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="InputColumn" type="Control" parent="HBoxContainer" unique_id=1838668856]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="In" parent="HBoxContainer/InputColumn" unique_id=2102211022 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 34.0
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+
+[node name="Input1" parent="HBoxContainer/InputColumn" unique_id=1926392184 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 34.0
+offset_bottom = 68.0
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="Input2" parent="HBoxContainer/InputColumn" unique_id=762008375 instance=ExtResource("4_tom4s")]
+visible = false
+layout_mode = 1
+offset_left = 2.0
+offset_top = 70.0
+offset_right = 34.0
+offset_bottom = 102.0
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1590350940]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 0
+
+[node name="NameLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer" unique_id=2017191188]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_fonts/normal_font = ExtResource("3_wkphf")
+theme_override_font_sizes/normal_font_size = 24
+text = "LOOP"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=2121199004]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="InputColumn" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1250126966]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="Nested In Flow Pin" parent="HBoxContainer/VBoxContainer/HBoxContainer/InputColumn" unique_id=1401655234 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 2.0
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+nested = true
+locked = true
+
+[node name="Nests" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1535322674]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Nest1" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests" unique_id=1459238891]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 22
+
+[node name="Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest1" unique_id=606241356]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("6_e8g3i")
+expand_mode = 1
+
+[node name="DropArea1" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest1" unique_id=529983921]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_behavior_recursive = 2
+script = ExtResource("8_rohc0")
+type = 4
+metadata/_custom_type_script = "uid://cirej4g541wd6"
+
+[node name="Nest2" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests" unique_id=574668706]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 22
+
+[node name="Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest2" unique_id=1712385635]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("6_e8g3i")
+expand_mode = 1
+
+[node name="DropArea2" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest2" unique_id=876985817]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_behavior_recursive = 2
+script = ExtResource("8_rohc0")
+type = 4
+metadata/_custom_type_script = "uid://cirej4g541wd6"
+
+[node name="Nest3" type="MarginContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests" unique_id=435087396]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 22
+
+[node name="Background" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest3" unique_id=709074762]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("6_e8g3i")
+expand_mode = 1
+
+[node name="DropArea3" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest3" unique_id=1315140862]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_behavior_recursive = 2
+script = ExtResource("8_rohc0")
+type = 4
+metadata/_custom_type_script = "uid://cirej4g541wd6"
+
+[node name="Nested Output Column" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1269861440]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Nested Out Flow Pin" parent="HBoxContainer/VBoxContainer/HBoxContainer/Nested Output Column" unique_id=115360865 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 0.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+pin_type = 1
+data_type = 2
+nested = true
+locked = true
+
+[node name="OutputColumn" type="Control" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1983261650]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="Out" parent="HBoxContainer/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1512256263 instance=ExtResource("4_tom4s")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_behavior_recursive = 2
+pin_type = 1
+data_type = 2
+
+[node name="NumberOutputPin" parent="HBoxContainer/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1243142184 instance=ExtResource("4_tom4s")]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -34.0
+offset_right = 0.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_behavior_recursive = 2
+pin_type = 1

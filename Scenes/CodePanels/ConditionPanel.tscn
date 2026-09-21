@@ -1,0 +1,373 @@
+[gd_scene format=3 uid="uid://dtqxyaj1g0mi6"]
+
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="1_5gm4g"]
+[ext_resource type="Theme" uid="uid://b42yktl2svnqq" path="res://Assets/Themes/loop_panel_theme.tres" id="2_16dkr"]
+[ext_resource type="Script" uid="uid://dd2svrqo8abnk" path="res://Components/CodePanel/Function/ConditionPanel.gd" id="3_5gm4g"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="4_y4sif"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="5_vnljo"]
+[ext_resource type="Texture2D" uid="uid://jnsuwfhmnl3p" path="res://Assets/Sprites/nest-add-panel.png" id="6_e4c15"]
+[ext_resource type="Script" uid="uid://cirej4g541wd6" path="res://Components/Drop/NestedDropArea.gd" id="7_fnlms"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16dkr"]
+bg_color = Color(0, 0.90604705, 0.07198424, 1)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.90588236, 0.07058824, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_dsmih"]
+font = ExtResource("5_vnljo")
+font_color = Color(0, 0.90588236, 0.07058824, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y4sif"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.15294118, 0.03529412, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_vnljo"]
+font = ExtResource("5_vnljo")
+font_color = Color(1, 0.15294118, 0.03529412, 1)
+
+[node name="Condition" type="PanelContainer" unique_id=1630782722]
+custom_minimum_size = Vector2(252, 142)
+offset_right = 252.0
+offset_bottom = 142.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_behavior_recursive = 1
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_behavior_recursive = 1
+texture = ExtResource("1_5gm4g")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="ConditionPanel" type="Control" parent="." unique_id=297647887 node_paths=PackedStringArray("condition_description_label", "cond_label", "nested_true_inflow_pin", "nested_true_outflow_pin", "nested_false_inflow_pin", "nested_false_outflow_pin", "drop_areas", "pin_root", "drop_node")]
+layout_direction = 2
+layout_mode = 2
+mouse_behavior_recursive = 2
+theme = ExtResource("2_16dkr")
+script = ExtResource("3_5gm4g")
+cond_type = 3
+condition_description_label = NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/DescriptionLabel")
+cond_label = NodePath("../Pin Root/InputColumn/CondTypeLabel")
+nested_true_inflow_pin = NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/InputColumn/Nested In Flow True")
+nested_true_outflow_pin = NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column/Nested Out Flow Pin")
+nested_false_inflow_pin = NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/InputColumn/Nested In Flow False")
+nested_false_outflow_pin = NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column/Nested Out Flow Pin2")
+drop_areas = [NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer/Nest1/True Area"), NodePath("../Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer/Nest1/False Area")]
+pin_root = NodePath("../Pin Root")
+drop_node = NodePath("..")
+metadata/_custom_type_script = "uid://dd2svrqo8abnk"
+
+[node name="Pin Root" type="HBoxContainer" parent="." unique_id=1912789353]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 8
+
+[node name="InputColumn" type="Control" parent="Pin Root" unique_id=1838668856]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="In" parent="Pin Root/InputColumn" unique_id=2102211022 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 34.0
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+
+[node name="Cond Input1" parent="Pin Root/InputColumn" unique_id=1926392184 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 34.0
+offset_bottom = 68.0
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="Cond Input2" parent="Pin Root/InputColumn" unique_id=762008375 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 70.0
+offset_right = 34.0
+offset_bottom = 102.0
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="CondTypeLabel" type="RichTextLabel" parent="Pin Root/InputColumn" unique_id=1659589206]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 2.0
+offset_top = 104.0
+offset_right = 1.0
+offset_bottom = 36.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_fonts/normal_font = ExtResource("5_vnljo")
+theme_override_font_sizes/normal_font_size = 24
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pin Root" unique_id=1590350940]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 0
+
+[node name="NameLabel" type="RichTextLabel" parent="Pin Root/VBoxContainer" unique_id=2017191188]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_fonts/normal_font = ExtResource("5_vnljo")
+theme_override_font_sizes/normal_font_size = 24
+text = "CONDITION"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pin Root/VBoxContainer" unique_id=2121199004]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pin Root/VBoxContainer/HBoxContainer" unique_id=499724956]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=735244448]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1627500819]
+custom_minimum_size = Vector2(180, 36)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_fonts/normal_font = ExtResource("5_vnljo")
+text = "This is the label where the condition will go."
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Internal Control" type="HBoxContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1757586435]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InputColumn" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control" unique_id=1250126966]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="Nested In Flow True" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/InputColumn" unique_id=1401655234 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+anchors_preset = -1
+offset_top = 2.0
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+nested = true
+locked = true
+
+[node name="Nested In Flow False" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/InputColumn" unique_id=89729621 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 2.0
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+nested = true
+locked = true
+
+[node name="Nests" type="VBoxContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control" unique_id=1535322674]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests" unique_id=766957411]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_16dkr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer" unique_id=485135587]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer" unique_id=1183433353]
+layout_mode = 2
+text = "True:"
+label_settings = SubResource("LabelSettings_dsmih")
+
+[node name="Nest1" type="MarginContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer" unique_id=1459238891]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 22
+
+[node name="Background" type="TextureRect" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer/Nest1" unique_id=606241356]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("6_e4c15")
+expand_mode = 1
+
+[node name="True Area" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer/Nest1" unique_id=529983921]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_behavior_recursive = 2
+script = ExtResource("7_fnlms")
+type = 4
+metadata/_custom_type_script = "uid://cirej4g541wd6"
+
+[node name="PanelContainer2" type="PanelContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests" unique_id=1377769239]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y4sif")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2" unique_id=1093887784]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer" unique_id=157722121]
+layout_mode = 2
+text = "False:"
+label_settings = SubResource("LabelSettings_vnljo")
+
+[node name="Nest1" type="MarginContainer" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer" unique_id=978734640]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 22
+
+[node name="Background" type="TextureRect" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer/Nest1" unique_id=282139223]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+mouse_behavior_recursive = 1
+texture = ExtResource("6_e4c15")
+expand_mode = 1
+
+[node name="False Area" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer/Nest1" unique_id=1945155710]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_behavior_recursive = 2
+script = ExtResource("7_fnlms")
+type = 4
+metadata/_custom_type_script = "uid://cirej4g541wd6"
+
+[node name="Nested Output Column" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control" unique_id=1269861440]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Nested Out Flow Pin" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column" unique_id=115360865 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 0.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+pin_type = 1
+data_type = 2
+nested = true
+locked = true
+
+[node name="Nested Out Flow Pin2" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column" unique_id=1185111149 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 0.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+pin_type = 1
+data_type = 2
+nested = true
+locked = true
+
+[node name="Spacer2" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1641689278]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="OutputColumn" type="Control" parent="Pin Root/VBoxContainer/HBoxContainer" unique_id=1983261650]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+
+[node name="Out" parent="Pin Root/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1512256263 instance=ExtResource("4_y4sif")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_behavior_recursive = 2
+pin_type = 1
+data_type = 2
+
+[node name="NumberOutputPin" parent="Pin Root/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1243142184 instance=ExtResource("4_y4sif")]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -34.0
+offset_right = 0.0
+offset_bottom = 34.0
+grow_horizontal = 0
+mouse_behavior_recursive = 2
+pin_type = 1

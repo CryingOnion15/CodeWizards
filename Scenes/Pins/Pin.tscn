@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="1_hu4s4"]
 [ext_resource type="Texture2D" uid="uid://dw5hpd2kwv5l4" path="res://Assets/SpriteSheets/PinHoverSpriteSheet.png" id="2_m817y"]
-[ext_resource type="Script" uid="uid://c5iyma4f06eyx" path="res://Scenes/Dragables/pin_animation_controller.gd" id="3_h50ra"]
+[ext_resource type="Script" uid="uid://c5iyma4f06eyx" path="res://Components/Dragables/pin_animation_controller.gd" id="3_h50ra"]
+[ext_resource type="Texture2D" uid="uid://byp7d0lkrisc" path="res://Assets/Sprites/PinLock.png" id="4_m817y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hu4s4"]
 atlas = ExtResource("2_m817y")
@@ -113,21 +114,28 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_p7agy"]
-radius = 16.03122
-
-[node name="Pin" type="Area2D" unique_id=197575604]
-z_index = 1
+[node name="Pin" type="Control" unique_id=2102211022]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 32.0
+offset_bottom = 32.0
 script = ExtResource("1_hu4s4")
 metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1171012510]
+position = Vector2(16, 16)
 sprite_frames = SubResource("SpriteFrames_08ots")
 animation = &"Idle"
 script = ExtResource("3_h50ra")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=249325266]
+z_index = 2
+position = Vector2(16, 16)
 width = 4.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=298421843]
-shape = SubResource("CircleShape2D_p7agy")
+[node name="Lock" type="Sprite2D" parent="." unique_id=2058511081]
+visible = false
+z_index = 3
+position = Vector2(16, 16)
+texture = ExtResource("4_m817y")

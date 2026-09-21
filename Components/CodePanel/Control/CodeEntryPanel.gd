@@ -1,0 +1,21 @@
+class_name CodeEntryPanel extends CodePanel
+
+var startPin: Pin = null;
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	super._ready();
+	
+	startPin = availablePins[0];
+	#TODO add support for parameters in the Entry Panel.
+	# Idea is that all of the parameters passed to this wand,
+	# are added as pins to drag out to.
+	
+func Execute():
+	pass
+	# TODO Set starting pin values.
+	
+func get_next_control() -> CodePanel:
+	if(startPin.connectedTo):
+		return startPin.connectedTo.get_value();
+	return null;

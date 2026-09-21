@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://lqu5pw6x5io7"]
+
+[ext_resource type="PackedScene" uid="uid://dqqnnocltwmwf" path="res://Scenes/CodePanels/VariablePanel.tscn" id="1_12b0p"]
+[ext_resource type="PackedScene" uid="uid://dvq4oxn7hio21" path="res://Scenes/Graphs/GraphSettings.tscn" id="1_jwmoq"]
+[ext_resource type="PackedScene" uid="uid://bgrb6gwo3nd0u" path="res://Scenes/CodePanels/EntryPanel.tscn" id="2_jwmoq"]
+[ext_resource type="PackedScene" uid="uid://d17pdvccg7ghu" path="res://Scenes/CodePanels/ExitPanel.tscn" id="3_4t6jd"]
+[ext_resource type="PackedScene" uid="uid://xyrttilk0tbb" path="res://Scenes/CodePanels/MathPanel.tscn" id="4_vsosv"]
+
+[node name="Control" type="Control" unique_id=902803496]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="." unique_id=1320072241]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="GraphSizeController" parent="HBoxContainer" unique_id=1660778362 instance=ExtResource("1_jwmoq")]
+layout_mode = 2
+
+[node name="PanelScenes" type="VBoxContainer" parent="HBoxContainer" unique_id=720500947]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 5
+
+[node name="VariablePanel" parent="HBoxContainer/PanelScenes" unique_id=937242064 instance=ExtResource("1_12b0p")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CodeEntryPanel" parent="HBoxContainer/PanelScenes" unique_id=2002945207 instance=ExtResource("2_jwmoq")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ExitPanel" parent="HBoxContainer/PanelScenes" unique_id=1737713163 instance=ExtResource("3_4t6jd")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MathPanel" parent="HBoxContainer/PanelScenes" unique_id=57691080 instance=ExtResource("4_vsosv")]
+layout_mode = 2
+size_flags_horizontal = 0

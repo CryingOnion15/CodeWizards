@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://m5jkm5ebs7vl"]
+
+[ext_resource type="Texture2D" uid="uid://d1xscpf6wxyu8" path="res://Assets/SpriteSheets/Variable-Block-Drag-Sheet.png" id="1_by5mh"]
+
+[resource]
+atlas = ExtResource("1_by5mh")
+region = Rect2(64, 0, 32, 32)
