@@ -9,12 +9,12 @@ var exitPin: Pin = null;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
-	exitPin = availablePins[0];
+	exitPin = available_pins[0];
 	
 func Execute():
 	var params: Dictionary = Dictionary();
-	for i in range(1, availablePins.size()):
-		params[availablePins[i].name] = availablePins[i].get_value(true);
+	for i in range(1, available_pins.size()):
+		params[available_pins[i].name] = available_pins[i].get_value(true);
 		
 	print(params);
 	exit_called.emit(params);

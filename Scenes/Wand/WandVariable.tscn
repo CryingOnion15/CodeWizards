@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://g5015754e32a"]
+
+[ext_resource type="Script" uid="uid://bhl57e5l7l700" path="res://Components/Wand/WandVariable.gd" id="1_q5sf2"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="2_1468e"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s4odo"]
+font = ExtResource("2_1468e")
+font_size = 24
+
+[node name="WandVariable" type="PanelContainer" unique_id=895683475 node_paths=PackedStringArray("create_set_button", "create_get_button")]
+custom_minimum_size = Vector2(0, 64)
+offset_right = 144.0
+offset_bottom = 64.0
+size_flags_horizontal = 8
+script = ExtResource("1_q5sf2")
+create_set_button = NodePath("HBoxContainer/SetButton")
+create_get_button = NodePath("HBoxContainer/GetButton")
+metadata/_custom_type_script = "uid://bhl57e5l7l700"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1860374921]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1174571543]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer" unique_id=513442453]
+layout_mode = 2
+text = "Variable Name"
+label_settings = SubResource("LabelSettings_s4odo")
+
+[node name="GetButton" type="Button" parent="HBoxContainer" unique_id=432800681]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/GetButton" unique_id=1673854973]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Get"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SetButton" type="Button" parent="HBoxContainer" unique_id=314554605]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/SetButton" unique_id=1336661553]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Set"
+horizontal_alignment = 1
+vertical_alignment = 1

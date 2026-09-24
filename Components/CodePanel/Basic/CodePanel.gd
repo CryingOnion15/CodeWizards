@@ -6,7 +6,7 @@ enum THEME_SIZE {
 	LARGE = 2,
 }
 
-var availablePins: Array[Pin] = [];
+var available_pins: Array[Pin] = [];
 var panel_card: PanelCard = null;
 var save_data: Dictionary;
 var is_nested: bool = false;
@@ -28,7 +28,8 @@ func _ready():
 		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
 			# Set this pin's value to it's code panel owner.
 			pin.set_value(self);
-		availablePins.push_back(child as Pin);
+			
+		available_pins.push_back(pin);
 		
 	set_size_via_theme();
 	
@@ -133,7 +134,7 @@ func cancel():
 	
 	if current_control != current_parent:
 		reparent(current_parent);
-		position = start_position;
+		drop_node.position = start_position;
 	
 	if panel_card && panel_card.drop_node:
 		panel_card.drop_node.reparent(self);
@@ -141,7 +142,6 @@ func cancel():
 
 func update_valid(drop_area: DropArea):
 	super.update_valid(drop_area);
-	position = start_position;
 	
 	match drop_area.type:
 		DropData.DropType.CARD:

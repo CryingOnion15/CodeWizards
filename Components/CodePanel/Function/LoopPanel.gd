@@ -6,7 +6,7 @@ var nested_outflow_pin: Pin = null;
 func _ready() -> void:
 	super._ready();
 	
-	for pin in availablePins:
+	for pin in available_pins:
 		if(nested_inflow_pin == null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL && pin.nested):
 			nested_inflow_pin = pin;
 			

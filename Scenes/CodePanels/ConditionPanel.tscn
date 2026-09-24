@@ -39,12 +39,14 @@ offset_right = 252.0
 offset_bottom = 142.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 mouse_behavior_recursive = 1
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 0
 mouse_behavior_recursive = 1
 texture = ExtResource("1_5gm4g")
 patch_margin_left = 37
@@ -55,7 +57,6 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="ConditionPanel" type="Control" parent="." unique_id=297647887 node_paths=PackedStringArray("condition_description_label", "cond_label", "nested_true_inflow_pin", "nested_true_outflow_pin", "nested_false_inflow_pin", "nested_false_outflow_pin", "drop_areas", "pin_root", "drop_node")]
-layout_direction = 2
 layout_mode = 2
 mouse_behavior_recursive = 2
 theme = ExtResource("2_16dkr")
@@ -76,6 +77,7 @@ metadata/_custom_type_script = "uid://dd2svrqo8abnk"
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_behavior_recursive = 1
 theme_override_constants/separation = 8
 
 [node name="InputColumn" type="Control" parent="Pin Root" unique_id=1838668856]

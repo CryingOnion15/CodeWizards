@@ -10,7 +10,8 @@ enum PIN_TYPE {
 enum DATA_TYPE {
 	NUMBER,
 	STRING,
-	CONTROL
+	CONTROL,
+	REFERENCE
 }
 
 #signals
@@ -20,6 +21,7 @@ signal pin_hover()
 signal pin_hover_correct()
 signal pin_hover_incorrect()
 signal pin_connected()
+signal pin_disconnected();
 signal pin_reset()
 
 #static variables
@@ -27,6 +29,7 @@ static var LINE_POINT_COUNT = 12;
 static var NUMBER_COLOR: Color = Color('#008794');
 static var STRING_COLOR: Color = Color('#FFDA03');
 static var CONTROL_COLOR: Color = Color('#FEF9F3');
+static var REFERENCE_COLOR: Color = Color('#BF00FF');
 static var CorrectColor: Color = Color(0,128,0)
 static var IncorrectColor: Color = Color(128,0,0)
 static var ACTIVE_PIN: Pin = null;
@@ -53,6 +56,7 @@ var isConnected = false;
 var _string_value = "";
 var _number_value = 0;
 var _control_value: CodePanel = null;
+var _reference_value: Node = null; #TODO change to new type WandVariable;
 
 
 # Called when the node enters the scene tree for the first time.
@@ -249,7 +253,9 @@ func get_value(get_value_from_connection: bool = false):
 			DATA_TYPE.STRING:
 				_string_value = connectedTo._string_value;
 			DATA_TYPE.CONTROL:
-				_control_value = connectedTo._string_value;
+				_control_value = connectedTo._control_value;
+			DATA_TYPE.REFERENCE:
+				_reference_value = connectedTo._reference_value;
 	
 	match data_type:
 		DATA_TYPE.NUMBER:
@@ -258,6 +264,8 @@ func get_value(get_value_from_connection: bool = false):
 			return _string_value;
 		DATA_TYPE.CONTROL:
 			return _control_value;
+		DATA_TYPE.REFERENCE:
+			return _reference_value;
 
 func set_value(v):
 	match data_type:
@@ -267,6 +275,8 @@ func set_value(v):
 			_string_value = v;
 		DATA_TYPE.CONTROL:
 			_control_value = v;
+		DATA_TYPE.REFERENCE:
+			_reference_value = v;
 			
 func get_line_direction() -> Vector2:
 	match pin_type:

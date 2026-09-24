@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bq7ssmewfws0o"]
+
+[ext_resource type="Script" uid="uid://dnq2xmhosvm8o" path="res://Components/Wand/Wand.gd" id="1_pnqv4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnqv4"]
+bg_color = Color(0.17283267, 0.17283267, 0.17283258, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+
+[node name="Wand" type="Control" unique_id=1942749193]
+custom_minimum_size = Vector2(180, 60)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+script = ExtResource("1_pnqv4")
+metadata/_custom_type_script = "uid://dnq2xmhosvm8o"
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=870588219]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_pnqv4")
+
+[node name="Label" type="Label" parent="PanelContainer" unique_id=1305319828]
+layout_mode = 2
+text = "Wand"
+horizontal_alignment = 1
+vertical_alignment = 1

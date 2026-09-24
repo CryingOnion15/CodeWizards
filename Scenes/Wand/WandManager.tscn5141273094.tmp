@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://d0jg47rrgc5qi"]
+
+[ext_resource type="Script" uid="uid://cjopexex8beuc" path="res://Components/Wand/WandManager.gd" id="1_qcyhj"]
+[ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="2_5k35e"]
+
+[node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qcyhj")
+wand_root = NodePath("HBoxContainer/PanelContainer2/ScrollContainer/WandContainer")
+metadata/_custom_type_script = "uid://cjopexex8beuc"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=347921316]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer" unique_id=1623762680]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/PanelContainer2" unique_id=797694571]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WandContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer2/ScrollContainer" unique_id=530687646]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=1147255908]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 4.0
+
+[node name="WandEditGraph" parent="HBoxContainer/PanelContainer" unique_id=2145066972 instance=ExtResource("2_5k35e")]
+layout_mode = 2

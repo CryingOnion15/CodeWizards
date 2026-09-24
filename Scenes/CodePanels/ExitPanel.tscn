@@ -1,35 +1,25 @@
 [gd_scene format=3 uid="uid://d17pdvccg7ghu"]
 
+[ext_resource type="Texture2D" uid="uid://cncbk0bn2mojr" path="res://Assets/Sprites/ExitFrame.png" id="1_7qyvm"]
 [ext_resource type="Script" uid="uid://cfat6m8vcf36v" path="res://Components/CodePanel/Control/CodeExitPanel.gd" id="1_gksbb"]
 [ext_resource type="Theme" uid="uid://dlyrh20glx22i" path="res://Assets/Themes/exit_panel_theme.tres" id="1_kglmx"]
-[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_j8to2"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_j8to2"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_kglmx"]
 
-[node name="ExitPanel" type="Control" unique_id=1737713163]
-physics_interpolation_mode = 0
-layout_mode = 3
-anchors_preset = 0
-offset_right = 100.0
-offset_bottom = 74.0
-scale = Vector2(1.0113525, 1.0125736)
-theme = ExtResource("1_kglmx")
-script = ExtResource("1_gksbb")
-metadata/_custom_type_script = "uid://cfat6m8vcf36v"
+[node name="PanelContainer" type="PanelContainer" unique_id=992247806]
+custom_minimum_size = Vector2(120, 76)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 modulate = Color(1, 0, 0, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
 mouse_behavior_recursive = 1
-texture = ExtResource("2_j8to2")
+texture = ExtResource("1_7qyvm")
 patch_margin_left = 37
 patch_margin_top = 37
 patch_margin_right = 37
@@ -37,16 +27,47 @@ patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Sprite" unique_id=616052463]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 36.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = 34.0
-grow_horizontal = 2
+[node name="CodeExitPanel" type="Control" parent="." unique_id=1737713163 node_paths=PackedStringArray("pin_root", "drop_node")]
+physics_interpolation_mode = 0
+custom_minimum_size = Vector2(120, 76)
+layout_mode = 2
+mouse_behavior_recursive = 2
+theme = ExtResource("1_kglmx")
+script = ExtResource("1_gksbb")
+pin_root = NodePath("../MarginContainer")
+drop_node = NodePath("..")
+metadata/_custom_type_script = "uid://cfat6m8vcf36v"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=696183877]
+layout_mode = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=687894359]
+layout_mode = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1845509316]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 2
+
+[node name="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=197575604 instance=ExtResource("3_kglmx")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=616052463]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_fonts/normal_font = ExtResource("3_j8to2")
 theme_override_font_sizes/normal_font_size = 24
 text = "Exit"
@@ -54,19 +75,13 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" parent="." unique_id=197575604 instance=ExtResource("3_kglmx")]
-layout_mode = 1
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 34.0
-offset_bottom = 34.0
-pin_type = 0
-data_type = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=554053198]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_behavior_recursive = 1
 
-[node name="Param1" parent="." unique_id=966126289 instance=ExtResource("3_kglmx")]
-layout_mode = 1
-offset_left = 2.0
-offset_top = 38.0
-offset_right = 34.0
-offset_bottom = 70.0
+[node name="Param1" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=966126289 instance=ExtResource("3_kglmx")]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_behavior_recursive = 2
 pin_type = 0

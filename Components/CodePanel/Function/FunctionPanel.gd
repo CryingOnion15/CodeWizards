@@ -16,7 +16,7 @@ func _ready() -> void:
 	can_be_nested = true;
 	
 	super._ready();
-	for pin in availablePins:
+	for pin in available_pins:
 		if(inflow_pin == null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL && !pin.nested):
 			inflow_pin = pin;
 			
@@ -26,11 +26,11 @@ func _ready() -> void:
 		if(outflow_pin != null && inflow_pin != null):
 			break
 	
-	input_pins = availablePins.filter(
+	input_pins = available_pins.filter(
 		func(pin):
 			return pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type != Pin.DATA_TYPE.CONTROL; 
 	)
-	output_pins = availablePins.filter(
+	output_pins = available_pins.filter(
 		func(pin):
 			return pin.pin_type == Pin.PIN_TYPE.CONNECTOR && pin.data_type != Pin.DATA_TYPE.CONTROL;
 	)
@@ -73,7 +73,7 @@ func get_next_control() -> CodePanel:
 	return null;
 
 func disconnect_all_pins():
-	for pin in availablePins:
+	for pin in available_pins:
 		if(pin.connectedTo):
 			pin.connectedTo.disconnect_pin();
 		pin.disconnect_pin();

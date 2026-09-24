@@ -1,15 +1,16 @@
 class_name WandGraph extends Dragable
 
+signal panel_added(panel);
+signal panel_removed(panel);
+
 @export_range(1, 5, 0.1) var xBoundScale = 2;
 @export_range(1, 5, 0.1) var yBoundScale = 2;
-
-#@export var node_canvas: Node2D = null;
 @export var drop_area: DropArea = null;
 @export var graph_settings: GraphSettings = null;
 
 #Scene References
-var entryScene = preload("res://Scenes/CodePanels/EntryPanel.tscn");
-var exitScene = preload("res://Scenes/CodePanels/ExitPanel.tscn");
+#var entryScene = preload("res://Scenes/CodePanels/EntryPanel.tscn");
+#var exitScene = preload("res://Scenes/CodePanels/ExitPanel.tscn");
 
 # Other Vars
 var entryPanel: CodeEntryPanel = null;
@@ -32,8 +33,8 @@ func _ready() -> void:
 	#Offset panel to center.
 	position =  -parentSize * .5;
 	
-	add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
-	add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
+	#add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
+	#add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
 	
 	#Subscribe to signals.
 	drop_area.connect("drop_success", on_drop_success);
@@ -76,7 +77,7 @@ func set_size_of_panels(t_size: CodePanel.THEME_SIZE):
 	for panel in panels:
 		panel.set_theme_size(t_size);
 	
-func add_panel_to_graph(panel: CodePanel, location: Vector2):
+func add_panel_to_graph(panel: CodePanel):
 	if(panel != null):
 		if(panel == entryPanel || panel == exitPanel):
 			return;
@@ -89,20 +90,28 @@ func add_panel_to_graph(panel: CodePanel, location: Vector2):
 		else:
 			panels.push_back(panel);
 		
-		if(panel.get_parent()):
-			panel.drop_node.reparent(drop_area);
-		else:
-			drop_area.add_child(panel);
-		panel.drop_node.position = location;
+		if(panel.drop_node.get_parent() != drop_area):
+			if(panel.drop_node.get_parent()):
+				panel.drop_node.reparent(drop_area);
+			else:
+				drop_area.add_child(panel.drop_node);
+		
+		panel_added.emit(panel);
+		#panel.drop_node.position = location;
 
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):
-		if(panel == entryPanel || panel == exitPanel):
-			return;
-		else:
-			var rIndex = panels.find(panel);
-			if(rIndex != -1):
-				panels.remove_at(rIndex);
+		var rIndex = panels.find(panel);
+		if(rIndex != -1):
+			panels.remove_at(rIndex);
+		
+		panel_removed.emit(panel);
+
+func reset_graph():
+	panels.clear();
+	
+	var parentSize = get_parent_control().get_rect().size;
+	position =  -parentSize * .5;
 
 func on_drop_success(drop: Dropable):
 	var newPanel: CodePanel = drop.get_drop_data(drop_area.type) as CodePanel;
@@ -110,8 +119,8 @@ func on_drop_success(drop: Dropable):
 	newPanel.set_data(drop.get_data());
 	var offset = Vector2(1,0) * newPanel.drop_node.size.x / 2;
 	
-	add_panel_to_graph(newPanel, get_local_mouse_position() - offset);
-	
+	add_panel_to_graph(newPanel);
+
 func on_dropable_updated(dropable: Dropable):
 	if dropable:
 		drop_area.mouse_filter = Control.MOUSE_FILTER_STOP;

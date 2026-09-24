@@ -1,0 +1,167 @@
+[gd_scene format=3 uid="uid://choon7ss738be"]
+
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="1_6g2gt"]
+[ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="1_kvvm7"]
+[ext_resource type="Texture2D" uid="uid://dw5hpd2kwv5l4" path="res://Assets/SpriteSheets/PinHoverSpriteSheet.png" id="2_6g2gt"]
+[ext_resource type="Script" uid="uid://c5iyma4f06eyx" path="res://Components/Dragables/pin_animation_controller.gd" id="3_io4fb"]
+[ext_resource type="Texture2D" uid="uid://byp7d0lkrisc" path="res://Assets/Sprites/PinLock.png" id="4_eijw3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_io4fb"]
+font = ExtResource("1_6g2gt")
+font_size = 24
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hu4s4"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m817y"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h50ra"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbeud"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pi7oa"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4m1ml"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2d7xk"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqn7b"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exlm5"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yweq5"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fpl5"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xr7b4"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2ial"]
+atlas = ExtResource("2_6g2gt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_08ots"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hu4s4")
+}],
+"loop": true,
+"name": &"Connected",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m817y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h50ra")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbeud")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pi7oa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4m1ml")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2d7xk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqn7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_exlm5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yweq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0fpl5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xr7b4")
+}],
+"loop": true,
+"name": &"Hover",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2ial")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="ParameterPin" type="HBoxContainer" unique_id=2042947690]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -20.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+
+[node name="ParamName" type="Label" parent="." unique_id=2106743129]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Param"
+label_settings = SubResource("LabelSettings_io4fb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pin" type="Control" parent="." unique_id=2102211022]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+mouse_behavior_recursive = 2
+script = ExtResource("1_kvvm7")
+metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pin" unique_id=1171012510]
+position = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_08ots")
+animation = &"Idle"
+script = ExtResource("3_io4fb")
+
+[node name="Line2D" type="Line2D" parent="Pin" unique_id=249325266]
+z_index = 2
+position = Vector2(16, 16)
+width = 4.0
+
+[node name="Lock" type="Sprite2D" parent="Pin" unique_id=2058511081]
+visible = false
+z_index = 3
+position = Vector2(16, 16)
+texture = ExtResource("4_eijw3")

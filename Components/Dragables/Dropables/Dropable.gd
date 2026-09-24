@@ -34,7 +34,7 @@ func init_drop():
 func handle_start(event):
 	super.handle_start(event);
 	drop_node.modulate.a = .5;
-	current_parent = get_parent();
+	current_parent = drop_node.get_parent();
 	start_position = drop_node.position;	
 	DropManager.set_dropable(self);
 	
