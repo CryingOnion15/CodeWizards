@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dki1put1b3ll1"]
+
+[ext_resource type="Theme" uid="uid://d03d66ql8b6mw" path="res://Assets/Themes/variable_panel_theme.tres" id="1_2361a"]
+[ext_resource type="Script" uid="uid://w811vl7l78r7" path="res://Components/CodePanel/Basic/GetVariablePanel.gd" id="2_2361a"]
+[ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="3_u058b"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="4_ny78f"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="5_lqfuk"]
+
+[node name="VariablePanel" type="Control" unique_id=482627560]
+physics_interpolation_mode = 0
+custom_minimum_size = Vector2(74, 74)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 74.0
+offset_bottom = 74.0
+theme = ExtResource("1_2361a")
+script = ExtResource("2_2361a")
+metadata/_custom_type_script = "uid://w811vl7l78r7"
+
+[node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_behavior_recursive = 1
+texture = ExtResource("3_u058b")
+patch_margin_left = 37
+patch_margin_top = 37
+patch_margin_right = 37
+patch_margin_bottom = 37
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="NameLabel" type="RichTextLabel" parent="Sprite" unique_id=1858868130]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 36.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 34.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_ny78f")
+theme_override_font_sizes/normal_font_size = 24
+text = "CONST"
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VariableValueLabel" type="RichTextLabel" parent="Sprite" unique_id=149395355]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 38.0
+offset_bottom = 35.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("4_ny78f")
+text = "0"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OutputPin" parent="." unique_id=804416880 instance=ExtResource("5_lqfuk")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -34.0
+offset_top = -34.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_behavior_recursive = 2
+pin_type = 1

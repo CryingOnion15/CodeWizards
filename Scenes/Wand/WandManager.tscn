@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="2_5k35e"]
 [ext_resource type="PackedScene" uid="uid://bq7ssmewfws0o" path="res://Scenes/Wand/Wand.tscn" id="2_llniq"]
 
-[node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root", "graph_root")]
+[node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root", "wand_var_root", "graph_root")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qcyhj")
 wand_root = NodePath("HBoxContainer/VBoxContainer/Wand Selection/ScrollContainer/WandContainer")
+wand_var_root = NodePath("HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/ScrollContainer/VBoxContainer")
 graph_root = NodePath("HBoxContainer/PanelContainer/WandEditGraph")
 metadata/_custom_type_script = "uid://cjopexex8beuc"
 

@@ -1,7 +1,5 @@
 class_name WandManager extends Control
 
-var wand_var_scene = preload("res://Scenes/Wand/WandVariable.tscn");
-
 @export var wand_root: Node = null;
 @export var wand_var_root: Node = null;
 @export var graph_root: Node = null;
@@ -26,29 +24,25 @@ func _ready() -> void:
 	for graph in graph_children:
 		if graph is WandGraph:
 			wand_graph = graph;
-			#wand_graph.hide();
 			break;
 
 func on_wand_selected(wand: Wand):
 	if wand && wand != current_wand:
-		print("Show");
 		if current_wand:
 			current_wand.reset_wand();
 			current_wand.remove_listener_to_graph(wand_graph);
+			hide_wand_vars();
 		
-		#wand_graph.show();
 		wand_graph.reset_graph();
-
 		current_wand = wand;
 		
-		#Add all existing panels.
-		wand_graph.add_panel_to_graph(current_wand.entry_panel);
-		wand_graph.add_panel_to_graph(current_wand.exit_panel);
+		# Add all existing panels.
+		set_graph_panels();
 		
-		for panel in current_wand.code_panels:
-			wand_graph.add_panel_to_graph(panel);
+		# Set variables.
+		set_wand_variables();
 		
-		#Select wand and add listeners for panel events.
+		# Select wand and add listeners for panel events.
 		current_wand.select_wand();
 		current_wand.add_listener_to_graph(wand_graph);
 	else:
@@ -56,5 +50,40 @@ func on_wand_selected(wand: Wand):
 			current_wand.reset_wand();
 			current_wand.remove_listener_to_graph(wand_graph);
 			current_wand = null;
-		#wand_graph.hide();
+
 		wand_graph.reset_graph();
+		hide_wand_vars();
+		
+func set_graph_panels():
+	wand_graph.add_panel_to_graph(current_wand.entry_panel);
+	wand_graph.add_panel_to_graph(current_wand.exit_panel);
+		
+	for panel in current_wand.code_panels:
+		wand_graph.add_panel_to_graph(panel);
+		
+func set_wand_variables():
+	for w_var: WandVariable in current_wand.wand_variables:
+		if w_var.get_parent() != wand_var_root:
+			if(w_var.get_parent() != null):
+				w_var.reparent(wand_var_root);
+			else:
+				wand_var_root.add_child(w_var);
+		
+		w_var.show();
+		w_var.wand_graph = wand_graph;
+		w_var.set_created.connect(on_set_created);
+		w_var.get_created.connect(on_get_created);
+
+func hide_wand_vars():
+	for w_var in current_wand.wand_variables:
+		w_var.hide();
+		w_var.set_created.disconnect(on_set_created);
+		w_var.get_created.disconnect(on_get_created);
+
+func on_set_created(variable: WandVariable, panel: SetVariablePanel):
+	#Note sure if this needs more or not.
+	wand_graph.add_panel_to_graph(panel);
+	
+func on_get_created(variable: WandVariable, panel: GetVariablePanel):
+	panel.set_wand_variable(variable.wand, variable.var_name);
+	wand_graph.add_panel_to_graph(panel);

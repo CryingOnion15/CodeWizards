@@ -7,34 +7,39 @@
 font = ExtResource("2_1468e")
 font_size = 24
 
-[node name="WandVariable" type="PanelContainer" unique_id=895683475 node_paths=PackedStringArray("create_set_button", "create_get_button")]
+[node name="WandVariable" type="PanelContainer" unique_id=895683475 node_paths=PackedStringArray("create_set_button", "create_get_button", "variable_name_label")]
 custom_minimum_size = Vector2(0, 64)
 offset_right = 144.0
 offset_bottom = 64.0
-size_flags_horizontal = 8
+size_flags_horizontal = 3
 script = ExtResource("1_q5sf2")
-create_set_button = NodePath("HBoxContainer/SetButton")
-create_get_button = NodePath("HBoxContainer/GetButton")
+create_set_button = NodePath("MarginContainer/HBoxContainer/SetButton")
+create_get_button = NodePath("MarginContainer/HBoxContainer/GetButton")
+variable_name_label = NodePath("MarginContainer/HBoxContainer/VariableName")
 metadata/_custom_type_script = "uid://bhl57e5l7l700"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1860374921]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1174571543]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1260871219]
 layout_mode = 2
 theme_override_constants/margin_left = 4
-theme_override_constants/margin_right = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
-[node name="Label" type="Label" parent="HBoxContainer/MarginContainer" unique_id=513442453]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1860374921]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 8
+
+[node name="VariableName" type="Label" parent="MarginContainer/HBoxContainer" unique_id=513442453]
 layout_mode = 2
 text = "Variable Name"
 label_settings = SubResource("LabelSettings_s4odo")
 
-[node name="GetButton" type="Button" parent="HBoxContainer" unique_id=432800681]
+[node name="GetButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=432800681]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/GetButton" unique_id=1673854973]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/GetButton" unique_id=1673854973]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -51,11 +56,11 @@ text = "Get"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SetButton" type="Button" parent="HBoxContainer" unique_id=314554605]
+[node name="SetButton" type="Button" parent="MarginContainer/HBoxContainer" unique_id=314554605]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/SetButton" unique_id=1336661553]
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/SetButton" unique_id=1336661553]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

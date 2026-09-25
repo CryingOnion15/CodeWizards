@@ -6,14 +6,16 @@ signal wand_selected(wand);
 #Preload scenes.
 var entry_scene = preload("res://Scenes/CodePanels/EntryPanel.tscn");
 var exit_scene = preload("res://Scenes/CodePanels/ExitPanel.tscn");
+var variable_scene = preload("res://Scenes/Wand/WandVariable.tscn");
 
 #Vars
-var is_entered
+var is_entered: bool = false;
 var parameter_map: Dictionary = {}; #name, value
 var variable_map: Dictionary = {}; #name, value
 var entry_panel: CodeEntryPanel = null;
 var exit_panel: CodeExitPanel = null;
 var code_panels: Array[CodePanel] = [];
+var wand_variables: Array[Node] = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,6 +31,12 @@ func _ready() -> void:
 	add_parameter("Type", "Poison");
 	
 	entry_panel.set_parameters(parameter_map);
+	
+	#TODO load varaibles from a save file.
+	add_variable("Var 1", 5);
+	add_variable("Var 2", 10);
+	
+	create_variables();
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -97,3 +105,9 @@ func on_panel_removed(panel: CodePanel):
 	var rIndex = code_panels.find(panel);
 	if(rIndex != -1):
 		code_panels.remove_at(rIndex);
+
+func create_variables():
+	for variable in variable_map.keys():
+		var new_var = variable_scene.instantiate() as WandVariable;
+		new_var.init_wand_variable(self, variable);
+		wand_variables.push_back(new_var);
