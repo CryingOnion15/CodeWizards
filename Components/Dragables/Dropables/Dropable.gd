@@ -4,22 +4,12 @@ class_name Dropable extends Dragable
 signal drop_success(dropType)
 signal drop_cancel
 
+var drop_scene: PackedScene = null;
 var drop_type: int = 0;
 var drag_node: Node;
-var _drop_node: Node;
 var valid_drop: bool = false;
 
-@export var drop_node: Node:
-	get:
-		if _drop_node == null:
-			return self;
-		else:
-			return _drop_node;
-	set(value):
-		_drop_node = value;
-
 # Data Vars
-#var drop_node: Node = null;
 var drop_data: Dictionary = {};
 var current_parent: Node = null;
 var start_position: Vector2 = Vector2.ZERO;
@@ -33,19 +23,19 @@ func init_drop():
 
 func handle_start(event):
 	super.handle_start(event);
-	drop_node.modulate.a = .5;
-	current_parent = drop_node.get_parent();
-	start_position = drop_node.position;	
+	modulate.a = .5;
+	current_parent = get_parent();
+	start_position = position;	
 	DropManager.set_dropable(self);
 	
-	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_IGNORE);
+	set_mouse_filter_rec(self, Control.MOUSE_FILTER_IGNORE);
 
 func handle_end(event):
 	super.handle_end(event);
-	drop_node.modulate.a = 1;
+	modulate.a = 1;
 	DropManager.drop();
 	
-	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_STOP);
+	set_mouse_filter_rec(self, Control.MOUSE_FILTER_STOP);
 
 func set_mouse_filter_rec(node: Node, filter: Control.MouseFilter):
 	if node is Control:
@@ -71,7 +61,7 @@ func success(dropType: DropData.DropType):
 	drop_success.emit(dropType);
 	
 func cancel():
-	drop_node.reparent(current_parent);
+	reparent(current_parent);
 	position = start_position;
 	drop_cancel.emit();
 	

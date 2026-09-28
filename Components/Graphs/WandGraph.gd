@@ -90,14 +90,14 @@ func add_panel_to_graph(panel: CodePanel):
 		else:
 			panels.push_back(panel);
 		
-		if(panel.drop_node.get_parent() != drop_area):
-			if(panel.drop_node.get_parent()):
-				panel.drop_node.reparent(drop_area);
+		if(panel.get_parent() != drop_area):
+			if(panel.get_parent()):
+				panel.reparent(drop_area);
 			else:
-				drop_area.add_child(panel.drop_node);
+				drop_area.add_child(panel);
 		
 		panel_added.emit(panel);
-		#panel.drop_node.position = location;
+		#panel.position = location;
 
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):
@@ -117,7 +117,7 @@ func on_drop_success(drop: Dropable):
 	var newPanel: CodePanel = drop.get_drop_data(drop_area.type) as CodePanel;
 	await get_tree().process_frame;
 	newPanel.set_data(drop.get_data());
-	var offset = Vector2(1,0) * newPanel.drop_node.size.x / 2;
+	var offset = Vector2(1,0) * newPanel.size.x / 2;
 	
 	add_panel_to_graph(newPanel);
 

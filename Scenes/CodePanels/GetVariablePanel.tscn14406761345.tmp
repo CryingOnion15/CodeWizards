@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2361a"]
 
-[node name="GetVariablePanel" type="PanelContainer" unique_id=2045576834 node_paths=PackedStringArray("var_name_label", "value_pin", "pin_root")]
+[node name="VariablePanel" type="PanelContainer" unique_id=2045576834 node_paths=PackedStringArray("var_name_label", "value_pin", "pin_root")]
 physics_interpolation_mode = 0
 custom_minimum_size = Vector2(74, 74)
 offset_right = 74.0

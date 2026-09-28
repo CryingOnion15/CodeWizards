@@ -2,16 +2,21 @@
 
 [ext_resource type="Script" uid="uid://d20vphpdm608p" path="res://Components/CodePanel/Control/CodeEntryPanel.gd" id="1_46yjf"]
 [ext_resource type="Texture2D" uid="uid://bwiuucdw6r1wc" path="res://Assets/Sprites/EntryFrame.png" id="1_i7lqi"]
-[ext_resource type="Theme" uid="uid://qmtbh6726mdd" path="res://Assets/Themes/entry_panel_theme.tres" id="1_mt56r"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_mt56r"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_xumy6"]
 
-[node name="EntryPanel" type="PanelContainer" unique_id=546112494]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xumy6"]
+
+[node name="EntryPanel" type="PanelContainer" unique_id=56422132 node_paths=PackedStringArray("parameter_container", "pin_root")]
 custom_minimum_size = Vector2(120, 76)
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-mouse_behavior_recursive = 1
+offset_right = 120.0
+offset_bottom = 76.0
+mouse_behavior_recursive = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xumy6")
+script = ExtResource("1_46yjf")
+parameter_container = NodePath("MarginContainer/VBoxContainer/ParameterContainer")
+pin_root = NodePath("MarginContainer")
+metadata/_custom_type_script = "uid://d20vphpdm608p"
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 modulate = Color(0, 1, 0, 1)
@@ -26,17 +31,6 @@ patch_margin_right = 37
 patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-
-[node name="CodeEntryPanel" type="Control" parent="." unique_id=2002945207 node_paths=PackedStringArray("parameter_container", "pin_root", "drop_node")]
-custom_minimum_size = Vector2(120, 76)
-layout_mode = 2
-mouse_behavior_recursive = 2
-theme = ExtResource("1_mt56r")
-script = ExtResource("1_46yjf")
-parameter_container = NodePath("../MarginContainer/VBoxContainer/ParameterContainer")
-pin_root = NodePath("../MarginContainer")
-drop_node = NodePath("..")
-metadata/_custom_type_script = "uid://d20vphpdm608p"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1850965025]
 layout_mode = 2
@@ -72,7 +66,7 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=804416880 instance=ExtResource("3_mt56r")]
+[node name="ControlPin" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=804416880 instance=ExtResource("3_mt56r")]
 layout_mode = 2
 mouse_behavior_recursive = 2
 pin_type = 1

@@ -23,7 +23,6 @@ func init_wand_variable(w: Wand, variable: String):
 	wand = w;
 	var_name = variable;
 	variable_name_label.text = var_name;
-	#wand_graph = graph;
 	
 func create_set():
 	var new_set = set_panel_scene.instantiate();

@@ -71,12 +71,6 @@ func get_next_control() -> CodePanel:
 	if(outflow_pin.connectedTo):
 		return outflow_pin.connectedTo.get_value();
 	return null;
-
-func disconnect_all_pins():
-	for pin in available_pins:
-		if(pin.connectedTo):
-			pin.connectedTo.disconnect_pin();
-		pin.disconnect_pin();
 		
 func success(drop_type: DropData.DropType):
 	match drop_type:

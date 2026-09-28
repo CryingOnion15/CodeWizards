@@ -3,6 +3,7 @@ class_name WandManager extends Control
 @export var wand_root: Node = null;
 @export var wand_var_root: Node = null;
 @export var graph_root: Node = null;
+@export var tooltip_root: Node = null;
 
 var wands: Array[Wand] = [];
 var wand_graph: WandGraph = null;
@@ -11,7 +12,6 @@ var current_wand: Wand = null;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#TODO will eventually need to load wands via save data.
-	
 	var wand_children = wand_root.find_children("*", "Wand", true, false);
 	for wand in wand_children:
 		if wand is Wand:
@@ -25,6 +25,8 @@ func _ready() -> void:
 		if graph is WandGraph:
 			wand_graph = graph;
 			break;
+			
+	hide_grid();
 
 func on_wand_selected(wand: Wand):
 	if wand && wand != current_wand:
@@ -38,6 +40,7 @@ func on_wand_selected(wand: Wand):
 		
 		# Add all existing panels.
 		set_graph_panels();
+		show_grid();
 		
 		# Set variables.
 		set_wand_variables();
@@ -53,6 +56,7 @@ func on_wand_selected(wand: Wand):
 
 		wand_graph.reset_graph();
 		hide_wand_vars();
+		hide_grid();
 		
 func set_graph_panels():
 	wand_graph.add_panel_to_graph(current_wand.entry_panel);
@@ -85,5 +89,11 @@ func on_set_created(variable: WandVariable, panel: SetVariablePanel):
 	wand_graph.add_panel_to_graph(panel);
 	
 func on_get_created(variable: WandVariable, panel: GetVariablePanel):
-	panel.set_wand_variable(variable.wand, variable.var_name);
 	wand_graph.add_panel_to_graph(panel);
+	panel.set_wand_variable(variable.wand, variable.var_name);
+
+func show_grid():
+	graph_root.show();
+	
+func hide_grid():
+	graph_root.hide();

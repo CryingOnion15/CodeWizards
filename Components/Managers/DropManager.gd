@@ -8,6 +8,7 @@ static var instance: DropManager = null;
 static var DROP_POOL: Vector2 = Vector2(5000, 5000);
 
 var current_dropable: Dropable;
+var selected_dropable: Dropable;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -46,10 +47,13 @@ static func drop():
 		DropManager.set_dropable(null);
 
 static func add_dropable_to_pool(dropable: Dropable):
-	dropable.drop_node.position = DROP_POOL;
-	if(dropable.drop_node.get_parent()):
-			dropable.drop_node.reparent(instance);
+	
+	print("Before: %s" % [dropable.size]);
+	
+	dropable.position = DROP_POOL;
+	if(dropable.get_parent()):
+			dropable.reparent(instance);
 	else:
-		instance.add_child(dropable.drop_node);
+		instance.add_child(dropable);
 	
-	
+	print("After: %s" % [dropable.size]);

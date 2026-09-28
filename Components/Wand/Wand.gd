@@ -22,8 +22,8 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);
 	mouse_exited.connect(_on_mouse_exited);
 	
-	entry_panel = entry_scene.instantiate().get_node("CodeEntryPanel");
-	exit_panel = exit_scene.instantiate().get_node("CodeExitPanel");
+	entry_panel = entry_scene.instantiate();
+	exit_panel = exit_scene.instantiate();
 	
 	
 	#TODO load parameters from save file and replace.
@@ -85,18 +85,18 @@ func remove_listener_to_graph(graph: WandGraph):
 	graph.panel_removed.disconnect(on_panel_removed);
 
 func select_wand():
-	entry_panel.drop_node.show();
-	exit_panel.drop_node.show();
+	entry_panel.show();
+	exit_panel.show();
 	
 	for panel in code_panels:
-		panel.drop_node.show();
+		panel.show();
 
 func reset_wand():
-	entry_panel.drop_node.hide();
-	exit_panel.drop_node.hide();
+	entry_panel.hide();
+	exit_panel.hide();
 	
 	for panel in code_panels:
-		panel.drop_node.hide();
+		panel.hide();
 		
 func on_panel_added(panel: CodePanel):
 	code_panels.push_back(panel);

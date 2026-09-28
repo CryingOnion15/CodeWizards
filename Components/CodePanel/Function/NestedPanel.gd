@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func handle_start(event):
 	super.handle_start(event);
-	drag_node = drop_node;
+	drag_node = self;
 	
 func handle_end(event):
 	super.handle_end(event);
@@ -30,9 +30,9 @@ func setup_nests():
 func on_drop_success(dropable: Dropable, area: DropArea):
 	var panel: CodePanel = dropable.get_drop_data(area.type);
 		
-	panel.drop_node.reparent(area);
+	panel.reparent(area);
 	panel.start_position = Vector2.ZERO;
-	panel.drop_node.position = Vector2.ZERO;
+	panel.position = Vector2.ZERO;
 	
 	connect_nested_pins();
 	

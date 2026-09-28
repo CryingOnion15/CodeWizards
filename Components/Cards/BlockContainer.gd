@@ -48,7 +48,7 @@ func _ready() -> void:
 	drop_area.connect("drop_success", on_drop_success);
 
 func add_block(dropable: Dropable):
-	hBox.add_child(dropable.drop_node);
+	hBox.add_child(dropable);
 
 func remove_block(dropable: Dropable):
 	var children = hBox.get_children();
@@ -73,7 +73,13 @@ func check_ownership(dropable):
 func on_drop_success(drop: Dropable):
 	var card = drop.get_drop_data(drop_area.type);
 	
-	if drop is FunctionPanel:
+	if drop is GetVariablePanel || drop is SetVariablePanel:
+		return;
+		
+	if drop is CodeEntryPanel || drop is CodeExitPanel:
+		return;
+	
+	if drop is CodePanel:
 		drop.disconnect_all_pins();
 		
 	#TODO this is not full recursive. So that will need to be adjusted in the future.
@@ -83,19 +89,18 @@ func on_drop_success(drop: Dropable):
 		for area in nest.drop_areas:
 			for dropable in area.dropables:
 				var nest_card = dropable.get_drop_data(drop_area.type);
-				
+					
 				if dropable is FunctionPanel:
-					dropable.disconnect_all_pins();
 					dropable.unnest_panel();
 				
 				nest_card.reparent(hBox);
-				nest_card.set_mouse_filter_rec(nest_card.drop_node,Control.MOUSE_FILTER_STOP);
+				nest_card.set_mouse_filter_rec(nest_card,Control.MOUSE_FILTER_STOP);
 				DropManager.add_dropable_to_pool(dropable);
 			
 			area.dropables.clear();
 			area.resize_area();
 			
-		nest.drop_node.size = nest.drop_node.custom_minimum_size;
+		nest.size = nest.custom_minimum_size;
 	
 	card.reparent(hBox);
-	card.set_mouse_filter_rec(card.drop_node,Control.MOUSE_FILTER_STOP);
+	card.set_mouse_filter_rec(card,Control.MOUSE_FILTER_STOP);

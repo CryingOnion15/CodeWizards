@@ -7,12 +7,12 @@ var start_pin: Pin = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	normal_type = 0;
+	nest_type = 0;
+	
 	super._ready();
 	
 	start_pin = available_pins[0];
-	#TODO add support for parameters in the Entry Panel.
-	# Idea is that all of the parameters passed to this wand,
-	# are added as pins to drag out to.
 	
 func Execute():
 	pass

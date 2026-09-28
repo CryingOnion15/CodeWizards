@@ -8,6 +8,9 @@ var exitPin: Pin = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	normal_type = 0;
+	nest_type = 0;
+	
 	super._ready();
 	exitPin = available_pins[0];
 	

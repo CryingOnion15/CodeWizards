@@ -56,7 +56,7 @@ var isConnected = false;
 var _string_value = "";
 var _number_value = 0;
 var _control_value: CodePanel = null;
-var _reference_value: Node = null; #TODO change to new type WandVariable;
+var _reference_value: Array = []; #Element 0 = Wand, #Element 1 = var name.
 
 
 # Called when the node enters the scene tree for the first time.

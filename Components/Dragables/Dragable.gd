@@ -1,4 +1,4 @@
-class_name Dragable extends Control
+class_name Dragable extends PanelContainer
 
 signal drag_event(delta)
 signal start_drag(startPosition)

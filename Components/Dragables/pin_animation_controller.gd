@@ -27,6 +27,8 @@ func set_default_color():
 				modulate = Color(Pin.STRING_COLOR, modulate.a);
 			Pin.DATA_TYPE.CONTROL:
 				modulate = Color(Pin.CONTROL_COLOR, modulate.a);
+			Pin.DATA_TYPE.REFERENCE:
+				modulate = Color(Pin.REFERENCE_COLOR, modulate.a);
 
 func play_correct():
 	play("Hover");

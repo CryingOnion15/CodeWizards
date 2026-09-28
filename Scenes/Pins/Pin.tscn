@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://pjl2fcuwac4i"]
 
-[ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="1_hu4s4"]
+[ext_resource type="Script" uid="uid://b3k1hvktcpcj1" path="res://Components/Dragables/Pin.gd" id="1_m817y"]
 [ext_resource type="Texture2D" uid="uid://dw5hpd2kwv5l4" path="res://Assets/SpriteSheets/PinHoverSpriteSheet.png" id="2_m817y"]
 [ext_resource type="Script" uid="uid://c5iyma4f06eyx" path="res://Components/Dragables/pin_animation_controller.gd" id="3_h50ra"]
 [ext_resource type="Texture2D" uid="uid://byp7d0lkrisc" path="res://Assets/Sprites/PinLock.png" id="4_m817y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m817y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hu4s4"]
 atlas = ExtResource("2_m817y")
@@ -114,13 +116,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Pin" type="Control" unique_id=2102211022]
+[node name="Pin" type="PanelContainer" unique_id=1856335639]
 custom_minimum_size = Vector2(32, 32)
-layout_mode = 3
-anchors_preset = 0
 offset_right = 32.0
 offset_bottom = 32.0
-script = ExtResource("1_hu4s4")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m817y")
+script = ExtResource("1_m817y")
 metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1171012510]

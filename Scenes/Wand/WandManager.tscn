@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cjopexex8beuc" path="res://Components/Wand/WandManager.gd" id="1_qcyhj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="2_5k35e"]
 [ext_resource type="PackedScene" uid="uid://bq7ssmewfws0o" path="res://Scenes/Wand/Wand.tscn" id="2_llniq"]
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_llniq"]
 
 [node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root", "wand_var_root", "graph_root")]
 layout_mode = 3
@@ -74,6 +75,15 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
+
+[node name="ToolTip" type="RichTextLabel" parent="HBoxContainer/PanelContainer" unique_id=1533574477]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_llniq")
+theme_override_font_sizes/normal_font_size = 70
+text = "Select Wand to start editing."
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="WandEditGraph" parent="HBoxContainer/PanelContainer" unique_id=2145066972 instance=ExtResource("2_5k35e")]
 layout_mode = 2

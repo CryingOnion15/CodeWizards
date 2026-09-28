@@ -6,24 +6,35 @@
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="4_qbagd"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="5_5pcth"]
 
-[node name="VariablePanel" type="Control" unique_id=1847881605]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e376i"]
+
+[node name="SetVariablePanel" type="PanelContainer" unique_id=438498693 node_paths=PackedStringArray("reference_pin", "value_pin")]
 physics_interpolation_mode = 0
 custom_minimum_size = Vector2(74, 74)
-layout_mode = 3
-anchors_preset = 0
 offset_right = 74.0
 offset_bottom = 74.0
+mouse_behavior_recursive = 2
 theme = ExtResource("1_e376i")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_e376i")
 script = ExtResource("2_e376i")
+reference_pin = NodePath("MarginContainer/VBoxContainer/Bottom/VBoxContainer/ReferencePin")
+value_pin = NodePath("MarginContainer/VBoxContainer/Bottom/VBoxContainer/ValuePin")
 metadata/_custom_type_script = "uid://chvtlut61ul2o"
 
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1076934375]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="TextureRect" type="ColorRect" parent="MarginContainer2" unique_id=1106570973]
+layout_mode = 2
+color = Color(0.99999994, 0.9942164, 0.34174347, 1)
+
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_behavior_recursive = 1
@@ -35,53 +46,84 @@ patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="NameLabel" type="RichTextLabel" parent="Sprite" unique_id=1858868130]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-offset_left = 36.0
-offset_top = 2.0
-offset_right = -2.0
-offset_bottom = 34.0
-grow_horizontal = 2
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1957569337]
+layout_mode = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=600407341]
+layout_mode = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 2
+
+[node name="Top" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1948368721]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 2
+
+[node name="InFlow Pin" parent="MarginContainer/VBoxContainer/Top" unique_id=1856335639 instance=ExtResource("5_5pcth")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Top" unique_id=1084598951]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/Top/MarginContainer" unique_id=1858868130]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
+mouse_behavior_recursive = 1
 theme_override_fonts/normal_font = ExtResource("4_qbagd")
 theme_override_font_sizes/normal_font_size = 24
-text = "CONST"
+text = "SET
+"
+fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VariableValueLabel" type="RichTextLabel" parent="Sprite" unique_id=149395355]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 2.0
-offset_top = -1.0
-offset_right = 38.0
-offset_bottom = 35.0
-grow_vertical = 2
-mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("4_qbagd")
-text = "0"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="Bottom" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1369190508]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_behavior_recursive = 1
 
-[node name="OutputPin" parent="." unique_id=804416880 instance=ExtResource("5_5pcth")]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -34.0
-offset_top = -34.0
-offset_right = 0.0
-offset_bottom = 0.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Bottom" unique_id=2126948239]
+layout_mode = 2
+mouse_behavior_recursive = 1
+
+[node name="ReferencePin" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer" unique_id=760004274 instance=ExtResource("5_5pcth")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 3
+
+[node name="ValuePin" parent="MarginContainer/VBoxContainer/Bottom/VBoxContainer" unique_id=409058474 instance=ExtResource("5_5pcth")]
+visible = false
+layout_mode = 2
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="Filler" type="Control" parent="MarginContainer/VBoxContainer/Bottom" unique_id=55039120]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_behavior_recursive = 1
+
+[node name="OutputPin" parent="MarginContainer/VBoxContainer/Bottom" unique_id=804416880 instance=ExtResource("5_5pcth")]
+layout_mode = 2
+size_flags_vertical = 8
 mouse_behavior_recursive = 2
 pin_type = 1
+data_type = 2

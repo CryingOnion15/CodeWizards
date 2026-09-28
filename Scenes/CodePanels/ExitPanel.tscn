@@ -2,16 +2,20 @@
 
 [ext_resource type="Texture2D" uid="uid://cncbk0bn2mojr" path="res://Assets/Sprites/ExitFrame.png" id="1_7qyvm"]
 [ext_resource type="Script" uid="uid://cfat6m8vcf36v" path="res://Components/CodePanel/Control/CodeExitPanel.gd" id="1_gksbb"]
-[ext_resource type="Theme" uid="uid://dlyrh20glx22i" path="res://Assets/Themes/exit_panel_theme.tres" id="1_kglmx"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_j8to2"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_kglmx"]
 
-[node name="PanelContainer" type="PanelContainer" unique_id=992247806]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j8to2"]
+
+[node name="ExitPanel" type="PanelContainer" unique_id=853843333 node_paths=PackedStringArray("pin_root")]
 custom_minimum_size = Vector2(120, 76)
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-mouse_behavior_recursive = 1
+offset_right = 120.0
+offset_bottom = 76.0
+mouse_behavior_recursive = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_j8to2")
+script = ExtResource("1_gksbb")
+pin_root = NodePath("MarginContainer")
+metadata/_custom_type_script = "uid://cfat6m8vcf36v"
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 modulate = Color(1, 0, 0, 1)
@@ -26,17 +30,6 @@ patch_margin_right = 37
 patch_margin_bottom = 37
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-
-[node name="CodeExitPanel" type="Control" parent="." unique_id=1737713163 node_paths=PackedStringArray("pin_root", "drop_node")]
-physics_interpolation_mode = 0
-custom_minimum_size = Vector2(120, 76)
-layout_mode = 2
-mouse_behavior_recursive = 2
-theme = ExtResource("1_kglmx")
-script = ExtResource("1_gksbb")
-pin_root = NodePath("../MarginContainer")
-drop_node = NodePath("..")
-metadata/_custom_type_script = "uid://cfat6m8vcf36v"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=696183877]
 layout_mode = 2
@@ -57,7 +50,7 @@ layout_mode = 2
 mouse_behavior_recursive = 1
 theme_override_constants/separation = 2
 
-[node name="Control" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=197575604 instance=ExtResource("3_kglmx")]
+[node name="In Flow Pin" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=197575604 instance=ExtResource("3_kglmx")]
 layout_mode = 2
 mouse_behavior_recursive = 2
 pin_type = 0

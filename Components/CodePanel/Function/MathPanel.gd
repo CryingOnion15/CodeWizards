@@ -36,6 +36,12 @@ func _ready() -> void:
 		MATH_FUNC.EXP:
 			math_label.text = "^";
 			return;
+			
+	print("READY: ", size)
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_RESIZED:
+		print("RESIZED: ", size)
 	
 func Execute():
 	print("Math Panel Woo.");
