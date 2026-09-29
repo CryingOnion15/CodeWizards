@@ -41,6 +41,4 @@ func set_parameters(params: Dictionary):
 			pin.data_type = Pin.DATA_TYPE.NUMBER;
 		
 		pin.pin_type = Pin.PIN_TYPE.CONNECTOR;
-		pin.set_value(value);
-		
-		
+		pin.set_value(func(): return value);

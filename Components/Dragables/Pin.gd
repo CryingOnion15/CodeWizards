@@ -53,6 +53,7 @@ var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
 var isConnected = false;
 
+var _value_callable: Callable = Callable();
 var _string_value = "";
 var _number_value = 0;
 var _control_value: CodePanel = null;
@@ -247,36 +248,12 @@ func check_valid_connection(otherPin: Pin) -> bool:
 	
 func get_value(get_value_from_connection: bool = false):
 	if(get_value_from_connection && isConnected):
-		match connectedTo.data_type:
-			DATA_TYPE.NUMBER:
-				_number_value = connectedTo._number_value;
-			DATA_TYPE.STRING:
-				_string_value = connectedTo._string_value;
-			DATA_TYPE.CONTROL:
-				_control_value = connectedTo._control_value;
-			DATA_TYPE.REFERENCE:
-				_reference_value = connectedTo._reference_value;
+		_value_callable = connectedTo._value_callable;
 	
-	match data_type:
-		DATA_TYPE.NUMBER:
-			return _number_value;
-		DATA_TYPE.STRING:
-			return _string_value;
-		DATA_TYPE.CONTROL:
-			return _control_value;
-		DATA_TYPE.REFERENCE:
-			return _reference_value;
+	return _value_callable.call();
 
-func set_value(v):
-	match data_type:
-		DATA_TYPE.NUMBER:
-			_number_value = v;
-		DATA_TYPE.STRING:
-			_string_value = v;
-		DATA_TYPE.CONTROL:
-			_control_value = v;
-		DATA_TYPE.REFERENCE:
-			_reference_value = v;
+func set_value(v: Callable):
+	_value_callable = v;
 			
 func get_line_direction() -> Vector2:
 	match pin_type:

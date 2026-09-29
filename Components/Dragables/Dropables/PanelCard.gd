@@ -12,6 +12,7 @@ func handle_start(event):
 	super.handle_start(event);
 	drop_panel.set_mouse_filter_rec(drop_panel,Control.MOUSE_FILTER_IGNORE);
 	drop_panel.modulate.a = .5;
+	CodePanel.clear_selection();
 	
 func handle_end(event):
 	super.handle_end(event);

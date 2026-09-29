@@ -18,7 +18,7 @@ func set_wand_variable(wand: Wand, variable_name: String):
 	parent_wand = wand;
 	
 	if reference_pin:
-		reference_pin.set_value([parent_wand, variable_name]);
+		reference_pin.set_value(func(): return [parent_wand, variable_name]);
 		var_name_label.text = variable_name;
 		
 		value_pin.pin_type = Pin.PIN_TYPE.CONNECTOR;
@@ -31,7 +31,7 @@ func set_wand_variable(wand: Wand, variable_name: String):
 			value_pin.data_type = Pin.DATA_TYPE.NUMBER;
 		
 		#TODO need to puzzle through how to get the value via a function so variable value can be different during execution.
-		value_pin.set_value(parent_wand.get_variable_value(variable_name));
+		value_pin.set_value(func(): return parent_wand.get_variable_value(variable_name));
 	else:
 		push_error("Reference Pin not set.");
 		

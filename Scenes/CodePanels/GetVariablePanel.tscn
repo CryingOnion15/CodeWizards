@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2361a"]
 
-[node name="GetVariablePanel" type="PanelContainer" unique_id=2045576834 node_paths=PackedStringArray("var_name_label", "value_pin", "pin_root")]
+[node name="GetVariablePanel" type="PanelContainer" unique_id=2045576834 node_paths=PackedStringArray("var_name_label", "value_pin", "selection_root")]
 physics_interpolation_mode = 0
 custom_minimum_size = Vector2(74, 74)
 offset_right = 74.0
@@ -19,8 +19,24 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_2361a")
 script = ExtResource("2_2361a")
 var_name_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/VarNameLabel")
 value_pin = NodePath("MarginContainer/VBoxContainer/VBoxContainer/ValuePin")
-pin_root = NodePath(".")
+selection_root = NodePath("SelectionContainer")
 metadata/_custom_type_script = "uid://w811vl7l78r7"
+
+[node name="SelectionContainer" type="MarginContainer" parent="." unique_id=348879308]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="TextureRect" type="ColorRect" parent="SelectionContainer" unique_id=1163154021]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0.99999994, 0.9942164, 0.34174347, 1)
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 layout_mode = 2

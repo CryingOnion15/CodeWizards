@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bq7ssmewfws0o" path="res://Scenes/Wand/Wand.tscn" id="2_llniq"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_llniq"]
 
-[node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root", "wand_var_root", "graph_root")]
+[node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root", "wand_var_root", "graph_root", "create_set_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,8 +14,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qcyhj")
 wand_root = NodePath("HBoxContainer/VBoxContainer/Wand Selection/ScrollContainer/WandContainer")
-wand_var_root = NodePath("HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/ScrollContainer/VBoxContainer")
+wand_var_root = NodePath("HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/Button VBox/ScrollContainer/Variable VBox")
 graph_root = NodePath("HBoxContainer/PanelContainer/WandEditGraph")
+create_set_button = NodePath("HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/Button VBox/Button")
 metadata/_custom_type_script = "uid://cjopexex8beuc"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=347921316]
@@ -63,10 +64,18 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/Variable Panel/MarginContainer" unique_id=1055030891]
+[node name="Button VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Variable Panel/MarginContainer" unique_id=1018102723]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/ScrollContainer" unique_id=19148087]
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/Button VBox" unique_id=223673673]
+layout_mode = 2
+text = "Create Set"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/Button VBox" unique_id=1055030891]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Variable VBox" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/Variable Panel/MarginContainer/Button VBox/ScrollContainer" unique_id=19148087]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

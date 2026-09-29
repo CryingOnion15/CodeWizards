@@ -34,7 +34,7 @@ border_color = Color(1, 0.15294118, 0.03529412, 1)
 font = ExtResource("5_vnljo")
 font_color = Color(1, 0.15294118, 0.03529412, 1)
 
-[node name="Condition" type="PanelContainer" unique_id=737156697 node_paths=PackedStringArray("condition_description_label", "cond_label", "nested_true_inflow_pin", "nested_true_outflow_pin", "nested_false_inflow_pin", "nested_false_outflow_pin", "drop_areas", "pin_root")]
+[node name="Condition" type="PanelContainer" unique_id=737156697 node_paths=PackedStringArray("condition_description_label", "cond_label", "nested_true_inflow_pin", "nested_true_outflow_pin", "nested_false_inflow_pin", "nested_false_outflow_pin", "drop_areas", "selection_root")]
 custom_minimum_size = Vector2(252, 142)
 offset_right = 264.0
 offset_bottom = 366.0
@@ -51,8 +51,24 @@ nested_true_outflow_pin = NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxCon
 nested_false_inflow_pin = NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column/Nested Out Flow Pin True")
 nested_false_outflow_pin = NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column/Nested Out Flow Pin False")
 drop_areas = [NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer/Nest1/True Area"), NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer/Nest1/False Area")]
-pin_root = NodePath("Pin Root")
+selection_root = NodePath("SelectionContainer")
 metadata/_custom_type_script = "uid://dd2svrqo8abnk"
+
+[node name="SelectionContainer" type="MarginContainer" parent="." unique_id=535189288]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="TextureRect" type="ColorRect" parent="SelectionContainer" unique_id=1487953838]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0.99999994, 0.9942164, 0.34174347, 1)
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
 layout_mode = 2

@@ -43,12 +43,17 @@ func on_drop(drop: Dropable, drop_area: DropArea):
 		else:
 			drop_canceled(drop);
 	else:
-		if (already_has_drop(drop)):
-			dropables.erase(drop);
-			on_drop_removed.emit(drop);
+		remove_dropable(drop);
 				
 	deactivate_area();
-	
+
+func remove_dropable(drop):
+	if (already_has_drop(drop)):
+		dropables.erase(drop);
+		on_drop_removed.emit(drop);
+		await get_tree().process_frame;	
+		resize_area();
+
 func already_has_drop(drop) -> bool:	
 	return dropables.find(drop) != -1;
 

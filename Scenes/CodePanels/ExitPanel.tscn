@@ -7,15 +7,31 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j8to2"]
 
-[node name="ExitPanel" type="PanelContainer" unique_id=853843333 node_paths=PackedStringArray("pin_root")]
+[node name="ExitPanel" type="PanelContainer" unique_id=853843333 node_paths=PackedStringArray("selection_root")]
 custom_minimum_size = Vector2(120, 76)
 offset_right = 120.0
 offset_bottom = 76.0
 mouse_behavior_recursive = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_j8to2")
 script = ExtResource("1_gksbb")
-pin_root = NodePath("MarginContainer")
+selection_root = NodePath("SelectionContainer")
 metadata/_custom_type_script = "uid://cfat6m8vcf36v"
+
+[node name="SelectionContainer" type="MarginContainer" parent="." unique_id=1883817921]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="TextureRect" type="ColorRect" parent="SelectionContainer" unique_id=35239494]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0.99999994, 0.9942164, 0.34174347, 1)
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=1901381788]
 modulate = Color(1, 0, 0, 1)

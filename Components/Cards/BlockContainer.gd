@@ -92,10 +92,12 @@ func on_drop_success(drop: Dropable):
 					
 				if dropable is FunctionPanel:
 					dropable.unnest_panel();
+					
+				if dropable is CodePanel:
+					dropable.remove_panel_from_graph();
 				
 				nest_card.reparent(hBox);
 				nest_card.set_mouse_filter_rec(nest_card,Control.MOUSE_FILTER_STOP);
-				DropManager.add_dropable_to_pool(dropable);
 			
 			area.dropables.clear();
 			area.resize_area();
@@ -104,3 +106,49 @@ func on_drop_success(drop: Dropable):
 	
 	card.reparent(hBox);
 	card.set_mouse_filter_rec(card,Control.MOUSE_FILTER_STOP);
+
+func _input(event):
+	# Triggers when a key event occurs and it matches the Delete key
+	if event is InputEventKey and event.is_action_pressed("ui_text_delete"):
+		if(CodePanel.selected_panel != null):
+			var selected = CodePanel.selected_panel;
+			
+			if selected is CodeEntryPanel || selected is CodeExitPanel:
+				return;
+			
+			selected.disconnect_all_pins();
+				
+			if selected is GetVariablePanel || selected is SetVariablePanel:
+				selected.queue_free();
+				return;
+			
+			var card = selected.get_drop_data(drop_area.type);
+			
+			#TODO this is not full recursive. So that will need to be adjusted in the future.
+			if selected is NestedPanel:
+				# Get all nested panels and then disconned and add cards back to list.
+				var nest = selected as NestedPanel;
+				for area in nest.drop_areas:
+					for dropable in area.dropables:
+						var nest_card = dropable.get_drop_data(drop_area.type);
+							
+						if dropable is FunctionPanel:
+							dropable.unnest_panel();
+						
+						if dropable is CodePanel:
+							dropable.remove_panel_from_graph();
+						
+						nest_card.reparent(hBox);
+						nest_card.set_mouse_filter_rec(nest_card,Control.MOUSE_FILTER_STOP);
+					
+					area.dropables.clear();
+					area.resize_area();
+					
+				nest.size = nest.custom_minimum_size;
+				
+			if selected is FunctionPanel && selected.is_nested:
+				selected.unnest_panel();
+				
+			card.reparent(hBox);
+			card.set_mouse_filter_rec(card,Control.MOUSE_FILTER_STOP);
+			selected.remove_panel_from_graph();

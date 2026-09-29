@@ -17,14 +17,23 @@ var exit_panel: CodeExitPanel = null;
 var code_panels: Array[CodePanel] = [];
 var wand_variables: Array[Node] = [];
 
+const entry_start_location: Vector2 = Vector2(600,400);
+const exit_start_location: Vector2 = Vector2(1300,800);
+
+@export var selection_root: Node = null;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);
 	mouse_exited.connect(_on_mouse_exited);
 	
 	entry_panel = entry_scene.instantiate();
-	exit_panel = exit_scene.instantiate();
+	entry_panel.position = entry_start_location;
 	
+	exit_panel = exit_scene.instantiate();
+	exit_panel.position = exit_start_location;
+	
+	#TODO override position with saved location if set.
 	
 	#TODO load parameters from save file and replace.
 	add_parameter("Param1", 5);
@@ -37,6 +46,9 @@ func _ready() -> void:
 	add_variable("Var 2", 10);
 	
 	create_variables();
+	
+	if selection_root:
+		selection_root.hide();
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -90,6 +102,9 @@ func select_wand():
 	
 	for panel in code_panels:
 		panel.show();
+		
+	if selection_root:
+		selection_root.show();
 
 func reset_wand():
 	entry_panel.hide();
@@ -97,6 +112,9 @@ func reset_wand():
 	
 	for panel in code_panels:
 		panel.hide();
+		
+	if selection_root:
+		selection_root.hide();
 		
 func on_panel_added(panel: CodePanel):
 	code_panels.push_back(panel);

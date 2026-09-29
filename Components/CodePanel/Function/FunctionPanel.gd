@@ -74,8 +74,8 @@ func get_next_control() -> CodePanel:
 		
 func success(drop_type: DropData.DropType):
 	match drop_type:
-		DropData.DropType.GRID:
-			unnest_panel();
+		DropData.DropType.GRID:			
+			unnest_panel();			
 		DropData.DropType.CARD:
 			unnest_panel();
 		DropData.DropType.NEST:
@@ -91,8 +91,15 @@ func nest_panel():
 	outflow_pin.set_locked_state(true);
 	drop_type = nest_type;
 	
+	if wand_graph:
+		wand_graph.remove_panel_from_graph(self);
+		wand_graph.add_panel_to_graph(self);
+	
 func unnest_panel():
 	is_nested = false;
 	inflow_pin.set_locked_state(false);
 	outflow_pin.set_locked_state(false);
 	drop_type = normal_type;
+	
+	if wand_graph:
+		wand_graph.remove_panel_from_graph(self);

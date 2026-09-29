@@ -16,7 +16,7 @@ func init_drop():
 
 func update_visuals():
 	if output_pin: 
-		output_pin.set_value(variable_number_value);
+		output_pin.set_value(func(): return variable_number_value);
 		value_label.text = "%s" % [variable_number_value];
 	
 func set_data(data: Dictionary):

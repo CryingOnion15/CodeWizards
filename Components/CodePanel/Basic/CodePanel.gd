@@ -6,17 +6,21 @@ enum THEME_SIZE {
 	LARGE = 2,
 }
 
+@export var selection_root: Node = null;
+
 var available_pins: Array[Pin] = [];
 var panel_card: PanelCard = null;
 var save_data: Dictionary;
 var is_nested: bool = false;
+var is_selected: bool = false;
 var can_be_nested: bool = false;
-#var nested_area: DropArea = null;
+var wand_graph: WandGraph = null;
 
 #drop types.
 var nest_type = DropData.DropType.GRID | DropData.DropType.CARD;
 var normal_type = DropData.DropType.CARD;
 
+static var selected_panel: CodePanel = null;
 #@export var size_theme: THEME_SIZE = THEME_SIZE.MEDIUM;
 #@export var pin_root: Node = self;
 
@@ -27,11 +31,12 @@ func _ready():
 		var pin = child as Pin;
 		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
 			# Set this pin's value to it's code panel owner.
-			pin.set_value(self);
+			pin.set_value(func(): return self);
 			
 		available_pins.push_back(pin);
 		
 	#set_size_via_theme();
+	unselect();
 	
 	#Dropable settings.
 	drop_type = normal_type;
@@ -90,6 +95,13 @@ func handle_start(event):
 		panel_card.modulate.a = .5;
 		panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_IGNORE);
 	
+	if CodePanel.selected_panel != self:	
+		if CodePanel.selected_panel != null:
+			CodePanel.selected_panel.unselect();
+		
+		CodePanel.selected_panel = self;
+		select();
+	
 func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
@@ -97,8 +109,7 @@ func handle_end(event):
 	if panel_card:
 		panel_card.modulate.a = 1;
 		panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_STOP);
-	
-	
+		
 func _get_nest_data():
 	return self;
 
@@ -115,16 +126,14 @@ func success(drop_type: DropData.DropType):
 		DropData.DropType.GRID:
 			if panel_card:
 				panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_IGNORE);
-			#DropManager.add_dropable_to_pool(self);
 		DropData.DropType.CARD:
 			if panel_card:
 				panel_card.modulate.a = 1;
 				panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_STOP);
-			DropManager.add_dropable_to_pool(self);
+			remove_panel_from_graph();
 			disconnect_all_pins();
 		DropData.DropType.NEST:
-			if panel_card:
-				panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_IGNORE);
+			pass;
 		DropData.DropType.RAM:
 			pass;
 		
@@ -147,7 +156,11 @@ func update_valid(drop_area: DropArea):
 	
 	match drop_area.type:
 		DropData.DropType.CARD:
+			if is_nested:
+				reparent(current_parent);
+				
 			position = start_position;
+			
 			if panel_card:
 				drag_node = panel_card;
 				panel_card.reparent(drop_area);
@@ -155,8 +168,6 @@ func update_valid(drop_area: DropArea):
 				panel_card.position = drop_area.get_local_mouse_position() - offset;
 			else:
 				drag_node = null;
-				position = start_position;
-			
 
 		DropData.DropType.NEST:
 			drag_node = null;
@@ -165,13 +176,11 @@ func update_valid(drop_area: DropArea):
 			drop_area.resize_area();
 			
 		DropData.DropType.GRID:
-			print("GRID");
 			if is_nested:
 				reparent(drop_area);
 				drag_node = self;
-				
-			var offset = Vector2(1,0) * size.x / 2;
-			position = drop_area.get_local_mouse_position() - offset;
+				var offset = Vector2(1,0) * size.x / 2;
+				position = drop_area.get_local_mouse_position() - offset;
 		_:
 			update_to_default_state();
 
@@ -183,8 +192,6 @@ func update_invalid(drop_area: DropArea):
 	
 	if !is_nested:
 		drag_node = self;
-		var offset = Vector2(1,0) * size.x / 2;
-		position = get_parent().get_local_mouse_position() - offset;
 	else:
 		drag_node = null;
 		position = Vector2.ZERO;
@@ -202,8 +209,6 @@ func update_to_default_state():
 
 	if !is_nested:
 		drag_node = self;
-		var offset = Vector2(1,0) * size.x / 2;
-		position = get_parent().get_local_mouse_position() - offset;
 	else:
 		drag_node = null;
 		position = Vector2.ZERO;
@@ -220,7 +225,32 @@ func disconnect_all_pins():
 		pin.disconnect_pin();
 
 func select():
-	pass;
+	print("SELECT");
+	if selection_root:
+		selection_root.show();
+		
+	is_selected = true;
 	
 func unselect():
-	pass;
+	print("UNSELECT");
+	if selection_root:
+		selection_root.hide();
+		
+	is_selected = false;
+
+static func clear_selection():
+	if CodePanel.selected_panel:
+		CodePanel.selected_panel.unselect();
+		CodePanel.selected_panel = null;
+		
+func remove_panel_from_graph(): 
+	if wand_graph:
+		#TODO maybe do a signal here. Not sure. Look into better solution.
+		var parent = get_parent();
+		if parent is DropArea:
+			parent.remove_dropable(self);
+			
+		wand_graph.remove_panel_from_graph(self);
+		DropManager.add_dropable_to_pool(self);
+		wand_graph = null;
+		

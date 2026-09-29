@@ -8,7 +8,6 @@ static var instance: DropManager = null;
 static var DROP_POOL: Vector2 = Vector2(5000, 5000);
 
 var current_dropable: Dropable;
-var selected_dropable: Dropable;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +17,7 @@ func _ready() -> void:
 		queue_free();
 
 static func set_dropable(dropable: Dropable):
-	if(instance != null):
+	if(instance != null):				
 		instance.current_dropable = dropable;
 		instance.dropable_updated.emit(instance.current_dropable);
 

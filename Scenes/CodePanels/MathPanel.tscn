@@ -8,7 +8,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvjcf"]
 
-[node name="MathPanel" type="PanelContainer" unique_id=2024613806 node_paths=PackedStringArray("math_label")]
+[node name="MathPanel" type="PanelContainer" unique_id=2024613806 node_paths=PackedStringArray("math_label", "selection_root")]
 physics_interpolation_mode = 0
 custom_minimum_size = Vector2(120, 120)
 offset_right = 120.0
@@ -17,7 +17,24 @@ theme = ExtResource("1_uvjcf")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_uvjcf")
 script = ExtResource("1_bh64o")
 math_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/MathLabel")
+selection_root = NodePath("SelectionContainer")
 metadata/_custom_type_script = "uid://b874icemm6o7c"
+
+[node name="SelectionContainer" type="MarginContainer" parent="." unique_id=1849288445]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="TextureRect" type="ColorRect" parent="SelectionContainer" unique_id=557283441]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0.99999994, 0.9942164, 0.34174347, 1)
 
 [node name="Background" type="NinePatchRect" parent="." unique_id=1901381788]
 layout_mode = 2

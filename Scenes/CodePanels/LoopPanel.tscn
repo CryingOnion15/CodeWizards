@@ -9,18 +9,34 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tom4s"]
 
-[node name="LoopPanel" type="PanelContainer" unique_id=152490176 node_paths=PackedStringArray("drop_areas", "pin_root")]
+[node name="LoopPanel" type="PanelContainer" unique_id=152490176 node_paths=PackedStringArray("drop_areas", "selection_root")]
 custom_minimum_size = Vector2(252, 142)
 offset_right = 252.0
 offset_bottom = 362.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 2
+size_flags_vertical = 2
 mouse_behavior_recursive = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_tom4s")
 script = ExtResource("1_isrc0")
 drop_areas = [NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest1/DropArea1"), NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest2/DropArea2"), NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest3/DropArea3")]
-pin_root = NodePath("HBoxContainer")
+selection_root = NodePath("SelectionContainer")
 metadata/_custom_type_script = "uid://c3k47y01b8qmf"
+
+[node name="SelectionContainer" type="MarginContainer" parent="." unique_id=874033861]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = -4
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_right = -4
+theme_override_constants/margin_bottom = -4
+
+[node name="TextureRect" type="ColorRect" parent="SelectionContainer" unique_id=1060023875]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+color = Color(0.99999994, 0.9942164, 0.34174347, 1)
 
 [node name="Sprite" type="NinePatchRect" parent="." unique_id=2038328876]
 layout_mode = 2

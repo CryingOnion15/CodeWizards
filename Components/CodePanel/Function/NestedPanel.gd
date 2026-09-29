@@ -36,12 +36,17 @@ func on_drop_success(dropable: Dropable, area: DropArea):
 	
 	connect_nested_pins();
 	
+	panel.wand_graph = wand_graph;
+	
 	if(dropable is PanelCard):
 		DropManager.add_dropable_to_pool(dropable);
 
 func on_drop_removed(drop: Dropable):
 	# TODO check if I can remove reset_size from other calls.
+	hide();
+	await get_tree().process_frame;
 	reset_size();
+	show();
 	connect_nested_pins();
 
 func nests_available() -> bool:

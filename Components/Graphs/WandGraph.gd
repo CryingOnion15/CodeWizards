@@ -25,13 +25,8 @@ func _ready() -> void:
 	anchor_top = 0;
 	anchor_right = xBoundScale;
 	anchor_bottom = xBoundScale;
-	
-	#Wait a frame so the ui is in the right place and right size.
-	await get_tree().process_frame;
-	var parentSize = get_parent_control().get_rect().size;
-	
-	#Offset panel to center.
-	position =  -parentSize * .5;
+
+	visibility_changed.connect(resize_graph);
 	
 	#add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
 	#add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
@@ -43,6 +38,10 @@ func _ready() -> void:
 	graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL));
 	
 	DropManager.instance.dropable_updated.connect(on_dropable_updated);	
+
+func handle_start(event):
+	super.handle_start(event);
+	CodePanel.clear_selection();
 
 func _process(_delta: float) -> void:
 	if(Input.is_action_just_pressed("Run")):
@@ -79,6 +78,7 @@ func set_size_of_panels(t_size: CodePanel.THEME_SIZE):
 	
 func add_panel_to_graph(panel: CodePanel):
 	if(panel != null):
+		panel.wand_graph = self;
 		if(panel == entryPanel || panel == exitPanel):
 			return;
 			
@@ -90,14 +90,14 @@ func add_panel_to_graph(panel: CodePanel):
 		else:
 			panels.push_back(panel);
 		
-		if(panel.get_parent() != drop_area):
-			if(panel.get_parent()):
-				panel.reparent(drop_area);
-			else:
-				drop_area.add_child(panel);
+		if(!panel.is_nested):
+			if(panel.get_parent() != drop_area):
+				if(panel.get_parent()):
+					panel.reparent(drop_area);
+				else:
+					drop_area.add_child(panel);
 		
 		panel_added.emit(panel);
-		#panel.position = location;
 
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):
@@ -112,6 +112,14 @@ func reset_graph():
 	
 	var parentSize = get_parent_control().get_rect().size;
 	position =  -parentSize * .5;
+	
+func resize_graph():
+	await get_tree().process_frame;
+	if is_visible_in_tree():
+		var parentSize = get_parent_control().get_rect().size;
+	
+		#Offset panel to center.
+		position =  -parentSize * .5;
 
 func on_drop_success(drop: Dropable):
 	var newPanel: CodePanel = drop.get_drop_data(drop_area.type) as CodePanel;
