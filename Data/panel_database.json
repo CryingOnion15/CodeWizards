@@ -1,0 +1,106 @@
+{
+	"panels": {
+		"const0": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 0
+			}
+		},
+		"const1": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 1
+			}
+		},
+		"const2": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 2
+			}
+		},
+		"const3": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 3
+			}
+		},
+		"const4": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 4
+			}
+		},
+		"const5": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 5
+			}
+		},
+		"const6": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 6
+			}
+		},
+		"const7": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 7
+			}
+		},
+		"const8": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 8
+			}
+		},
+		"const9": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 9
+			}
+		},
+		"const10": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 10
+			}
+		},
+		"const11": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 11
+			}
+		},
+		"const12": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 12
+			}
+		},
+		"const13": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"value": 13
+			}
+		},
+		"test_loop": {
+			"panelPath": "res://Scenes/CodePanels/LoopPanel.tscn",
+			"data": {
+				"value": 13
+			},
+		},
+		"test_math": {
+			"panelPath": "res://Scenes/CodePanels/MathPanel.tscn",
+			"data": {
+				"value": 13
+			}
+		},
+		"test_cond": {
+			"panelPath": "res://Scenes/CodePanels/ConditionPanel.tscn",
+			"data": {
+				"value": 13
+			}
+		}
+	}
+}

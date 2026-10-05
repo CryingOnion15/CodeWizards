@@ -23,14 +23,15 @@ func _ready() -> void:
 	
 	for card in data["cards"]:
 		var cardData = PanelDatabase.get_card(card);
-		var dropable: PackedScene = load(cardData["dragPath"]) as PackedScene;
-		var panel: PackedScene = load(cardData["panelPath"]) as PackedScene;
+		var panelData = PanelDatabase.get_panel(card);
+		var dropable: PackedScene = load(cardData["cardPath"]) as PackedScene;
+		var panel: PackedScene = load(panelData["panelPath"]) as PackedScene;
 		
 		if(dropable && panel):
 			var drop: Dropable = dropable.instantiate() as Dropable;
 			var rect: TextureRect = drop.get_node("TextureRect");
 			drop.drop_scene = panel;
-			drop.set_data(cardData["data"]);
+			drop.set_data(panelData["data"]);
 			drop.init_drop();
 			
 			##Load and set textures.

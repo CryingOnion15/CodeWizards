@@ -36,7 +36,7 @@ func disconnect_nested_pins():
 	for area in valid_areas:
 		if(area.dropables.size() > 0):
 			var panel = area.get_panel();
-			panel.disconnect_all_pins();
+			panel.disconnect_control_pins();
 
 func connect_nested_pins():
 	disconnect_nested_pins();

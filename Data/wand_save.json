@@ -1,0 +1,180 @@
+{
+	"wand_scene": "res://Scenes/Wand/Wand.tscn",
+	"wands": [
+		{
+			"parameters": {
+				"Param1": 5,
+				"Type": "Poison"
+			},
+			"variables": {
+				"Var 1": 5,
+				"Var 2": 10
+			},
+			"entry_panel": {
+				"scene": "res://Scenes/CodePanels/EntryPanel.tscn",
+				"panel_scene": "",
+				"position": [600.0, 400.0],
+				"is_nested": false,
+				"nested_under": "NEED DROP AREA ID",
+				"pins": [
+					{
+						"id": "dd7a8df7-803e-e165-f3c7-9df33b4b4f12",
+						"connectedTo": "613ccc8e-044f-eef5-afe4-b67d13da6cd9",
+						"value": ["Not", "Done"]
+					},
+					{
+						"id": "4dba6b45-0611-6399-6579-cbce30503ae7",
+						"connectedTo": "",
+						"value": ["Not", "Done"]
+					},
+					{
+						"id": "c4541e78-20ae-79bc-d471-323d01eb8875",
+						"connectedTo": "",
+						"value": ["Not", "Done"]
+					}
+				]
+			},
+			"exit_panel": {
+				"scene": "res://Scenes/CodePanels/ExitPanel.tscn",
+				"panel_scene": "",
+				"position": [1315.0, 820.0],
+				"is_nested": false,
+				"nested_under": "NEED DROP AREA ID",
+				"pins": [
+					{
+						"id": "3f92c3b6-d4c0-a425-a208-6da4c1af3f30",
+						"connectedTo": "4c702a00-571c-e9be-1c30-f1873a6bc1ce",
+						"value": ["Not", "Done"]
+					},
+					{
+						"id": "9560dcb5-7b0e-075b-f342-d8e77105d333",
+						"connectedTo": "a50a1431-8310-7c98-cc22-ccd53d503c94",
+						"value": ["Not", "Done"]
+					}
+				]
+			},
+			"panels": [
+				{
+					"scene": "res://Scenes/CodePanels/MathPanel.tscn",
+					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"position": [784.0, 478.0],
+					"is_nested": false,
+					"nested_under": "NEED DROP AREA ID",
+					"pins": [
+						{
+							"id": "613ccc8e-044f-eef5-afe4-b67d13da6cd9",
+							"connectedTo": "dd7a8df7-803e-e165-f3c7-9df33b4b4f12",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "263a9697-e949-a809-a57b-3005e608b6ca",
+							"connectedTo": "621b9135-3880-b81b-803e-234fa9d64c16",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "f4a612fa-2830-d1fb-e590-4650c893efeb",
+							"connectedTo": "9a981035-e407-7e86-0e25-008dbfe2acb8",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "7e4f7f9b-1a86-ce04-3833-3f60d74c8a83",
+							"connectedTo": "aab89790-9e52-1bae-f812-1c44a70f7b30",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "6660fffe-a6e2-4482-6c0b-99869d669620",
+							"connectedTo": "38221181-8c5e-12d8-ebec-b8225d536eca",
+							"value": ["Not", "Done"]
+						}
+					]
+				},
+				{
+					"scene": "res://Scenes/CodePanels/LoopPanel.tscn",
+					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"position": [980.0, 479.0],
+					"is_nested": false,
+					"nested_under": "NEED DROP AREA ID",
+					"pins": [
+						{
+							"id": "38221181-8c5e-12d8-ebec-b8225d536eca",
+							"connectedTo": "6660fffe-a6e2-4482-6c0b-99869d669620",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "aab89790-9e52-1bae-f812-1c44a70f7b30",
+							"connectedTo": "7e4f7f9b-1a86-ce04-3833-3f60d74c8a83",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "1f1a1bf2-ea3e-fcfc-15c4-2e4c880246a4",
+							"connectedTo": "",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "77f05f98-cf3c-428c-3d26-ead17c90434e",
+							"connectedTo": "",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "13afa6b8-abd4-8d0c-46cf-624ca9def19f",
+							"connectedTo": "",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "4c702a00-571c-e9be-1c30-f1873a6bc1ce",
+							"connectedTo": "3f92c3b6-d4c0-a425-a208-6da4c1af3f30",
+							"value": ["Not", "Done"]
+						},
+						{
+							"id": "fe3be721-4f69-a1f1-663b-2988e948455d",
+							"connectedTo": "",
+							"value": ["Not", "Done"]
+						}
+					]
+				},
+				{
+					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn",
+					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"position": [622.0, 551.0],
+					"is_nested": false,
+					"nested_under": "NEED DROP AREA ID",
+					"pins": [
+						{
+							"id": "621b9135-3880-b81b-803e-234fa9d64c16",
+							"connectedTo": "263a9697-e949-a809-a57b-3005e608b6ca",
+							"value": ["Not", "Done"]
+						}
+					]
+				},
+				{
+					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn",
+					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"position": [618.0, 698.0],
+					"is_nested": false,
+					"nested_under": "NEED DROP AREA ID",
+					"pins": [
+						{
+							"id": "9a981035-e407-7e86-0e25-008dbfe2acb8",
+							"connectedTo": "f4a612fa-2830-d1fb-e590-4650c893efeb",
+							"value": ["Not", "Done"]
+						}
+					]
+				},
+				{
+					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn",
+					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"position": [1093.0, 869.0],
+					"is_nested": false,
+					"nested_under": "NEED DROP AREA ID",
+					"pins": [
+						{
+							"id": "a50a1431-8310-7c98-cc22-ccd53d503c94",
+							"connectedTo": "9560dcb5-7b0e-075b-f342-d8e77105d333",
+							"value": ["Not", "Done"]
+						}
+					]
+				}
+			]
+		}
+	]
+}

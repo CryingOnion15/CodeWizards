@@ -24,6 +24,7 @@ func on_reference_connected():
 
 func on_reference_disconnected():
 	value_pin.hide();
+	minimum_size_changed.emit();
 	
 func Execute():	
 	var wand_tuple = reference_pin.get_value(true);

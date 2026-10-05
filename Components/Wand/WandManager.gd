@@ -13,14 +13,17 @@ var current_wand: Wand = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#TODO will eventually need to load wands via save data.
-	var wand_children = wand_root.find_children("*", "Wand", true, false);
-	for wand in wand_children:
-		if wand is Wand:
-			wands.push_back(wand);
-			wand.wand_selected.connect(on_wand_selected);
-			
-			#TODO instantiate all wand variables.
+	SaveDataUtility.load_data_from_file("res://Data/wand_save.json");
+	
+	var wand_data = SaveDataUtility.get_data("wands");
+	var wand_scene = load(SaveDataUtility.get_data("wand_scene"));
+	
+	for data in wand_data:
+		var new_wand = wand_scene.instantiate();
+		wands.push_back(new_wand);
+		new_wand.wand_selected.connect(on_wand_selected);
+		new_wand.init_with_data(data);
+		wand_root.add_child(new_wand);
 			
 	var graph_children = graph_root.find_children("*", "WandGraph", true, false);
 	for graph in graph_children:
@@ -36,6 +39,7 @@ func _ready() -> void:
 func create_set():
 	var new_set = set_panel_scene.instantiate();
 	wand_graph.add_panel_to_graph(new_set);
+	new_set.position = wand_graph.get_view_center() - new_set.size / 2;
 
 func on_wand_selected(wand: Wand):
 	
@@ -99,6 +103,7 @@ func hide_wand_vars():
 func on_get_created(variable: WandVariable, panel: GetVariablePanel):
 	wand_graph.add_panel_to_graph(panel);
 	panel.set_wand_variable(variable.wand, variable.var_name);
+	panel.position = wand_graph.get_view_center() - panel.size / 2;
 
 func show_grid():
 	graph_root.show();

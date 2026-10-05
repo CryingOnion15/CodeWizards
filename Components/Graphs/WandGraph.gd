@@ -44,8 +44,9 @@ func handle_start(event):
 	CodePanel.clear_selection();
 
 func _process(_delta: float) -> void:
-	if(Input.is_action_just_pressed("Run")):
-		Run();
+	pass;
+	#if(Input.is_action_just_pressed("Run")):
+		#Run();
 			
 func Run():
 	if(entryPanel):
@@ -134,3 +135,8 @@ func on_dropable_updated(dropable: Dropable):
 		drop_area.mouse_filter = Control.MOUSE_FILTER_STOP;
 	else:
 		drop_area.mouse_filter = Control.MOUSE_FILTER_PASS;
+		
+func get_view_center():
+	var parent_size = get_parent().size / 2;
+	
+	return Vector2(parent_size.x - position.x, parent_size.y - position.y);

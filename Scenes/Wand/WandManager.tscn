@@ -48,9 +48,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Wand" parent="HBoxContainer/VBoxContainer/Wand Selection/ScrollContainer/WandContainer" unique_id=1942749193 instance=ExtResource("2_llniq")]
+visible = false
 layout_mode = 2
 
 [node name="Wand2" parent="HBoxContainer/VBoxContainer/Wand Selection/ScrollContainer/WandContainer" unique_id=146980233 instance=ExtResource("2_llniq")]
+visible = false
 layout_mode = 2
 
 [node name="Variable Panel" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1769959635]

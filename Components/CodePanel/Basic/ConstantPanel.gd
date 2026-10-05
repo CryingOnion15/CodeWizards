@@ -21,5 +21,5 @@ func update_visuals():
 	
 func set_data(data: Dictionary):
 	super.set_data(data);
-	variable_number_value = save_data["value"];	
+	variable_number_value = data["value"];	
 	update_visuals();	

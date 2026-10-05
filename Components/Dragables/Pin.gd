@@ -14,6 +14,11 @@ enum DATA_TYPE {
 	REFERENCE
 }
 
+#class PinSaveData:
+	#var id: String;
+	#var connectedTo: String;
+	#var value: Variant; #TODO Need to work on this.
+
 #signals
 signal pin_enter(pin: Pin)
 signal pin_exit(pin: Pin)
@@ -54,11 +59,19 @@ var isDrawingCurve: bool = false;
 var isConnected = false;
 
 var _value_callable: Callable = Callable();
-var _string_value = "";
-var _number_value = 0;
-var _control_value: CodePanel = null;
-var _reference_value: Array = []; #Element 0 = Wand, #Element 1 = var name.
-
+#var _string_value = "";
+#var _number_value = 0;
+#var _control_value: CodePanel = null;
+#var _reference_value: Array = []; #Element 0 = Wand, #Element 1 = var name.
+var _id: String = "";
+	
+var id: String = "":
+	get:
+		if _id == "":
+			_id = SaveDataUtility.get_UUID();
+		return _id;
+	set(value):
+		_id = value; 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -280,3 +293,10 @@ func locked_display():
 func unlocked_display():
 	lock_sprite.visible = false;
 	pin_animation.modulate.a = 1;
+
+func get_save_data() -> Dictionary:	
+	return {
+		"id": id,
+		"connectedTo": connectedTo.id if connectedTo else "",
+		"value": ["Not", "Done"],
+	}

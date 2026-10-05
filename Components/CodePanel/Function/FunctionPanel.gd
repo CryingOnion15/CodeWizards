@@ -103,3 +103,12 @@ func unnest_panel():
 	
 	if wand_graph:
 		wand_graph.remove_panel_from_graph(self);
+		
+func disconnect_control_pins():
+	if(inflow_pin.connectedTo):
+		inflow_pin.connectedTo.disconnect_pin();
+	inflow_pin.disconnect_pin();
+	
+	if(outflow_pin.connectedTo):
+		outflow_pin.connectedTo.disconnect_pin();
+	outflow_pin.disconnect_pin();

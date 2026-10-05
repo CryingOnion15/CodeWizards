@@ -27,23 +27,15 @@ func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);
 	mouse_exited.connect(_on_mouse_exited);
 	
-	entry_panel = entry_scene.instantiate();
-	entry_panel.position = entry_start_location;
+	if(!entry_panel):
+		entry_panel = entry_scene.instantiate();
+		entry_panel.position = entry_start_location;
 	
-	exit_panel = exit_scene.instantiate();
-	exit_panel.position = exit_start_location;
-	
-	#TODO override position with saved location if set.
-	
-	#TODO load parameters from save file and replace.
-	add_parameter("Param1", 5);
-	add_parameter("Type", "Poison");
+	if(!exit_panel):
+		exit_panel = exit_scene.instantiate();
+		exit_panel.position = exit_start_location;
 	
 	entry_panel.set_parameters(parameter_map);
-	
-	#TODO load varaibles from a save file.
-	add_variable("Var 1", 5);
-	add_variable("Var 2", 10);
 	
 	create_variables();
 	
@@ -53,6 +45,9 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		handle_mouse_buttons(event);
+		
+	if(Input.is_action_just_pressed("Run")):
+		print(get_save_data());
 
 func handle_mouse_buttons(event):					
 	if(is_entered && event.is_action_released("Mouse1")):
@@ -129,3 +124,48 @@ func create_variables():
 		var new_var = variable_scene.instantiate() as WandVariable;
 		new_var.init_wand_variable(self, variable);
 		wand_variables.push_back(new_var);
+
+func get_save_data():
+	return {
+		"parameters": parameter_map,
+		"variables": variable_map,
+		"entry_panel": entry_panel.get_save_data(),
+		"exit_panel": exit_panel.get_save_data(),
+		"panels": get_panel_data(),
+	}
+
+func get_panel_data():
+	var data = [];
+	
+	for panel in code_panels:
+		data.push_back(panel.get_save_data());
+		
+	return data;
+	
+func init_with_data(data: Dictionary):
+	var params = data["parameters"];
+	
+	for param in params.keys():
+		add_parameter(param, params[param]);
+	
+	var vars = data["variables"];
+	
+	for vari in vars:
+		add_variable(vari, vars[vari]);
+		
+	var entry_data = data["entry_panel"];
+	var entry = load(entry_data["scene"]);
+	entry_panel = entry.instantiate();
+	entry_panel.init_panel(entry_data);
+	
+	var exit_data = data["exit_panel"];
+	var exit = load(exit_data["scene"]);
+	exit_panel = exit.instantiate();
+	exit_panel.init_panel(exit_data);
+	
+	var panels = data["panels"];
+	for panel in panels:
+		var panel_scene = load(panel["scene"]);
+		var new_panel = panel_scene.instantiate();
+		code_panels.push_back(new_panel);
+		new_panel.init_panel(panel);
