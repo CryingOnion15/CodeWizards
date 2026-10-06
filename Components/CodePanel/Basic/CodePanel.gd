@@ -10,7 +10,7 @@ enum THEME_SIZE {
 
 var available_pins: Array[Pin] = [];
 var panel_card: PanelCard = null;
-var save_data: Dictionary;
+var meta_data: Dictionary = {};
 var is_nested: bool = false;
 var is_selected: bool = false;
 var can_be_nested: bool = false;
@@ -25,18 +25,20 @@ static var selected_panel: CodePanel = null;
 #@export var size_theme: THEME_SIZE = THEME_SIZE.MEDIUM;
 #@export var pin_root: Node = self;
 
+var _id: String = "";
+	
+var id: String = "":
+	get:
+		if _id == "":
+			_id = SaveDataUtility.get_UUID();
+		return _id;
+	set(value):
+		_id = value;
+
 func _ready():
 	super._ready();
-	var children = find_children("*", "Pin", true, false);
-	for child in children:
-		var pin = child as Pin;
-		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
-			# Set this pin's value to it's code panel owner.
-			pin.set_value(func(): return self);
-			
-		available_pins.push_back(pin);
-		
-	#set_size_via_theme();
+	find_pins();
+	init_panel();
 	unselect();
 	
 	#Dropable settings.
@@ -70,36 +72,51 @@ func Execute():
 func get_next_control() -> CodePanel:
 	return null;
 
+func find_pins():
+	var children = find_children("*", "Pin", true, false);
+	for child in children:
+		var pin = child as Pin;
+		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
+			# Set this pin's value to it's code panel owner.
+			pin.set_value(func(): return self);
+			
+		available_pins.push_back(pin);
+
+func set_meta_data(data: Dictionary):
+	meta_data = data;
+
 #TODO need to handle all interaction with data set.
-func init_panel(data: Dictionary):
-	save_data = data;
-	
-	var pos = data["position"];
-	position = Vector2(pos[0], pos[1]);
-	
-	if(data["panel_scene"] != ""):
-		var card = load(data["panel_scene"]);
-		panel_card = card.instantiate();
-		DropManager.add_dropable_to_pool(panel_card);
-	
-	#TODO handle nesting.
-	is_nested = data["is_nested"];
-	
-	#TODO handle pin data.
-	var pins = data["pins"];
-	for pin in pins:
-		pass;
+func init_panel():
+	if not meta_data.is_empty():
+		var save_id = meta_data.get("id");
+		id = save_id if save_id else SaveDataUtility.get_UUID(); 
+		
+		var pos = meta_data.get("position");
+		position = Vector2(pos[0], pos[1]);
+		
+		if(meta_data.get("panel_scene") != ""):
+			var card = load(meta_data.get("panel_scene"));
+			panel_card = card.instantiate();
+			DropManager.add_dropable_to_pool(panel_card);
+		
+		#TODO probably need to refine this, but it might work out.
+		var pin_data = meta_data.get("pins");
+		
+		#TODO refine this.
+		if(pin_data.size() > 0):
+			for i in range(available_pins.size()):
+				var pin: Pin = available_pins[i];
+				var p_data = pin_data[i]
+				pin.set_meta_data(p_data);
+				pin.init_pin();
 		
 func get_save_data():
 	return {
 		#Meta-Data
+		"id": id,
 		"scene": scene_file_path,
 		"panel_scene": panel_card.scene_file_path if panel_card else "",
 		"position": [position.x, position.y],
-		
-		#Nested Data
-		"is_nested": is_nested,
-		"nested_under": "NEED DROP AREA ID",
 		
 		#Pins
 		"pins": get_pin_data()
@@ -329,4 +346,3 @@ func remove_panel_from_graph():
 		wand_graph.remove_panel_from_graph(self);
 		DropManager.add_dropable_to_pool(self);
 		wand_graph = null;
-		

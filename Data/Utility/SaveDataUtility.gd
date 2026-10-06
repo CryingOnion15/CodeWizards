@@ -15,10 +15,12 @@ static func get_UUID() -> String:
 	];
 	
 static func add_or_update_wand(id: String, data: Dictionary):
-	if not save_data["wands"].has(id):
-		save_data["wands"][id] = {};
+	var wand_data = save_data["wands"].filter(func(wand): return wand["id"] == id);
 	
-	save_data["wands"][id].merge(data, true);
+	if wand_data.size() == 0:
+		save_data["wands"].push_back(data);
+	else:
+		wand_data[0].merge(data, true);
 
 static func load_data_from_file(file_path: String):
 	if not FileAccess.file_exists(file_path):
@@ -35,3 +37,12 @@ static func load_data_from_file(file_path: String):
 	
 static func get_data(id: String):
 	return save_data[id];
+
+static func update_save_file():
+	#TODO need to decide how I am going to store data. One file or many.
+	if not FileAccess.file_exists("res://Data/wand_save.json"):
+		return
+		
+	var file = FileAccess.open("res://Data/wand_save.json", FileAccess.WRITE);	
+	file.store_string(JSON.stringify(save_data, "\t"));
+	file.close();

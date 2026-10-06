@@ -118,8 +118,12 @@ func _input(event):
 				return;
 			
 			selected.disconnect_all_pins();
+			
+			if selected is FunctionPanel && selected.is_nested:
+				selected.unnest_panel();
 				
-			if selected is GetVariablePanel || selected is SetVariablePanel:
+			if selected is GetVariablePanel || selected is SetVariablePanel:				
+				selected.remove_panel_from_graph();
 				selected.queue_free();
 				return;
 			
@@ -146,9 +150,6 @@ func _input(event):
 					area.resize_area();
 					
 				nest.size = nest.custom_minimum_size;
-				
-			if selected is FunctionPanel && selected.is_nested:
-				selected.unnest_panel();
 				
 			card.reparent(hBox);
 			card.set_mouse_filter_rec(card,Control.MOUSE_FILTER_STOP);

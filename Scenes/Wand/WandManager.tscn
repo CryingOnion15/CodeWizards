@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cjopexex8beuc" path="res://Components/Wand/WandManager.gd" id="1_qcyhj"]
 [ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="2_5k35e"]
-[ext_resource type="PackedScene" uid="uid://bq7ssmewfws0o" path="res://Scenes/Wand/Wand.tscn" id="2_llniq"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_llniq"]
 
 [node name="WandManager" type="Control" unique_id=877808445 node_paths=PackedStringArray("wand_root", "wand_var_root", "graph_root", "create_set_button")]
@@ -46,14 +45,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="Wand" parent="HBoxContainer/VBoxContainer/Wand Selection/ScrollContainer/WandContainer" unique_id=1942749193 instance=ExtResource("2_llniq")]
-visible = false
-layout_mode = 2
-
-[node name="Wand2" parent="HBoxContainer/VBoxContainer/Wand Selection/ScrollContainer/WandContainer" unique_id=146980233 instance=ExtResource("2_llniq")]
-visible = false
-layout_mode = 2
 
 [node name="Variable Panel" type="PanelContainer" parent="HBoxContainer/VBoxContainer" unique_id=1769959635]
 layout_mode = 2

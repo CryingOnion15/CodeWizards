@@ -10,6 +10,7 @@ var variable_scene = preload("res://Scenes/Wand/WandVariable.tscn");
 
 #Vars
 var is_entered: bool = false;
+var meta_data: Dictionary = {};
 var parameter_map: Dictionary = {}; #name, value
 var variable_map: Dictionary = {}; #name, value
 var entry_panel: CodeEntryPanel = null;
@@ -22,10 +23,22 @@ const exit_start_location: Vector2 = Vector2(1300,800);
 
 @export var selection_root: Node = null;
 
+var _id: String = "";
+	
+var id: String = "":
+	get:
+		if _id == "":
+			_id = SaveDataUtility.get_UUID();
+		return _id;
+	set(value):
+		_id = value;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	mouse_entered.connect(_on_mouse_entered);
 	mouse_exited.connect(_on_mouse_exited);
+	
+	init_with_data();
 	
 	if(!entry_panel):
 		entry_panel = entry_scene.instantiate();
@@ -41,7 +54,7 @@ func _ready() -> void:
 	
 	if selection_root:
 		selection_root.hide();
-	
+			
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		handle_mouse_buttons(event);
@@ -127,6 +140,7 @@ func create_variables():
 
 func get_save_data():
 	return {
+		"id": id,
 		"parameters": parameter_map,
 		"variables": variable_map,
 		"entry_panel": entry_panel.get_save_data(),
@@ -138,34 +152,42 @@ func get_panel_data():
 	var data = [];
 	
 	for panel in code_panels:
-		data.push_back(panel.get_save_data());
+		if panel:
+			data.push_back(panel.get_save_data());
 		
 	return data;
 	
-func init_with_data(data: Dictionary):
-	var params = data["parameters"];
-	
-	for param in params.keys():
-		add_parameter(param, params[param]);
-	
-	var vars = data["variables"];
-	
-	for vari in vars:
-		add_variable(vari, vars[vari]);
+func init_with_data():
+	if not meta_data.is_empty():
+		var save_id = meta_data.get("id");
+		id = save_id if save_id else SaveDataUtility.get_UUID();
 		
-	var entry_data = data["entry_panel"];
-	var entry = load(entry_data["scene"]);
-	entry_panel = entry.instantiate();
-	entry_panel.init_panel(entry_data);
-	
-	var exit_data = data["exit_panel"];
-	var exit = load(exit_data["scene"]);
-	exit_panel = exit.instantiate();
-	exit_panel.init_panel(exit_data);
-	
-	var panels = data["panels"];
-	for panel in panels:
-		var panel_scene = load(panel["scene"]);
-		var new_panel = panel_scene.instantiate();
-		code_panels.push_back(new_panel);
-		new_panel.init_panel(panel);
+		var params = meta_data.get("parameters");
+		
+		for param in params.keys():
+			add_parameter(param, params[param]);
+		
+		var vars = meta_data.get("variables");
+		
+		for vari in vars:
+			add_variable(vari, vars[vari]);
+			
+		var entry_data = meta_data.get("entry_panel");
+		var entry = load(entry_data["scene"]);
+		entry_panel = entry.instantiate();
+		entry_panel.set_meta_data(entry_data);
+		
+		var exit_data = meta_data.get("exit_panel");
+		var exit = load(exit_data["scene"]);
+		exit_panel = exit.instantiate();
+		exit_panel.set_meta_data(exit_data);
+		
+		var panels = meta_data.get("panels");
+		for panel in panels:
+			var panel_scene = load(panel["scene"]);
+			var new_panel: CodePanel = panel_scene.instantiate();
+			code_panels.push_back(new_panel);
+			new_panel.set_meta_data(panel);
+
+func set_meta_data(data: Dictionary):
+	meta_data = data;

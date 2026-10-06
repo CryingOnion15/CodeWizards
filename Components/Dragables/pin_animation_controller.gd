@@ -2,17 +2,25 @@ extends AnimatedSprite2D
 
 #var DefaultColor = Color.WHITE;
 var data_type = null;
-var CorrectColor = Color(0,128,0)
-var IncorrectColor = Color(128,0,0)
+var CorrectColor = Color(0,128,0);
+var IncorrectColor = Color(128,0,0);
+var parent_pin: Pin = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_parent().connect("pin_hover", play_hover);
-	get_parent().connect("pin_hover_correct", play_correct);
-	get_parent().connect("pin_hover_incorrect", play_incorrect);
-	get_parent().connect("pin_connected", set_connected);
-	get_parent().connect("pin_reset", set_reset);
-	data_type = (get_parent() as Pin).data_type;
+	parent_pin = get_parent() as Pin;
+	
+	parent_pin.connect("pin_hover", play_hover);
+	parent_pin.connect("pin_hover_correct", play_correct);
+	parent_pin.connect("pin_hover_incorrect", play_incorrect);
+	parent_pin.connect("pin_connected", set_connected);
+	parent_pin.connect("pin_reset", set_reset);
+	data_type = parent_pin.data_type;
+	
+	if(parent_pin.isConnected):
+		set_connected();
+	else:
+		set_reset();
 
 func play_hover():
 	if(animation != "Hover"):

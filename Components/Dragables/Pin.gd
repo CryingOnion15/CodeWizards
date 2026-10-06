@@ -20,14 +20,14 @@ enum DATA_TYPE {
 	#var value: Variant; #TODO Need to work on this.
 
 #signals
-signal pin_enter(pin: Pin)
-signal pin_exit(pin: Pin)
-signal pin_hover()
-signal pin_hover_correct()
-signal pin_hover_incorrect()
-signal pin_connected()
+signal pin_enter(pin: Pin);
+signal pin_exit(pin: Pin);
+signal pin_hover();
+signal pin_hover_correct();
+signal pin_hover_incorrect();
+signal pin_connected();
 signal pin_disconnected();
-signal pin_reset()
+signal pin_reset();
 
 #static variables
 static var LINE_POINT_COUNT = 12;
@@ -45,18 +45,18 @@ static var SECONDARY_PIN = null;
 @export var data_type: DATA_TYPE = DATA_TYPE.NUMBER;
 @export var nested: bool = false;
 @export var locked: bool = false;
-
-#On Ready Var
-@onready var line: Line2D = $Line2D;
-@onready var pin_animation: AnimatedSprite2D = $AnimatedSprite2D;
-@onready var lock_sprite: Sprite2D = $Lock;
+@export var line: Line2D = null;
+@export var pin_animation: AnimatedSprite2D = null;
+@export var lock_sprite: Sprite2D = null;
 
 # Variables
 var curve: Curve2D = null
 var curvePoints: Array[Vector2] = []
 var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
-var isConnected = false;
+var isConnected: bool = false;
+var is_setup: bool = false;
+var meta_data: Dictionary = {};
 
 var _value_callable: Callable = Callable();
 #var _string_value = "";
@@ -71,11 +71,24 @@ var id: String = "":
 			_id = SaveDataUtility.get_UUID();
 		return _id;
 	set(value):
-		_id = value; 
+		_id = value;
+		#TODO on delete need to remove all connections and reference from the Utility.
+		PinConnectionUtility.add_pin(_id, self); 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
+	
+	setup();
+	#init_pin();
+		
+	if locked:
+		locked_display();
+	else:
+		unlocked_display();
+
+func setup():
+	is_setup = true;
 	add_to_group("Pin")
 	curve = Curve2D.new();
 	
@@ -83,11 +96,6 @@ func _ready() -> void:
 		curvePoints.append(Vector2(0,0));
 		
 	reset();
-	
-	if locked:
-		locked_display();
-	else:
-		unlocked_display();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -212,6 +220,14 @@ func reset():
 func disconnect_pin():
 	clear_line();
 	reset();
+	
+#TODO I want to refine how pins are connected. With the id system should be a bit easier.
+# I could even manager multi connections better.
+func connect_to_id(id: String):
+	var other = PinConnectionUtility.get_pin_from_id(id);
+	
+	if other:
+		connect_from_event(other);
 
 func connect_from_event(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStrength: float = 100.0):
 	Pin.ACTIVE_PIN = self;
@@ -234,10 +250,8 @@ func connect_to_pin(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStreng
 	connectedTo = pin;
 	pin_connected.emit();
 	
-	if(!isDrawingCurve):
-		isDrawingCurve;
-	
 	if(self == Pin.ACTIVE_PIN):
+		isDrawingCurve = true;
 		var localEnd = line.to_local(pin.get_global_rect().get_center());
 		curve.set_point_position(1, localEnd);
 
@@ -300,3 +314,17 @@ func get_save_data() -> Dictionary:
 		"connectedTo": connectedTo.id if connectedTo else "",
 		"value": ["Not", "Done"],
 	}
+	
+func set_meta_data(data: Dictionary):
+	meta_data = data;
+	
+func init_pin():
+	if not meta_data.is_empty():
+		var save_id = meta_data.get("id");
+		id = save_id if save_id else SaveDataUtility.get_UUID();
+		
+		var connection = meta_data.get("connectedTo");
+		if connection != "":
+			PinConnectionUtility.add_connection(_id, connection);
+		
+		#TODO Handle value setting later.

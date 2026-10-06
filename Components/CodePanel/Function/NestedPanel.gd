@@ -4,7 +4,6 @@ class_name NestedPanel extends FunctionPanel
 
 var valid_areas: Array[NestedDropArea] = [];
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
@@ -28,9 +27,10 @@ func setup_nests():
 		area.on_drop_removed.connect(on_drop_removed);
 
 func on_drop_success(dropable: Dropable, area: DropArea):
-	var panel: CodePanel = dropable.get_drop_data(area.type);
+	var panel: Node = dropable.get_drop_data(area.type);
 		
 	panel.reparent(area);
+	panel.nested_under = area.id;
 	panel.start_position = Vector2.ZERO;
 	panel.position = Vector2.ZERO;
 	
@@ -56,6 +56,26 @@ func nests_available() -> bool:
 
 	return false;
 	
+func get_save_data():
+	var save_data = super.get_save_data();
+	
+	var new = {
+		drop_areas: get_drop_area_ids(),
+	}
+	
+	save_data.merge(new);
+	
+	return save_data;
+		
+
+func get_drop_area_ids()-> Array[String]:
+	var ids: Array[String] = [];
+	
+	for area in drop_areas:
+		ids.push_back(area.id);
+		
+	return ids;
+
 func disconnect_nested_pins():
 	pass;
 

@@ -13,17 +13,6 @@ var current_wand: Wand = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SaveDataUtility.load_data_from_file("res://Data/wand_save.json");
-	
-	var wand_data = SaveDataUtility.get_data("wands");
-	var wand_scene = load(SaveDataUtility.get_data("wand_scene"));
-	
-	for data in wand_data:
-		var new_wand = wand_scene.instantiate();
-		wands.push_back(new_wand);
-		new_wand.wand_selected.connect(on_wand_selected);
-		new_wand.init_with_data(data);
-		wand_root.add_child(new_wand);
 			
 	var graph_children = graph_root.find_children("*", "WandGraph", true, false);
 	for graph in graph_children:
@@ -33,8 +22,33 @@ func _ready() -> void:
 			
 	hide_grid();
 	
+	SaveDataUtility.load_data_from_file("res://Data/wand_save.json");
+	
+	var wand_data = SaveDataUtility.get_data("wands");
+	var wand_scene = load(SaveDataUtility.get_data("wand_scene"));
+	
+	for data in wand_data:
+		var new_wand: Wand = wand_scene.instantiate();
+		wands.push_back(new_wand);
+		new_wand.set_meta_data(data);
+		wand_root.add_child(new_wand);
+		new_wand.wand_selected.connect(on_wand_selected);
+		
+		wand_graph.add_panel_to_graph(new_wand.entry_panel);
+		wand_graph.add_panel_to_graph(new_wand.exit_panel);
+		for panel in new_wand.code_panels:
+			wand_graph.add_panel_to_graph(panel);
+			
+	wand_graph.reset_graph();
+		
+	PinConnectionUtility.verify_connections();
+	
 	if create_set_button:
 		create_set_button.button_up.connect(create_set);
+		
+func _input(event: InputEvent) -> void:		
+	if(Input.is_action_just_pressed("Save")):
+		save_wands();
 
 func create_set():
 	var new_set = set_panel_scene.instantiate();
@@ -42,7 +56,6 @@ func create_set():
 	new_set.position = wand_graph.get_view_center() - new_set.size / 2;
 
 func on_wand_selected(wand: Wand):
-	
 	if CodePanel.selected_panel:
 		CodePanel.selected_panel.unselect();
 		CodePanel.selected_panel = null;
@@ -112,3 +125,8 @@ func show_grid():
 func hide_grid():
 	graph_root.hide();
 	create_set_button.hide();
+	
+func save_wands():
+	for wand in wands:
+		SaveDataUtility.add_or_update_wand(wand.id, wand.get_save_data());
+	SaveDataUtility.update_save_file();

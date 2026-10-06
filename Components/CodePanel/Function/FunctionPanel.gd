@@ -7,6 +7,7 @@ var output_pins: Array[Pin] = [];
 
 var nested_in_connection: Pin = null;
 var nested_out_connection: Pin = null;
+var nested_under: String = "";
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -84,7 +85,25 @@ func success(drop_type: DropData.DropType):
 			pass;
 			
 	super.success(drop_type);
-			
+	
+func get_save_data():
+	var save_data = super.get_save_data();
+	
+	var new = {
+		"is_nested": is_nested,
+		"nested_under": nested_under,
+	}
+	
+	save_data.merge(new);
+	return save_data;
+	
+func init_panel():
+	super.init_panel();
+	
+	if not meta_data.is_empty():
+		#TODO handle nesting.
+		is_nested = meta_data.get("is_nested");
+
 func nest_panel():
 	is_nested = true;
 	inflow_pin.set_locked_state(true);
@@ -97,6 +116,7 @@ func nest_panel():
 	
 func unnest_panel():
 	is_nested = false;
+	nested_under = "";
 	inflow_pin.set_locked_state(false);
 	outflow_pin.set_locked_state(false);
 	drop_type = normal_type;

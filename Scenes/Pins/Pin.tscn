@@ -116,12 +116,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Pin" type="PanelContainer" unique_id=1856335639]
+[node name="Pin" type="PanelContainer" unique_id=1856335639 node_paths=PackedStringArray("line", "pin_animation", "lock_sprite")]
 custom_minimum_size = Vector2(32, 32)
 offset_right = 32.0
 offset_bottom = 32.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_m817y")
 script = ExtResource("1_m817y")
+line = NodePath("Line2D")
+pin_animation = NodePath("AnimatedSprite2D")
+lock_sprite = NodePath("Lock")
 metadata/_custom_type_script = "uid://b3k1hvktcpcj1"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1171012510]

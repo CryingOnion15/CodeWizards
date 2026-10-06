@@ -11,12 +11,25 @@ signal deactivate_area_sig(area);
 
 var dropables: Array[Dropable];
 var dropLocation: Vector2;
+var meta_data: Dictionary = {};
+
+var _id: String = "";
+	
+var id: String = "":
+	get:
+		if _id == "":
+			_id = SaveDataUtility.get_UUID();
+		return _id;
+	set(value):
+		_id = value;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	DropManager.instance.dropable_updated.connect(check_valid_dropable);
 	DropManager.instance.drop_location_updated.connect(on_update_drop_pos);
 	DropManager.instance.drop_event.connect(on_drop);
+	
+	init_area();
 
 func check_valid_dropable(drop: Dropable):	
 	#TODO subscribe to the events if this is a valid droppable type.
@@ -34,8 +47,6 @@ func on_drop(drop: Dropable, drop_area: DropArea):
 		
 		#Verify location is on this area then do the drop action.
 		if(!already_has_drop(drop)):
-			print(type);
-			print(drop.drop_type);
 			if(type & drop.drop_type):
 				drop_succeeded(drop);
 			else:
@@ -64,13 +75,11 @@ func deactivate_area():
 	deactivate_area_sig.emit(self);
 	
 func drop_succeeded(drop: Dropable):
-	print("<><> SUCCESS <><>");
 	dropables.push_back(drop.get_drop_data(type));
 	drop_success.emit(drop);
 	drop.success(type);
 	
 func drop_canceled(drop):
-	print("<><> CANCEL <><>");
 	drop_cancel.emit(drop);
 	drop.cancel();
 
@@ -81,4 +90,12 @@ func resize_area():
 	pass;
 	
 func reset_area():
-	pass;	
+	pass;
+
+func set_meta_data(data: Dictionary):
+	meta_data = data;
+
+func init_area():
+	if not meta_data.is_empty():
+		var save_id = meta_data.get("id");
+		id = save_id if save_id else SaveDataUtility.get_UUID();	
