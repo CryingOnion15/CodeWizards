@@ -76,6 +76,13 @@ func deactivate_area():
 	
 func drop_succeeded(drop: Dropable):
 	dropables.push_back(drop.get_drop_data(type));
+	print(drop_success.get_connections());
+	print(
+		"EMITTING AREA: ",
+		name,
+		" ID: ",
+		get_instance_id()
+	)
 	drop_success.emit(drop);
 	drop.success(type);
 	

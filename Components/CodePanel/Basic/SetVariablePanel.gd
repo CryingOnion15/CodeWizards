@@ -11,7 +11,7 @@ func _ready() -> void:
 	
 func on_reference_connected():
 	var wand_tuple = reference_pin.get_value(true);
-	var wand: Wand = wand_tuple[0] #as Wand;
+	var wand: Wand = WandDataUtility.get_wand(wand_tuple[0]);
 	var variable_name: String = wand_tuple[1];
 	var var_value = wand.get_variable_value(variable_name);
 	
@@ -30,6 +30,6 @@ func Execute():
 	var wand_tuple = reference_pin.get_value(true);
 	
 	if wand_tuple:
-		var wand: Wand = wand_tuple[0] #as Wand;
+		var wand: Wand = WandDataUtility.get_wand(wand_tuple[0]);
 		var variable_name: String = wand_tuple[1];
 		wand.set_variable_value(variable_name, value_pin.get_value(true));

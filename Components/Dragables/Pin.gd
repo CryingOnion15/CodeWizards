@@ -57,7 +57,7 @@ var isDrawingCurve: bool = false;
 var isConnected: bool = false;
 var is_setup: bool = false;
 var meta_data: Dictionary = {};
-
+var value_signature: String = "";
 var _value_callable: Callable = Callable();
 #var _string_value = "";
 #var _number_value = 0;
@@ -273,15 +273,17 @@ func check_valid_connection(otherPin: Pin) -> bool:
 			return data_type == otherPin.data_type;
 	return false;
 	
-func get_value(get_value_from_connection: bool = false):
+func get_value(get_value_from_connection: bool = false)->Variant:
 	if(get_value_from_connection && isConnected):
 		_value_callable = connectedTo._value_callable;
 	
-	return _value_callable.call();
+	var test = _value_callable.call();
+	return test;
 
-func set_value(v: Callable):
-	_value_callable = v;
-			
+func set_value(signature: String):
+	value_signature = signature;
+	parse_and_set_value();
+	
 func get_line_direction() -> Vector2:
 	match pin_type:
 		PIN_TYPE.RECIEVER:
@@ -312,19 +314,35 @@ func get_save_data() -> Dictionary:
 	return {
 		"id": id,
 		"connectedTo": connectedTo.id if connectedTo else "",
-		"value": ["Not", "Done"],
+		"value": value_signature,
 	}
 	
 func set_meta_data(data: Dictionary):
 	meta_data = data;
+	
+func parse_and_set_value():
+	if value_signature != "":
+		var parts = value_signature.split(":");
+		var id = parts[0];
+		var method = parts[1];
+		var args = parts.slice(2);
+		_value_callable = PinConnectionUtility.get_connection_value_callback(parts[0], parts[1], args);
+		
 	
 func init_pin():
 	if not meta_data.is_empty():
 		var save_id = meta_data.get("id");
 		id = save_id if save_id else SaveDataUtility.get_UUID();
 		
-		var connection = meta_data.get("connectedTo");
+		var connection = meta_data.get("connectedTo", "");
 		if connection != "":
 			PinConnectionUtility.add_connection(_id, connection);
 		
 		#TODO Handle value setting later.
+		var value_sig = meta_data.get("value", "");
+		if value_sig != "":
+			value_signature = value_sig;
+			#var signature = value_signature.split(":");
+			#var arguments = signature.slice(2);
+			#TODO might need to do this later. Or have some race condition to settle.
+			#_value_callable = PinConnectionUtility.get_connection_value_callback(signature[0], signature[1], arguments);

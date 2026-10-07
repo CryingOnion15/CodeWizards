@@ -13,6 +13,7 @@ var is_entered: bool = false;
 var meta_data: Dictionary = {};
 var parameter_map: Dictionary = {}; #name, value
 var variable_map: Dictionary = {}; #name, value
+var local_variable_map: Dictionary = {};
 var entry_panel: CodeEntryPanel = null;
 var exit_panel: CodeExitPanel = null;
 var code_panels: Array[CodePanel] = [];
@@ -29,9 +30,12 @@ var id: String = "":
 	get:
 		if _id == "":
 			_id = SaveDataUtility.get_UUID();
+			#TODO might cause dupes. Need to check for race conditions.
+			WandDataUtility.register_wand(_id, self);
 		return _id;
 	set(value):
 		_id = value;
+		WandDataUtility.register_wand(_id, self);
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -43,6 +47,7 @@ func _ready() -> void:
 	if(!entry_panel):
 		entry_panel = entry_scene.instantiate();
 		entry_panel.position = entry_start_location;
+		entry_panel.execution_started.connect(on_execute);
 	
 	if(!exit_panel):
 		exit_panel = exit_scene.instantiate();
@@ -61,6 +66,10 @@ func _input(event: InputEvent) -> void:
 		
 	if(Input.is_action_just_pressed("Run")):
 		print(get_save_data());
+		
+func on_execute():
+	local_variable_map.clear();
+	local_variable_map = variable_map.duplicate(true);
 
 func handle_mouse_buttons(event):					
 	if(is_entered && event.is_action_released("Mouse1")):
@@ -87,12 +96,18 @@ func get_parameter_count():
 func add_variable(name: String, value: Variant):
 	variable_map[name] = value;
 	
-func set_variable_value(name: String, value: Variant):
-	variable_map.set(name, value);
+func set_variable_value(name: String, value: Variant, is_default: bool = false):
+	if is_default:
+		variable_map.set(name, value);
+	else:
+		local_variable_map.set(name, value);
 	
-func get_variable_value(name: String):
-	return variable_map.get(name);
-	
+func get_variable_value(name: String, is_default: bool = false):
+	if is_default:
+		return variable_map.get(name);
+	else:
+		return local_variable_map.get(name);
+
 func get_variable_count():
 	return variable_map.keys().size();
 	
@@ -172,17 +187,20 @@ func init_with_data():
 		for vari in vars:
 			add_variable(vari, vars[vari]);
 			
-		var entry_data = meta_data.get("entry_panel");
-		var entry = load(entry_data["scene"]);
-		entry_panel = entry.instantiate();
-		entry_panel.set_meta_data(entry_data);
+		var entry_data = meta_data.get("entry_panel", null);
+		if entry_data:
+			var entry = load(entry_data["scene"]);
+			entry_panel = entry.instantiate();
+			entry_panel.set_meta_data(entry_data);
+			entry_panel.execution_started.connect(on_execute);
 		
-		var exit_data = meta_data.get("exit_panel");
-		var exit = load(exit_data["scene"]);
-		exit_panel = exit.instantiate();
-		exit_panel.set_meta_data(exit_data);
+		var exit_data = meta_data.get("exit_panel", null);
+		if exit_data:
+			var exit = load(exit_data["scene"]);
+			exit_panel = exit.instantiate();
+			exit_panel.set_meta_data(exit_data);
 		
-		var panels = meta_data.get("panels");
+		var panels = meta_data.get("panels", []);
 		for panel in panels:
 			var panel_scene = load(panel["scene"]);
 			var new_panel: CodePanel = panel_scene.instantiate();

@@ -38,9 +38,13 @@ func _ready() -> void:
 		wand_graph.add_panel_to_graph(new_wand.exit_panel);
 		for panel in new_wand.code_panels:
 			wand_graph.add_panel_to_graph(panel);
+			if panel.is_nested:
+				var area = NestedPanelUtility.get_nest(panel.nested_under);
+				DropManager.drop_by_event(panel, area);
 			
 	wand_graph.reset_graph();
-		
+	
+	PinConnectionUtility.verify_values();
 	PinConnectionUtility.verify_connections();
 	
 	if create_set_button:

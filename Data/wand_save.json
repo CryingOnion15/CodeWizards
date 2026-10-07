@@ -4,491 +4,220 @@
 		{
 			"entry_panel": {
 				"id": "10e27923-68c2-0aa6-dd8c-33126ae192b1",
-				"panel_scene": "",
+				"panelScene": "",
 				"pins": [
 					{
-						"connectedTo": "04affc3a-3dbc-0ff1-2d41-6b4b5b8e0d96",
-						"id": "5a52ab15-10db-97f7-a8a4-d92f1cec742b",
-						"value": [
-							"Not",
-							"Done"
-						]
+						"connectedTo": "f196f576-3a61-72b3-db5c-45e19d16e6ef",
+						"id": "f3fbfd6b-ef61-6b4d-81d8-28a7954a2d36",
+						"value": "10e27923-68c2-0aa6-dd8c-33126ae192b1:get_panel_reference"
 					},
 					{
 						"connectedTo": "",
-						"id": "eea42e06-9416-6d68-1af2-8c3019c7f499",
-						"value": [
-							"Not",
-							"Done"
-						]
+						"id": "72ec4c54-bfe3-6c10-79be-0daac43dad42",
+						"value": "10e27923-68c2-0aa6-dd8c-33126ae192b1:get_panel_value:Param1"
 					},
 					{
 						"connectedTo": "",
-						"id": "62dec81d-f546-13bb-7a15-cda90e0a0ec6",
-						"value": [
-							"Not",
-							"Done"
-						]
+						"id": "dbf5dd50-a560-aedd-3a23-1069444e86c2",
+						"value": "10e27923-68c2-0aa6-dd8c-33126ae192b1:get_panel_value:Type"
 					}
 				],
 				"position": [
-					570.0,
-					402.0
+					680.0,
+					392.0
 				],
 				"scene": "res://Scenes/CodePanels/EntryPanel.tscn"
 			},
 			"exit_panel": {
 				"id": "1e7a31c1-d279-3b49-1053-c094dfee026a",
-				"panel_scene": "",
+				"panelScene": "",
 				"pins": [
 					{
-						"connectedTo": "",
-						"id": "725f59a6-76a9-e488-4aba-152157684ca4",
-						"value": [
-							"Not",
-							"Done"
-						]
+						"connectedTo": "b8a7544b-9420-dd3e-ec9a-d50d17fd5381",
+						"id": "93cdc410-7634-781d-d8d7-43005f5555c9",
+						"value": "1e7a31c1-d279-3b49-1053-c094dfee026a:get_panel_reference"
 					},
 					{
-						"connectedTo": "",
-						"id": "95bcf1b0-fcc1-1cd3-55de-eab2f9f4fc8e",
-						"value": [
-							"Not",
-							"Done"
-						]
+						"connectedTo": "83f8de0a-fe07-bdd4-650a-e90466eee718",
+						"id": "93561d7b-760a-d58c-192e-2f8ef0cf745e",
+						"value": ""
 					}
 				],
 				"position": [
-					1541.0,
-					780.0
+					1298.0,
+					735.0
 				],
 				"scene": "res://Scenes/CodePanels/ExitPanel.tscn"
 			},
 			"id": "9038dd5e-c5be-b362-a511-6267ab8a3437",
 			"panels": [
 				{
-					"id": "5dbcc53e-0422-0e4b-8264-ef6d6eae7aec",
-					"is_nested": false,
-					"nested_under": "",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf",
+					"isNested": false,
+					"nestedUnder": "",
+					"panelScene": "res://Scenes/Dropables/Dropable.tscn",
 					"pins": [
 						{
-							"connectedTo": "5a52ab15-10db-97f7-a8a4-d92f1cec742b",
-							"id": "04affc3a-3dbc-0ff1-2d41-6b4b5b8e0d96",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "f3fbfd6b-ef61-6b4d-81d8-28a7954a2d36",
+							"id": "f196f576-3a61-72b3-db5c-45e19d16e6ef",
+							"value": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf:get_panel_reference"
 						},
 						{
-							"connectedTo": "979a66bf-8e3f-44d7-5443-2b4eb7464d95",
-							"id": "70be0aac-4a11-f078-6187-e94d6d13adf9",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "77578b4e-ac55-9d11-8057-f8df9bbc8756",
+							"id": "c050b733-d981-0490-b378-e44bfa149231",
+							"value": ""
 						},
 						{
-							"connectedTo": "8c835122-faae-7082-417a-3b50c2525090",
-							"id": "33ddaa93-b6e5-4280-6d1b-03eceae42e1b",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "3abe63aa-c604-1255-9e32-9d8a9400e433",
+							"id": "6bfbd5a5-f60f-2aa5-74c0-eb123b0952bf",
+							"value": ""
 						},
 						{
-							"connectedTo": "",
-							"id": "02ca8a0b-b764-9428-e98a-eacdc5ff4744",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "144cb42b-f822-9d67-5abb-6eb7520aabd8",
+							"id": "83f95484-d80b-070b-a5d3-39b5c9dc4bba",
+							"value": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf:get_math_result"
 						},
 						{
-							"connectedTo": "4c778da8-d9d7-3d33-ad35-4999fb29bbf9",
-							"id": "b44ee4c0-505b-404a-8e57-57dce2336799",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "2a2178cf-9672-3cc5-40cd-7869cfbadb02",
+							"id": "ce03af35-e712-eb12-724a-20900e341fd7",
+							"value": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf:get_panel_reference"
 						}
 					],
 					"position": [
-						786.0,
-						458.0
+						902.0,
+						518.0
 					],
 					"scene": "res://Scenes/CodePanels/MathPanel.tscn"
 				},
 				{
-					"id": "e942d7bc-d186-a3ad-38b4-f60b3b0c387a",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "7d330270-f3d5-ebef-c7d3-84ca42534fd9",
+					"numberValue": 10,
+					"panelScene": "res://Scenes/Dropables/Dropable.tscn",
 					"pins": [
 						{
-							"connectedTo": "70be0aac-4a11-f078-6187-e94d6d13adf9",
-							"id": "979a66bf-8e3f-44d7-5443-2b4eb7464d95",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "c050b733-d981-0490-b378-e44bfa149231",
+							"id": "77578b4e-ac55-9d11-8057-f8df9bbc8756",
+							"value": "7d330270-f3d5-ebef-c7d3-84ca42534fd9:get_panel_value"
 						}
 					],
 					"position": [
-						551.0,
-						539.0
+						719.0,
+						519.0
 					],
 					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn"
 				},
 				{
-					"id": "5c076fe6-edd8-b419-f3f8-27c173039f17",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "e8fa84e4-5e3a-53f1-0805-cfe9d6fbb0e5",
+					"numberValue": 4,
+					"panelScene": "res://Scenes/Dropables/Dropable.tscn",
 					"pins": [
 						{
-							"connectedTo": "33ddaa93-b6e5-4280-6d1b-03eceae42e1b",
-							"id": "8c835122-faae-7082-417a-3b50c2525090",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "",
+							"id": "58933716-ce9c-2531-4525-c3d291c40331",
+							"value": "e8fa84e4-5e3a-53f1-0805-cfe9d6fbb0e5:get_panel_value"
 						}
 					],
 					"position": [
-						586.0,
-						669.0
+						619.0,
+						597.0
 					],
 					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn"
 				},
 				{
-					"id": "0b0626c4-cc7f-366d-3dc3-9bb61fa3f5b7",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "77edd0b1-8b24-3014-f847-3e8b4378446c",
+					"isNested": false,
+					"nestedUnder": "",
+					"panelScene": "",
 					"pins": [
 						{
-							"connectedTo": "",
-							"id": "4677c1aa-6ab7-19b6-058c-1192f9eb0267",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "ce03af35-e712-eb12-724a-20900e341fd7",
+							"id": "2a2178cf-9672-3cc5-40cd-7869cfbadb02",
+							"value": "77edd0b1-8b24-3014-f847-3e8b4378446c:get_panel_reference"
+						},
+						{
+							"connectedTo": "706b40ef-7a0f-2932-04ad-d543d8376c5f",
+							"id": "bdc2362a-968d-3476-21f3-e81fdd88ba5b",
+							"value": ""
+						},
+						{
+							"connectedTo": "83f95484-d80b-070b-a5d3-39b5c9dc4bba",
+							"id": "144cb42b-f822-9d67-5abb-6eb7520aabd8",
+							"value": ""
+						},
+						{
+							"connectedTo": "93cdc410-7634-781d-d8d7-43005f5555c9",
+							"id": "b8a7544b-9420-dd3e-ec9a-d50d17fd5381",
+							"value": "77edd0b1-8b24-3014-f847-3e8b4378446c:get_panel_reference"
 						}
 					],
 					"position": [
-						788.0,
-						741.0
-					],
-					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn"
-				},
-				{
-					"id": "8b664cb0-cffe-81f2-5799-f6a7355ce4ca",
-					"is_nested": false,
-					"nested_under": "",
-					"panel_scene": "",
-					"pins": [
-						{
-							"connectedTo": "b44ee4c0-505b-404a-8e57-57dce2336799",
-							"id": "4c778da8-d9d7-3d33-ad35-4999fb29bbf9",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "698cf58b-3e28-df26-c7f5-1c2acffae775",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "1de84932-00f1-0401-8ee6-9656becf2e90",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "1748a32b-3805-34e5-d15d-7201680e4edd",
-							"value": [
-								"Not",
-								"Done"
-							]
-						}
-					],
-					"position": [
-						990.0,
-						514.0
+						1090.0,
+						643.0
 					],
 					"scene": "res://Scenes/CodePanels/SetVariablePanel.tscn"
 				},
 				{
-					"id": "f2fed0ac-85e3-3558-5cf1-9a169e383e15",
-					"is_nested": false,
-					"nested_under": "",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "31f78deb-c649-527a-8956-05dd895f76cd",
+					"panelScene": "",
+					"parentID": "9038dd5e-c5be-b362-a511-6267ab8a3437",
 					"pins": [
 						{
-							"connectedTo": "",
-							"id": "7f4a071d-8e3f-3923-60e4-aa381030e2ce",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "bdc2362a-968d-3476-21f3-e81fdd88ba5b",
+							"id": "706b40ef-7a0f-2932-04ad-d543d8376c5f",
+							"value": "31f78deb-c649-527a-8956-05dd895f76cd:get_reference_value"
 						},
 						{
-							"connectedTo": "",
-							"id": "8d5f0598-bced-8b62-ea7f-91a51e3a9443",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "931088a9-1d61-4c96-1b33-412bdfa44c3a",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "ccba0527-bd13-ab47-026b-48e7bf03470b",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "49eab3cd-2316-eec6-ccbc-6608769177b7",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "0d3f9ce7-cb90-21a2-08ca-6b71c8f91374",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "7be1452c-a92a-944d-f4e3-9ff41ef34c68",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "5e1d1fcb-345c-7f4d-1d38-7c4ac0d56da3",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "382e072c-226b-e450-eabc-9b0e9b68a79a",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "6bfbd5a5-f60f-2aa5-74c0-eb123b0952bf",
+							"id": "3abe63aa-c604-1255-9e32-9d8a9400e433",
+							"value": "31f78deb-c649-527a-8956-05dd895f76cd:get_value"
 						}
 					],
 					"position": [
-						1138.0,
-						428.0
+						677.0,
+						727.0
 					],
-					"scene": "res://Scenes/CodePanels/ConditionPanel.tscn",
-					"[True Area:<Control#70615304950>, False Area:<Control#70816631554>]": [
-						"6a8e255c-64b2-0cad-8d5a-0ab1b29acd36",
-						"a4c125b9-31c3-c72a-6d87-22473c48384d"
-					]
+					"scene": "res://Scenes/CodePanels/GetVariablePanel.tscn",
+					"varName": "Var 1"
 				},
 				{
-					"id": "60ce2ad8-1376-8aa1-796b-f3a7afc7ee8a",
-					"is_nested": false,
-					"nested_under": "",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "bdf1f756-ee02-ed82-4406-2a2c834bedb9",
+					"numberValue": 5,
+					"panelScene": "res://Scenes/Dropables/Dropable.tscn",
 					"pins": [
 						{
 							"connectedTo": "",
-							"id": "5d1a4f85-f81f-6db0-c411-0ae18a2ad76a",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "95b3553d-b860-f5f6-6691-b5302496b7f8",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "3052d3b4-dea0-858f-85cf-c08fc438eea0",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "fc97a4d8-37c7-75c2-d51d-18be282b9e32",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "81209308-8aa1-6219-508b-5d90b0a99219",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "162f7e4b-68b5-c2c1-2499-b0139940cf27",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "5052cbec-a4c7-6518-00ac-425126ec5342",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"id": "ad9d2d84-640b-b169-4adc-b028b521226a",
+							"value": "bdf1f756-ee02-ed82-4406-2a2c834bedb9:get_panel_value"
 						}
 					],
 					"position": [
-						1452.0,
-						160.0
+						1209.0,
+						599.0
 					],
-					"scene": "res://Scenes/CodePanels/LoopPanel.tscn",
-					"[DropArea1:<Control#73299659659>, DropArea2:<Control#73400322961>, DropArea3:<Control#73500986263>]": [
-						"26f50a20-1ea2-af6a-3db5-628cf5ec2b78",
-						"da340a52-75bd-e190-b3e2-d85985a65b5a",
-						"3ac53bd5-65cf-ae86-1703-eb7d69cf459e"
-					]
+					"scene": "res://Scenes/CodePanels/ConstantPanel.tscn"
 				},
 				{
-					"id": "be77bf09-3c1c-b8dd-ceca-355d2525ce51",
-					"is_nested": true,
-					"nested_under": "",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
+					"id": "8d189391-ea1a-49a7-dcc1-ce61b8d92bad",
+					"panelScene": "",
+					"parentID": "9038dd5e-c5be-b362-a511-6267ab8a3437",
 					"pins": [
 						{
 							"connectedTo": "",
-							"id": "63e33f7d-ec99-9ad7-6ad9-879b5d5e43cc",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"id": "4c9aab5d-481a-0040-c69c-5e415efb709a",
+							"value": "8d189391-ea1a-49a7-dcc1-ce61b8d92bad:get_reference_value"
 						},
 						{
-							"connectedTo": "",
-							"id": "bbfbf2bd-dcb5-4a70-a702-c63693b7ee2f",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "b9c53cb7-d745-82d6-1f4d-43649ec804ac",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "56174fab-644f-0e51-012d-0e02931ae528",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "5f1237cd-bbe4-9786-e6da-fbd50fd96e6b",
-							"value": [
-								"Not",
-								"Done"
-							]
+							"connectedTo": "93561d7b-760a-d58c-192e-2f8ef0cf745e",
+							"id": "83f8de0a-fe07-bdd4-650a-e90466eee718",
+							"value": "8d189391-ea1a-49a7-dcc1-ce61b8d92bad:get_value"
 						}
 					],
 					"position": [
-						0.0,
-						0.0
+						1086.0,
+						794.0
 					],
-					"scene": "res://Scenes/CodePanels/MathPanel.tscn"
-				},
-				{
-					"id": "927ee7e1-69a6-326c-4133-f25169706d3b",
-					"is_nested": true,
-					"nested_under": "",
-					"panel_scene": "res://Scenes/Dropables/Dropable.tscn",
-					"pins": [
-						{
-							"connectedTo": "",
-							"id": "8f1cc0d6-336c-2588-ac8e-fd0018d13666",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "da383ce1-8179-8f7b-368b-158105f30c0e",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "83ca1f0f-5f8a-2820-a17a-58e9a16aa148",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "4650dff8-e1e0-e31c-d04f-c14a3ab6199d",
-							"value": [
-								"Not",
-								"Done"
-							]
-						},
-						{
-							"connectedTo": "",
-							"id": "9129979c-1785-04f7-e57b-6af506fc4404",
-							"value": [
-								"Not",
-								"Done"
-							]
-						}
-					],
-					"position": [
-						0.0,
-						0.0
-					],
-					"scene": "res://Scenes/CodePanels/MathPanel.tscn"
+					"scene": "res://Scenes/CodePanels/GetVariablePanel.tscn",
+					"varName": "Var 1"
 				}
 			],
 			"parameters": {
@@ -496,7 +225,7 @@
 				"Type": "Poison"
 			},
 			"variables": {
-				"Var 1": 5.0,
+				"Var 1": 14.0,
 				"Var 2": 10.0
 			}
 		}

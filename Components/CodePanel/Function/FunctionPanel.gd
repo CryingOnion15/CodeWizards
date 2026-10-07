@@ -90,8 +90,8 @@ func get_save_data():
 	var save_data = super.get_save_data();
 	
 	var new = {
-		"is_nested": is_nested,
-		"nested_under": nested_under,
+		"isNested": is_nested,
+		"nestedUnder": nested_under,
 	}
 	
 	save_data.merge(new);
@@ -102,7 +102,8 @@ func init_panel():
 	
 	if not meta_data.is_empty():
 		#TODO handle nesting.
-		is_nested = meta_data.get("is_nested");
+		is_nested = meta_data.get("isNested", false);
+		nested_under = meta_data.get("nestedUnder", "");
 
 func nest_panel():
 	is_nested = true;

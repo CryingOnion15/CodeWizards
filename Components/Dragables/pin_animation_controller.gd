@@ -1,7 +1,6 @@
 extends AnimatedSprite2D
 
 #var DefaultColor = Color.WHITE;
-var data_type = null;
 var CorrectColor = Color(0,128,0);
 var IncorrectColor = Color(128,0,0);
 var parent_pin: Pin = null;
@@ -15,7 +14,6 @@ func _ready() -> void:
 	parent_pin.connect("pin_hover_incorrect", play_incorrect);
 	parent_pin.connect("pin_connected", set_connected);
 	parent_pin.connect("pin_reset", set_reset);
-	data_type = parent_pin.data_type;
 	
 	if(parent_pin.isConnected):
 		set_connected();
@@ -28,7 +26,7 @@ func play_hover():
 		set_default_color();
 
 func set_default_color():
-	match data_type:
+	match parent_pin.data_type:
 			Pin.DATA_TYPE.NUMBER:
 				modulate = Color(Pin.NUMBER_COLOR, modulate.a);
 			Pin.DATA_TYPE.STRING:

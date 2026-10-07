@@ -44,6 +44,10 @@ static func drop():
 			drop.cancel();
 			
 		DropManager.set_dropable(null);
+		
+static func drop_by_event(dropable: Dropable, area: DropArea):
+	if(instance != null):
+		instance.drop_event.emit(dropable, area);
 
 static func add_dropable_to_pool(dropable: Dropable):
 	

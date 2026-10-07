@@ -31,14 +31,17 @@ var id: String = "":
 	get:
 		if _id == "":
 			_id = SaveDataUtility.get_UUID();
+			PinConnectionUtility.register_panel(_id, self);
 		return _id;
 	set(value):
 		_id = value;
+		PinConnectionUtility.register_panel(_id, self);
 
 func _ready():
 	super._ready();
 	find_pins();
 	init_panel();
+	setup_pins();
 	unselect();
 	
 	#Dropable settings.
@@ -75,12 +78,17 @@ func get_next_control() -> CodePanel:
 func find_pins():
 	var children = find_children("*", "Pin", true, false);
 	for child in children:
-		var pin = child as Pin;
+		var pin = child as Pin;			
+		available_pins.push_back(pin);
+
+func setup_pins():
+	for pin in available_pins:
 		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
 			# Set this pin's value to it's code panel owner.
-			pin.set_value(func(): return self);
-			
-		available_pins.push_back(pin);
+			pin.set_value("%s:%s" % [id, "get_panel_reference"]);
+
+func get_panel_reference():
+	return self;
 
 func set_meta_data(data: Dictionary):
 	meta_data = data;
@@ -94,8 +102,8 @@ func init_panel():
 		var pos = meta_data.get("position");
 		position = Vector2(pos[0], pos[1]);
 		
-		if(meta_data.get("panel_scene") != ""):
-			var card = load(meta_data.get("panel_scene"));
+		if(meta_data.get("panelScene", "") != ""):
+			var card = load(meta_data.get("panelScene"));
 			panel_card = card.instantiate();
 			DropManager.add_dropable_to_pool(panel_card);
 		
@@ -115,7 +123,7 @@ func get_save_data():
 		#Meta-Data
 		"id": id,
 		"scene": scene_file_path,
-		"panel_scene": panel_card.scene_file_path if panel_card else "",
+		"panelScene": panel_card.scene_file_path if panel_card else "",
 		"position": [position.x, position.y],
 		
 		#Pins

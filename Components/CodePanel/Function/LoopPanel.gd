@@ -33,7 +33,7 @@ func run_loop(iterations):
 				break;
 	
 func disconnect_nested_pins():
-	for area in valid_areas:
+	for area in drop_areas:
 		if(area.dropables.size() > 0):
 			var panel = area.get_panel();
 			panel.disconnect_control_pins();
@@ -45,7 +45,7 @@ func connect_nested_pins():
 		var first_in: Pin = null;
 		var current_out: Pin = null;
 		
-		for area in valid_areas:
+		for area in drop_areas:
 			if(area.dropables.size() > 0):
 				var panel = area.get_panel();
 

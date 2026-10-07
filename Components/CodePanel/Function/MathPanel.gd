@@ -45,12 +45,15 @@ func _notification(what: int) -> void:
 	
 func Execute():
 	print("Math Panel Woo.");
+	
+	
+	output_pins[0].set_value("%s:%s" % [id, "get_math_result"])
+	
+func get_math_result():
 	var input1 = input_pins[0].get_value(true);
 	var input2 = input_pins[1].get_value(true);
 	
-	output_pins[0].set_value(func(): return get_math_result(input1, input2))
 	
-func get_math_result(input1, input2):
 	match math_type:
 		MATH_FUNC.ADD:
 			return input1 + input2;

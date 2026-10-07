@@ -6,7 +6,7 @@ signal panel_removed(panel);
 @export_range(1, 5, 0.1) var xBoundScale = 2;
 @export_range(1, 5, 0.1) var yBoundScale = 2;
 @export var drop_area: DropArea = null;
-@export var graph_settings: GraphSettings = null;
+#@export var graph_settings: GraphSettings = null;
 
 #Scene References
 #var entryScene = preload("res://Scenes/CodePanels/EntryPanel.tscn");
@@ -33,9 +33,9 @@ func _ready() -> void:
 	
 	#Subscribe to signals.
 	drop_area.connect("drop_success", on_drop_success);
-	graph_settings.large_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.LARGE));
-	graph_settings.medium_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.MEDIUM));
-	graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL));
+	#graph_settings.large_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.LARGE));
+	#graph_settings.medium_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.MEDIUM));
+	#graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL));
 	
 	DropManager.instance.dropable_updated.connect(on_dropable_updated);	
 
@@ -44,9 +44,8 @@ func handle_start(event):
 	CodePanel.clear_selection();
 
 func _process(_delta: float) -> void:
-	pass;
-	#if(Input.is_action_just_pressed("Run")):
-		#Run();
+	if(Input.is_action_just_pressed("Run")):
+		Run();
 			
 func Run():
 	if(entryPanel):
