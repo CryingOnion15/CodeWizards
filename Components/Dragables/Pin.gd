@@ -1,4 +1,3 @@
-@tool
 class_name Pin extends Dragable
 
 enum PIN_TYPE {
@@ -14,19 +13,14 @@ enum DATA_TYPE {
 	REFERENCE
 }
 
-#class PinSaveData:
-	#var id: String;
-	#var connectedTo: String;
-	#var value: Variant; #TODO Need to work on this.
-
 #signals
-signal pin_enter(pin: Pin);
-signal pin_exit(pin: Pin);
+signal pin_enter(pin: Pin); # Not used.
+signal pin_exit(pin: Pin); # Not used.
 signal pin_hover();
 signal pin_hover_correct();
 signal pin_hover_incorrect();
 signal pin_connected();
-signal pin_disconnected();
+signal pin_disconnected(); # Not used.
 signal pin_reset();
 
 #static variables
@@ -46,8 +40,11 @@ static var SECONDARY_PIN = null;
 @export var nested: bool = false;
 @export var locked: bool = false;
 @export var line: Line2D = null;
+@export var connection_node: Node = null;
 @export var pin_animation: AnimatedSprite2D = null;
 @export var lock_sprite: Sprite2D = null;
+@export var hardcoded_sprite: Sprite2D = null;
+@export var default_label: Label = null;
 
 # Variables
 var curve: Curve2D = null
@@ -56,10 +53,12 @@ var connectedTo: Pin = null;
 var isDrawingCurve: bool = false;
 var isConnected: bool = false;
 var is_setup: bool = false;
+var is_hardcoded: bool = false;
 var meta_data: Dictionary = {};
+var default_value: Variant; #Needs to be set via data.
 var value_signature: String = "";
 var _value_callable: Callable = Callable();
-#var _string_value = "";
+
 #var _number_value = 0;
 #var _control_value: CodePanel = null;
 #var _reference_value: Array = []; #Element 0 = Wand, #Element 1 = var name.
@@ -77,7 +76,8 @@ var id: String = "":
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	super._ready();
+	connection_node.mouse_entered.connect(_on_mouse_entered);
+	connection_node.mouse_exited.connect(_on_mouse_exited);
 	
 	setup();
 	#init_pin();
@@ -86,6 +86,13 @@ func _ready() -> void:
 		locked_display();
 	else:
 		unlocked_display();
+		
+	if default_value && !isConnected:
+		show_default_value();
+	else:
+		default_label.hide();
+		
+	set_hardcode_display();
 
 func setup():
 	is_setup = true;
@@ -101,14 +108,14 @@ func setup():
 func _process(_delta: float) -> void:
 	if(isDrawingCurve && line):
 		if(isConnected && connectedTo != null):
-			var localEnd = line.to_local(connectedTo.get_global_rect().get_center())
+			var localEnd = line.to_local(connectedTo.connection_node.get_global_rect().get_center())
 			curve.set_point_position(1, localEnd);
 		
-		curve.set_point_position(0, line.to_local(get_global_rect().get_center()));
+		curve.set_point_position(0, line.to_local(connection_node.get_global_rect().get_center()));
 		line.points = curve.get_baked_points()
 		
 func _on_mouse_entered() -> void:
-	if locked:
+	if locked || is_hardcoded:
 		return;
 	
 	super._on_mouse_entered();
@@ -124,7 +131,7 @@ func _on_mouse_entered() -> void:
 		hover();
 
 func _on_mouse_exited() -> void:
-	if locked:
+	if locked || is_hardcoded:
 		return;
 		
 	super._on_mouse_exited();
@@ -135,17 +142,31 @@ func _on_mouse_exited() -> void:
 	if not isConnected:
 		reset();
 	else:
-		emit_connected();		
-		
-# Warning tool to ensure right components.
-func _get_configuration_warnings():
-	if not has_node("Line2D"):
-		return ["This node requires a Line2D child to draw the line of the connection."]
-	return []
+		emit_connected();
 		
 func update_curve_on_drag(newPos):
 	var localEnd = line.to_local(newPos)
 	curve.set_point_position(1, localEnd);
+
+func show_default_value():
+	if(default_value):
+		default_label.show();
+		#TODO need to account for default references.
+		default_label.text = "%s" % [default_value];
+		
+		#TODO might need a more robust solution or reference. Might not matter.
+		match pin_type:
+			PIN_TYPE.RECIEVER:
+				get_child(0).move_child(default_label, 1);
+				return;
+			PIN_TYPE.CONNECTOR:
+				get_child(0).move_child(default_label, 0);
+				return;
+			PIN_TYPE.BOTH:
+				get_child(0).move_child(default_label, 1);
+				return;
+				
+		get_child(0).move_child(default_label, 1);
 
 #func handle_mouse_buttons(event: InputEvent):	
 	### Handle Start Drag.
@@ -157,7 +178,7 @@ func update_curve_on_drag(newPos):
 		#handle_end(event)
 
 func handle_start(event):
-	if locked:
+	if locked || is_hardcoded:
 		return;
 	
 	if(isConnected):
@@ -172,14 +193,14 @@ func handle_start(event):
 	
 	#Set up curve
 	curve.clear_points();
-	curve.add_point(line.to_local(get_global_rect().get_center()));
+	curve.add_point(line.to_local(connection_node.get_global_rect().get_center()));
 	curve.add_point(line.to_local(global_position));
 	curve.set_point_out(0, get_line_direction() * 100);
 	
 	super.handle_start(event);	
 	
 func handle_end(event):
-	if locked:
+	if locked || is_hardcoded:
 		return;
 			
 	if(Pin.ACTIVE_PIN == self):
@@ -220,6 +241,7 @@ func reset():
 func disconnect_pin():
 	clear_line();
 	reset();
+	show_default_value();
 	
 #TODO I want to refine how pins are connected. With the id system should be a bit easier.
 # I could even manager multi connections better.
@@ -234,8 +256,8 @@ func connect_from_event(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierSt
 	isDrawingCurve = true;
 	
 	curve.clear_points();
-	curve.add_point(line.to_local(get_global_rect().get_center()));
-	curve.add_point(line.to_local(pin.get_global_rect().get_center()));
+	curve.add_point(line.to_local(connection_node.get_global_rect().get_center()));
+	curve.add_point(line.to_local(pin.connection_node.get_global_rect().get_center()));
 	
 	connect_to_pin(pin, rotOverride, bezzierStrength);
 	pin.connect_to_pin(self);
@@ -246,13 +268,15 @@ func connect_to_pin(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStreng
 		connectedTo.disconnect_pin();
 		disconnect_pin();
 	
+	default_label.hide();
+	
 	isConnected = true;
 	connectedTo = pin;
 	pin_connected.emit();
 	
 	if(self == Pin.ACTIVE_PIN):
 		isDrawingCurve = true;
-		var localEnd = line.to_local(pin.get_global_rect().get_center());
+		var localEnd = line.to_local(pin.connection_node.get_global_rect().get_center());
 		curve.set_point_position(1, localEnd);
 
 		var rotVector = pin.get_line_direction() * bezzierStrength if rotOverride == Vector2.ZERO else rotOverride * bezzierStrength;
@@ -274,11 +298,25 @@ func check_valid_connection(otherPin: Pin) -> bool:
 	return false;
 	
 func get_value(get_value_from_connection: bool = false)->Variant:
+	#TODO I think default value rule would only matter for reciever pins.
+	if(!isConnected && default_value):
+		return default_value;
+	
 	if(get_value_from_connection && isConnected):
 		_value_callable = connectedTo._value_callable;
 	
-	var test = _value_callable.call();
-	return test;
+	var value = _value_callable.call() if _value_callable else null;
+	
+	if value:
+		return value;
+	else:
+		match data_type:
+			Pin.DATA_TYPE.NUMBER:
+				return 0;
+			Pin.DATA_TYPE.STRING:
+				return "";
+		
+		return null;
 
 func set_value(signature: String):
 	value_signature = signature;
@@ -309,12 +347,19 @@ func locked_display():
 func unlocked_display():
 	lock_sprite.visible = false;
 	pin_animation.modulate.a = 1;
+	
+func set_hardcode_display():
+	hardcoded_sprite.visible = is_hardcoded;
 
 func get_save_data() -> Dictionary:	
 	return {
 		"id": id,
 		"connectedTo": connectedTo.id if connectedTo else "",
 		"value": value_signature,
+		"isHardcoded": is_hardcoded,
+		"defaultValue": default_value,
+		"isLocked": locked,
+		"isNested": nested,
 	}
 	
 func set_meta_data(data: Dictionary):
@@ -328,21 +373,21 @@ func parse_and_set_value():
 		var args = parts.slice(2);
 		_value_callable = PinConnectionUtility.get_connection_value_callback(parts[0], parts[1], args);
 		
-	
 func init_pin():
 	if not meta_data.is_empty():
 		var save_id = meta_data.get("id");
 		id = save_id if save_id else SaveDataUtility.get_UUID();
-		
+
 		var connection = meta_data.get("connectedTo", "");
 		if connection != "":
 			PinConnectionUtility.add_connection(_id, connection);
-		
-		#TODO Handle value setting later.
+
 		var value_sig = meta_data.get("value", "");
 		if value_sig != "":
 			value_signature = value_sig;
-			#var signature = value_signature.split(":");
-			#var arguments = signature.slice(2);
-			#TODO might need to do this later. Or have some race condition to settle.
-			#_value_callable = PinConnectionUtility.get_connection_value_callback(signature[0], signature[1], arguments);
+			
+		var default = meta_data.get("defaultValue", null);
+		default_value = default;
+		
+		is_hardcoded = meta_data.get("isHardcoded", false);
+		set_hardcode_display();

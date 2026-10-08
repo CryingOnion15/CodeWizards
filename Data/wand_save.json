@@ -8,17 +8,26 @@
 				"pins": [
 					{
 						"connectedTo": "f196f576-3a61-72b3-db5c-45e19d16e6ef",
+						"defaultValue": null,
 						"id": "f3fbfd6b-ef61-6b4d-81d8-28a7954a2d36",
+						"isLocked": false,
+						"isNested": false,
 						"value": "10e27923-68c2-0aa6-dd8c-33126ae192b1:get_panel_reference"
 					},
 					{
 						"connectedTo": "",
-						"id": "72ec4c54-bfe3-6c10-79be-0daac43dad42",
+						"defaultValue": null,
+						"id": "c6dd935d-e730-3fbd-4b87-32341daaf4c4",
+						"isLocked": false,
+						"isNested": false,
 						"value": "10e27923-68c2-0aa6-dd8c-33126ae192b1:get_panel_value:Param1"
 					},
 					{
 						"connectedTo": "",
-						"id": "dbf5dd50-a560-aedd-3a23-1069444e86c2",
+						"defaultValue": null,
+						"id": "dee27024-6526-8747-69e8-544a5105db7b",
+						"isLocked": false,
+						"isNested": false,
 						"value": "10e27923-68c2-0aa6-dd8c-33126ae192b1:get_panel_value:Type"
 					}
 				],
@@ -34,12 +43,18 @@
 				"pins": [
 					{
 						"connectedTo": "b8a7544b-9420-dd3e-ec9a-d50d17fd5381",
+						"defaultValue": null,
 						"id": "93cdc410-7634-781d-d8d7-43005f5555c9",
+						"isLocked": false,
+						"isNested": false,
 						"value": "1e7a31c1-d279-3b49-1053-c094dfee026a:get_panel_reference"
 					},
 					{
 						"connectedTo": "83f8de0a-fe07-bdd4-650a-e90466eee718",
+						"defaultValue": null,
 						"id": "93561d7b-760a-d58c-192e-2f8ef0cf745e",
+						"isLocked": false,
+						"isNested": false,
 						"value": ""
 					}
 				],
@@ -59,27 +74,43 @@
 					"pins": [
 						{
 							"connectedTo": "f3fbfd6b-ef61-6b4d-81d8-28a7954a2d36",
+							"defaultValue": null,
 							"id": "f196f576-3a61-72b3-db5c-45e19d16e6ef",
+							"isLocked": false,
+							"isNested": false,
 							"value": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf:get_panel_reference"
 						},
 						{
-							"connectedTo": "77578b4e-ac55-9d11-8057-f8df9bbc8756",
+							"connectedTo": "",
+							"isHardcoded": true,
+							"defaultValue": 10.0,
 							"id": "c050b733-d981-0490-b378-e44bfa149231",
+							"isLocked": false,
+							"isNested": false,
 							"value": ""
 						},
 						{
-							"connectedTo": "3abe63aa-c604-1255-9e32-9d8a9400e433",
+							"connectedTo": "77578b4e-ac55-9d11-8057-f8df9bbc8756",
+							"defaultValue": null,
 							"id": "6bfbd5a5-f60f-2aa5-74c0-eb123b0952bf",
+							"isLocked": false,
+							"isNested": false,
 							"value": ""
 						},
 						{
 							"connectedTo": "144cb42b-f822-9d67-5abb-6eb7520aabd8",
+							"defaultValue": null,
 							"id": "83f95484-d80b-070b-a5d3-39b5c9dc4bba",
+							"isLocked": false,
+							"isNested": false,
 							"value": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf:get_math_result"
 						},
 						{
 							"connectedTo": "2a2178cf-9672-3cc5-40cd-7869cfbadb02",
+							"defaultValue": null,
 							"id": "ce03af35-e712-eb12-724a-20900e341fd7",
+							"isLocked": false,
+							"isNested": false,
 							"value": "9d17b661-bb5e-ab2a-450f-edc68fccd8cf:get_panel_reference"
 						}
 					],
@@ -95,8 +126,11 @@
 					"panelScene": "res://Scenes/Dropables/Dropable.tscn",
 					"pins": [
 						{
-							"connectedTo": "c050b733-d981-0490-b378-e44bfa149231",
+							"connectedTo": "6bfbd5a5-f60f-2aa5-74c0-eb123b0952bf",
+							"defaultValue": null,
 							"id": "77578b4e-ac55-9d11-8057-f8df9bbc8756",
+							"isLocked": false,
+							"isNested": false,
 							"value": "7d330270-f3d5-ebef-c7d3-84ca42534fd9:get_panel_value"
 						}
 					],
@@ -113,7 +147,10 @@
 					"pins": [
 						{
 							"connectedTo": "",
+							"defaultValue": null,
 							"id": "58933716-ce9c-2531-4525-c3d291c40331",
+							"isLocked": false,
+							"isNested": false,
 							"value": "e8fa84e4-5e3a-53f1-0805-cfe9d6fbb0e5:get_panel_value"
 						}
 					],
@@ -131,22 +168,34 @@
 					"pins": [
 						{
 							"connectedTo": "ce03af35-e712-eb12-724a-20900e341fd7",
+							"defaultValue": null,
 							"id": "2a2178cf-9672-3cc5-40cd-7869cfbadb02",
+							"isLocked": false,
+							"isNested": false,
 							"value": "77edd0b1-8b24-3014-f847-3e8b4378446c:get_panel_reference"
 						},
 						{
 							"connectedTo": "706b40ef-7a0f-2932-04ad-d543d8376c5f",
+							"defaultValue": null,
 							"id": "bdc2362a-968d-3476-21f3-e81fdd88ba5b",
+							"isLocked": false,
+							"isNested": false,
 							"value": ""
 						},
 						{
 							"connectedTo": "83f95484-d80b-070b-a5d3-39b5c9dc4bba",
+							"defaultValue": null,
 							"id": "144cb42b-f822-9d67-5abb-6eb7520aabd8",
+							"isLocked": false,
+							"isNested": false,
 							"value": ""
 						},
 						{
 							"connectedTo": "93cdc410-7634-781d-d8d7-43005f5555c9",
+							"defaultValue": null,
 							"id": "b8a7544b-9420-dd3e-ec9a-d50d17fd5381",
+							"isLocked": false,
+							"isNested": false,
 							"value": "77edd0b1-8b24-3014-f847-3e8b4378446c:get_panel_reference"
 						}
 					],
@@ -163,12 +212,18 @@
 					"pins": [
 						{
 							"connectedTo": "bdc2362a-968d-3476-21f3-e81fdd88ba5b",
+							"defaultValue": null,
 							"id": "706b40ef-7a0f-2932-04ad-d543d8376c5f",
+							"isLocked": false,
+							"isNested": false,
 							"value": "31f78deb-c649-527a-8956-05dd895f76cd:get_reference_value"
 						},
 						{
-							"connectedTo": "6bfbd5a5-f60f-2aa5-74c0-eb123b0952bf",
+							"connectedTo": "",
+							"defaultValue": null,
 							"id": "3abe63aa-c604-1255-9e32-9d8a9400e433",
+							"isLocked": false,
+							"isNested": false,
 							"value": "31f78deb-c649-527a-8956-05dd895f76cd:get_value"
 						}
 					],
@@ -186,7 +241,10 @@
 					"pins": [
 						{
 							"connectedTo": "",
+							"defaultValue": null,
 							"id": "ad9d2d84-640b-b169-4adc-b028b521226a",
+							"isLocked": false,
+							"isNested": false,
 							"value": "bdf1f756-ee02-ed82-4406-2a2c834bedb9:get_panel_value"
 						}
 					],
@@ -203,12 +261,18 @@
 					"pins": [
 						{
 							"connectedTo": "",
+							"defaultValue": null,
 							"id": "4c9aab5d-481a-0040-c69c-5e415efb709a",
+							"isLocked": false,
+							"isNested": false,
 							"value": "8d189391-ea1a-49a7-dcc1-ce61b8d92bad:get_reference_value"
 						},
 						{
 							"connectedTo": "93561d7b-760a-d58c-192e-2f8ef0cf745e",
+							"defaultValue": null,
 							"id": "83f8de0a-fe07-bdd4-650a-e90466eee718",
+							"isLocked": false,
+							"isNested": false,
 							"value": "8d189391-ea1a-49a7-dcc1-ce61b8d92bad:get_value"
 						}
 					],

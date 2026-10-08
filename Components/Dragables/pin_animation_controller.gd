@@ -7,7 +7,7 @@ var parent_pin: Pin = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	parent_pin = get_parent() as Pin;
+	parent_pin = owner as Pin;
 	
 	parent_pin.connect("pin_hover", play_hover);
 	parent_pin.connect("pin_hover_correct", play_correct);

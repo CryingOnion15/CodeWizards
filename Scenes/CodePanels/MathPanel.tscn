@@ -107,6 +107,7 @@ mouse_behavior_recursive = 1
 layout_mode = 2
 mouse_behavior_recursive = 2
 pin_type = 0
+default_value = 10.0
 
 [node name="Input2" parent="MarginContainer/VBoxContainer/HBoxContainer2/InputPins" unique_id=1846425676 instance=ExtResource("3_uvjcf")]
 layout_mode = 2

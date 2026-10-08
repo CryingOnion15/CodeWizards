@@ -116,3 +116,4 @@ data_type = 3
 [node name="ValuePin" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1856335639 instance=ExtResource("5_lqfuk")]
 layout_mode = 2
 mouse_behavior_recursive = 2
+pin_type = 1
