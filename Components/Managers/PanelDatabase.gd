@@ -34,7 +34,7 @@ func _ready() -> void:
 	panels = json.data["panels"];
 	
 func get_card(id: String):
-	return cards[id];
+	return cards.get(id, null);
 	
 func get_panel(id: String):
-	return panels[id];
+	return panels.get(id, null);

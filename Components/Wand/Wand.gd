@@ -189,20 +189,23 @@ func init_with_data():
 			
 		var entry_data = meta_data.get("entry_panel", null);
 		if entry_data:
-			var entry = load(entry_data["scene"]);
+			var panel_data = PanelDatabase.get_panel(entry_data.get("template"))
+			var entry = load(panel_data.get("panelPath"));
 			entry_panel = entry.instantiate();
 			entry_panel.set_meta_data(entry_data);
 			entry_panel.execution_started.connect(on_execute);
 		
 		var exit_data = meta_data.get("exit_panel", null);
 		if exit_data:
-			var exit = load(exit_data["scene"]);
+			var panel_data = PanelDatabase.get_panel(exit_data.get("template"))
+			var exit = load(panel_data.get("panelPath"));
 			exit_panel = exit.instantiate();
 			exit_panel.set_meta_data(exit_data);
 		
 		var panels = meta_data.get("panels", []);
 		for panel in panels:
-			var panel_scene = load(panel["scene"]);
+			var panel_data = PanelDatabase.get_panel(panel.get("template"))
+			var panel_scene = load(panel_data.get("panelPath"));
 			var new_panel: CodePanel = panel_scene.instantiate();
 			code_panels.push_back(new_panel);
 			new_panel.set_meta_data(panel);

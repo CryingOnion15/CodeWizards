@@ -2,12 +2,21 @@ class_name PanelCard extends Dropable
 
 var drop_panel: CodePanel = null;
 var nested_area: NestedDropArea = null;
+var template_id: String = "";
+var tex_rect: TextureRect = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
 	drop_type = drop_type | DropData.DropType.GRID;
-	
+	if not tex_rect:
+		tex_rect = get_node("TextureRect");
+
+func set_card_texture(tex: Texture):
+	if not tex_rect:
+		tex_rect = get_node("TextureRect");
+	tex_rect.texture = tex;
+
 func handle_start(event):
 	super.handle_start(event);
 	drop_panel.set_mouse_filter_rec(drop_panel,Control.MOUSE_FILTER_IGNORE);
@@ -18,24 +27,42 @@ func handle_end(event):
 	super.handle_end(event);
 	drop_panel.set_mouse_filter_rec(drop_panel,Control.MOUSE_FILTER_STOP);
 	drop_panel.modulate.a = 1;
-
-func init_drop():
-	var new_panel = drop_scene.instantiate();
 	
-	if new_panel is CodePanel:
-		drop_panel = new_panel;
-	else:
-		var panels = new_panel.find_children("*", "CodePanel", true, false);
-		if panels.size() > 0:
-			drop_panel = panels[0];
+func get_save_data():
+	return {
+		"template": template_id,
+		"data": drop_panel.get_save_data(),
+	}
+	
+func init_card(data: Dictionary):
+	if not data.is_empty():
+		template_id = data.get("template", "");
+		
+		if template_id == "":
+			push_error("Cannot initialize a card with no template.");
+			return;
+			
+		var panel = PanelDatabase.get_panel(template_id);
+		var panel_scene = panel.get("panelPath", "");
+		
+		if panel_scene != "":
+			drop_scene = load(panel_scene);
+			init_code_panel(data.get("data", {}));
 		else:
-			drop_panel = null;
+			push_error("Could not find panel that you are trying to instantiate.")
+
+func init_code_panel(data):
+	var new_panel: CodePanel = drop_scene.instantiate();
+	
+	drop_panel = new_panel;
+	
 	
 	if(drop_panel):
 		DropManager.add_dropable_to_pool(drop_panel);
 		drop_panel.panel_card = self;
-		
-		drop_panel.set_data(get_data());
+		data.set("template",template_id);
+		drop_panel.set_meta_data(data);
+		drop_panel.init_panel();
 		
 		#If this panel can be nested then add the type.
 		if drop_panel.can_be_nested:

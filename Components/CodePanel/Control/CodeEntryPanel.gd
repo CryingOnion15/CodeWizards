@@ -15,6 +15,8 @@ func _ready() -> void:
 	
 	super._ready();
 	
+	template_id = "entry";
+	
 	start_pin = available_pins[0];
 	
 func Execute():

@@ -10,16 +10,13 @@ var drag_node: Node;
 var valid_drop: bool = false;
 
 # Data Vars
-var drop_data: Dictionary = {};
+#var drop_data: Dictionary = {};
 var current_parent: Node = null;
 var start_position: Vector2 = Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
-	
-func init_drop():
-	pass;
 
 func handle_start(event):
 	super.handle_start(event);
@@ -50,12 +47,6 @@ func drag(delta):
 		
 	super.drag(delta);
 	DropManager.update_drop_location(delta);
-	
-func set_data(data: Dictionary):
-	drop_data = data;
-	
-func get_data():
-	return drop_data;
 
 func success(dropType: DropData.DropType):
 	drop_success.emit(dropType);

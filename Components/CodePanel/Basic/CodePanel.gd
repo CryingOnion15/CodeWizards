@@ -16,6 +16,7 @@ var is_selected: bool = false;
 var can_be_nested: bool = false;
 var show_card: bool = false;
 var wand_graph: WandGraph = null;
+var template_id: String = "";
 
 #drop types.
 var nest_type = DropData.DropType.GRID | DropData.DropType.CARD;
@@ -99,16 +100,22 @@ func init_panel():
 		var save_id = meta_data.get("id");
 		id = save_id if save_id else SaveDataUtility.get_UUID(); 
 		
-		var pos = meta_data.get("position");
+		var pos = meta_data.get("position", [DropManager.DROP_POOL.x, DropManager.DROP_POOL.y]);
 		position = Vector2(pos[0], pos[1]);
 		
-		if(meta_data.get("panelScene", "") != ""):
-			var card = load(meta_data.get("panelScene"));
-			panel_card = card.instantiate();
-			DropManager.add_dropable_to_pool(panel_card);
+		template_id = meta_data.get("template", "");
+		if(template_id != ""):
+			var card_data = PanelDatabase.get_card(template_id)
+			if card_data:
+				var card = load(card_data["cardPath"]);
+				panel_card = card.instantiate();
+				panel_card.set_card_texture(load(card_data["cardTexture"]));
+				DropManager.add_dropable_to_pool(panel_card);
+				panel_card.drop_panel = self;
+				panel_card.template_id = template_id;
 		
 		#TODO probably need to refine this, but it might work out.
-		var pin_data = meta_data.get("pins");
+		var pin_data = meta_data.get("pins", []);
 		
 		#TODO refine this.
 		if(pin_data.size() > 0):
@@ -122,11 +129,10 @@ func get_save_data():
 	return {
 		#Meta-Data
 		"id": id,
-		"scene": scene_file_path,
-		"panelScene": panel_card.scene_file_path if panel_card else "",
+		"template": template_id,
+		#"scene": scene_file_path,
+		#"panelScene": panel_card.scene_file_path if panel_card else "",
 		"position": [position.x, position.y],
-		
-		#Pins
 		"pins": get_pin_data()
 	}
 	
@@ -142,14 +148,6 @@ func set_theme_size(t_size: THEME_SIZE):
 	pass;
 	#size_theme = t_size;
 	#set_size_via_theme();
-
-func init_drop():
-	pass;
-	## TODO When data is linked I can set the card/block to the prefab.
-	#drop_panel = drop_scene.instantiate();
-	#drop_panel.panel_card = self;
-	#self.add_child(drop_panel);
-	#DropManager.add_dropable_to_pool(drop_panel);
 
 func handle_start(event):
 	super.handle_start(event);

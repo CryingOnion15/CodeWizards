@@ -26,8 +26,7 @@ func init_panel():
 	
 	if not meta_data.is_empty():
 		number_value = meta_data.get("numberValue", 0);
-
-func init_drop():
+	
 	update_visuals();
 
 func update_visuals():
@@ -36,9 +35,9 @@ func update_visuals():
 		value_label.text = "%s" % [number_value];
 
 func get_panel_value():
-	return number_value
+	return number_value;
 	
-func set_data(data: Dictionary):
-	super.set_data(data);
-	number_value = data["value"];	
-	update_visuals();	
+#func set_data(data: Dictionary):
+	#super.set_data(data);
+	#number_value = data["numberValue"];	
+	#update_visuals();	

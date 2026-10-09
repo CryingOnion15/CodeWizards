@@ -2,6 +2,9 @@ class_name SaveDataUtility extends RefCounted
 
 static var save_data: Dictionary;
 
+static func initialize():
+	load_data_from_file("res://Data/player_save.json");
+
 ## TODO not guarenteed to be unique yet, but I might store a reference not sure yet.
 static func get_UUID() -> String:
 	var crypto = Crypto.new();
@@ -15,12 +18,15 @@ static func get_UUID() -> String:
 	];
 	
 static func add_or_update_wand(id: String, data: Dictionary):
-	var wand_data = save_data["wands"].filter(func(wand): return wand["id"] == id);
+	var wand_data = save_data["wands"].filter(func(wand): return wand.get("id", "") == id);
 	
 	if wand_data.size() == 0:
 		save_data["wands"].push_back(data);
 	else:
 		wand_data[0].merge(data, true);
+		
+static func set_blocks(blocks: Array):
+	save_data.set("blocks", blocks);
 
 static func load_data_from_file(file_path: String):
 	if not FileAccess.file_exists(file_path):
@@ -40,9 +46,9 @@ static func get_data(id: String):
 
 static func update_save_file():
 	#TODO need to decide how I am going to store data. One file or many.
-	if not FileAccess.file_exists("res://Data/wand_save.json"):
+	if not FileAccess.file_exists("res://Data/player_save.json"):
 		return
 		
-	var file = FileAccess.open("res://Data/wand_save.json", FileAccess.WRITE);	
+	var file = FileAccess.open("res://Data/player_save.json", FileAccess.WRITE);	
 	file.store_string(JSON.stringify(save_data, "\t"));
 	file.close();

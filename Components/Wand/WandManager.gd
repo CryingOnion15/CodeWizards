@@ -22,7 +22,7 @@ func _ready() -> void:
 			
 	hide_grid();
 	
-	SaveDataUtility.load_data_from_file("res://Data/wand_save.json");
+	#SaveDataUtility.load_data_from_file("res://Data/player_save.json");
 	
 	var wand_data = SaveDataUtility.get_data("wands");
 	var wand_scene = load(SaveDataUtility.get_data("wand_scene"));

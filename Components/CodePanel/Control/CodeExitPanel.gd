@@ -12,6 +12,8 @@ func _ready() -> void:
 	nest_type = 0;
 	
 	super._ready();
+	
+	template_id = "exit";
 	exitPin = available_pins[0];
 	
 func Execute():
