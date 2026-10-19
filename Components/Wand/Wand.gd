@@ -72,7 +72,7 @@ func on_execute():
 	local_variable_map = variable_map.duplicate(true);
 
 func handle_mouse_buttons(event):					
-	if(is_entered && event.is_action_released("Mouse1")):
+	if(is_entered && event.is_action_released("Click")):
 		wand_selected.emit(self);
 		
 func _on_mouse_entered() -> void:

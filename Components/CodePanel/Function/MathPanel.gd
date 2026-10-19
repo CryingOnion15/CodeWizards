@@ -38,6 +38,22 @@ func _ready() -> void:
 			return;
 			
 	print("READY: ", size)
+	
+func get_save_data():
+	var save_data = super.get_save_data();
+	
+	var new = {
+		"type": math_type,
+	}
+	
+	save_data.merge(new);
+	return save_data;
+	
+func init_panel():
+	super.init_panel();
+	
+	if not meta_data.is_empty():
+		math_type = meta_data.get("type", MATH_FUNC.ADD);
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:

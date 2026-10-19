@@ -44,8 +44,8 @@ func _ready() -> void:
 			
 	wand_graph.reset_graph();
 	
-	PinConnectionUtility.verify_values();
-	PinConnectionUtility.verify_connections();
+	PinConnectionManager.verify_values();
+	PinConnectionManager.verify_connections();
 	
 	if create_set_button:
 		create_set_button.button_up.connect(create_set);

@@ -32,11 +32,11 @@ var id: String = "":
 	get:
 		if _id == "":
 			_id = SaveDataUtility.get_UUID();
-			PinConnectionUtility.register_panel(_id, self);
+			PinConnectionManager.register_panel(_id, self);
 		return _id;
 	set(value):
 		_id = value;
-		PinConnectionUtility.register_panel(_id, self);
+		PinConnectionManager.register_panel(_id, self);
 
 func _ready():
 	super._ready();

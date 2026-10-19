@@ -1,9 +1,17 @@
-class_name PinConnectionUtility extends RefCounted
+class_name PinConnectionManager extends Node
 
 static var pins: Dictionary[String, Pin] = {};
 static var connections: Dictionary[String, String] = {};
 static var panels: Dictionary[String, CodePanel] = {};
 static var value_callbacks: Dictionary[String, String] = {} #ID of panel and method name.
+static var connection_pool: Array[PinConnection] = [];
+static var connection_scene = preload("res://Scenes/Pins/PinConnection.tscn");
+
+static var instance;
+
+
+func _ready():
+	PinConnectionManager.instance = self;
 
 static func add_pin(id: String, pin: Pin):
 	pins.set(id, pin);
@@ -18,6 +26,23 @@ static func remove_pin(id: String):
 	
 static func get_pin_from_id(id: String):
 	return pins.get(id);
+
+static func request_new_connection()-> PinConnection:
+	if connection_pool.size() == 0:
+		var new_connection = connection_scene.instantiate();
+		PinConnectionManager.instance.add_child(new_connection);
+		return new_connection;
+	else:
+		var connection = connection_pool.pop_front();
+		connection.show();
+		return connection;
+		
+static func add_connection_to_pool(connection: PinConnection):
+	connection_pool.push_back(connection);
+	connection.owner_pin = null;
+	connection.connector_pin = null;
+	connection.reparent(PinConnectionManager.instance);
+	connection.hide();
 	
 static func add_connection(from: String, to: String):
 	if from == "":  

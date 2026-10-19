@@ -15,7 +15,7 @@ func _ready() -> void:
 	parent_pin.connect("pin_connected", set_connected);
 	parent_pin.connect("pin_reset", set_reset);
 	
-	if(parent_pin.isConnected):
+	if(parent_pin.connectedTo):
 		set_connected();
 	else:
 		set_reset();

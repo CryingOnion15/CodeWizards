@@ -49,7 +49,7 @@ func setup_pins():
 			if value is float:
 				pin.data_type = Pin.DATA_TYPE.NUMBER;
 				
-			if not pin.isConnected:
+			if !pin.connectedTo:
 				pin.reset();
 			else:
 				pin.emit_connected();
