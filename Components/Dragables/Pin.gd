@@ -20,7 +20,7 @@ signal pin_hover();
 signal pin_hover_correct();
 signal pin_hover_incorrect();
 signal pin_connected();
-signal pin_disconnected(); # Not used.
+signal pin_disconnected(pin: Pin);
 signal pin_reset();
 
 #static variables
@@ -166,33 +166,39 @@ func show_default_value():
 func handle_start(event):
 	if locked || is_hardcoded:
 		return;
-	
-	if pin_type != PIN_TYPE.CONNECTOR:
-		return;
+		
+	var connect_cond: bool = connections.size() == 0 if data_type == Pin.DATA_TYPE.CONTROL else true;
 	
 	if(connectedTo && pin_type == Pin.PIN_TYPE.RECIEVER):
 		#TODO need to work on getting this to pass the control to the connector pin.
-		connectedTo.handle_start(event);
+		var pass_pin = connectedTo;
 		disconnect_pin();
+		Pin.SECONDARY_PIN = self;
+		pass_pin.handle_start(event);
+		correct_connect_hover();
 		return;
 		#connectedTo.disconnect_pin();
 		#TODO need to handle the reconnection to the mouse.
 		#Also need to think about how this goes back and forth.
 		#Not 100% sure yet.
-	#TODO also need to handle control pins. Because they can only have one connection. Maybe that is a mutli threading concept.
-	#Also need to handle already connection pins. Disconnect.
-	
-	Pin.ACTIVE_PIN = self;
-	isDrawingCurve = true;
-	
-	#Set up curve
-	#TODO get retrieve existing from connected pin.
-	get_active_connection();
-	
-	active_connection.update_start(connection_node.get_global_rect().get_center());
-	active_connection.update_end(global_position);
-	
-	super.handle_start(event);	
+		
+	elif pin_type == Pin.PIN_TYPE.CONNECTOR && connect_cond:
+		Pin.ACTIVE_PIN = self;
+		isDrawingCurve = true;
+		#TODO also need to handle control pins. Because they can only have one connection. Maybe that is a mutli threading concept.
+		#Also need to handle already connection pins. Disconnect.
+		
+		
+		
+		#Set up curve
+		#TODO get retrieve existing from connected pin.
+		get_active_connection();
+		
+		active_connection.update_start(connection_node.get_global_rect().get_center());
+		active_connection.update_end(get_global_mouse_position());
+		active_connection.draw();
+		
+		super.handle_start(event);	
 
 func can_multi_connect() -> bool:
 	return pin_type == PIN_TYPE.CONNECTOR && data_type != DATA_TYPE.CONTROL;
@@ -211,12 +217,12 @@ func get_active_connection():
 func handle_end(event):
 	if locked || is_hardcoded:
 		return;
-			
 	if(Pin.ACTIVE_PIN == self):
-		if(Pin.SECONDARY_PIN != null && check_valid_connection(Pin.SECONDARY_PIN)):	
+		if(Pin.SECONDARY_PIN != null && check_valid_connection(Pin.SECONDARY_PIN)):
+			if Pin.SECONDARY_PIN.connectedTo:
+				Pin.SECONDARY_PIN.disconnect_pin();
+				
 			connect_to_pin(Pin.SECONDARY_PIN);
-			#Pin.SECONDARY_PIN.connect_to_pin(self);
-			#Pin.SECONDARY_PIN = null;
 		else:
 			reset();
 			if active_connection:
@@ -226,11 +232,7 @@ func handle_end(event):
 				
 		Pin.ACTIVE_PIN = null;
 		
-	super.handle_end(event)
-
-#func clear_line():
-	#isDrawingCurve = false;
-	#line.points = [];
+	super.handle_end(event);
 	
 func drag(delta):
 	super.drag(delta);
@@ -246,13 +248,40 @@ func incorrect_connect_hover():
 	pin_hover_incorrect.emit()
 	
 func reset():
-	connectedTo = null;
 	pin_reset.emit();
 	
 func disconnect_pin():
-	reset();
-	show_default_value();
-	
+	if connectedTo:
+		show_default_value();		
+		pin_disconnected.emit(self);
+	elif connections.size() > 0:
+		var pins: Array[Pin] = [];
+		for connect in connections:
+			pins.push_back(connect.connector_pin);
+		
+		#Done this way because the connection modifys the array which messes with the above loop.
+		for pin in pins:
+			pin.disconnect_pin();
+		
+		
+	reset();	
+	connectedTo = null;
+	connections = [];
+
+func remove_connection_to_pin(pin: Pin):
+	var index = connections.find_custom(
+			func(c: PinConnection): return c.connector_pin == pin
+		)
+		
+	if index != -1:
+		var r_connect = connections.pop_at(index);
+		
+		if connections.size() == 0:
+			reset();
+		
+		PinConnectionManager.add_connection_to_pool(r_connect);
+		pin.pin_disconnected.disconnect(remove_connection_to_pin);
+
 #TODO I want to refine how pins are connected. With the id system should be a bit easier.
 # I could even manager multi connections better.
 func connect_to_id(id: String):
@@ -276,11 +305,8 @@ func connect_to_pin(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStreng
 	#Is already connected to another pin.
 	if(connectedTo != null):
 		connectedTo.disconnect_pin();
-		disconnect_pin();
 	
 	default_label.hide();
-	
-	connectedTo = pin;
 	pin_connected.emit();
 	
 	if(self == Pin.ACTIVE_PIN):
@@ -289,6 +315,7 @@ func connect_to_pin(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStreng
 		active_connection.update_end(pin.connection_node.get_global_rect().get_center());
 		
 		pin.connectedTo = self;
+		pin.pin_disconnected.connect(remove_connection_to_pin);
 		pin.emit_connected();
 		Pin.ACTIVE_PIN = null;
 		Pin.SECONDARY_PIN = null;
@@ -409,7 +436,7 @@ func _input(event: InputEvent) -> void:
 func handle_mouse_buttons(event):
 	if isEntered && event.is_action_pressed("Click"):
 		if alter_control:
-			pass; ## TODO quick_disconnect.
+			disconnect_pin();
 		else:
 			handle_start(event);
 					
