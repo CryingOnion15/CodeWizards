@@ -120,10 +120,13 @@ func _on_mouse_entered() -> void:
 		else:
 			incorrect_connect_hover();
 	# TODO need to refine the look and interaction of these.
-	elif !connectedTo && pin_type == PIN_TYPE.CONNECTOR:
-		hover();
-	elif connectedTo:
-		hover();
+	elif pin_type == PIN_TYPE.CONNECTOR:
+		if can_multi_connect():
+			hover();
+		elif connections.size() == 0:
+			hover();
+	#elif connectedTo:
+		#hover();
 
 func _on_mouse_exited() -> void:
 	if locked || is_hardcoded:
@@ -134,10 +137,16 @@ func _on_mouse_exited() -> void:
 	if(Pin.SECONDARY_PIN == self):
 		Pin.SECONDARY_PIN = null;
 	
-	if !connectedTo:
-		reset();
+	if pin_type == PIN_TYPE.RECIEVER:
+		if !connectedTo:
+			reset();
+		else:
+			emit_connected();
 	else:
-		emit_connected();
+		if connections.size() == 0:
+			reset();
+		else:
+			emit_connected();
 		
 func update_curve_on_drag(newPos):
 	if active_connection:
@@ -211,8 +220,14 @@ func get_active_connection():
 		active_connection = PinConnectionManager.request_new_connection();
 		active_connection.reparent(connection_parent);
 		connections.push_back(active_connection);
+		active_connection.connection_clicked.connect(on_connection_clicked.bind(active_connection));
 		
 	active_connection.owner_pin = self;
+
+func on_connection_clicked(connection: PinConnection):
+	if alter_control:
+		connection.connector_pin.disconnect_pin();
+		remove_connection_to_pin(connection.connector_pin);
 
 func handle_end(event):
 	if locked || is_hardcoded:
@@ -228,6 +243,7 @@ func handle_end(event):
 			if active_connection:
 				PinConnectionManager.add_connection_to_pool(active_connection);
 				connections.pop_back();
+				active_connection.connection_clicked.disconnect(on_connection_clicked);
 				active_connection = null;
 				
 		Pin.ACTIVE_PIN = null;
@@ -275,6 +291,7 @@ func remove_connection_to_pin(pin: Pin):
 		
 	if index != -1:
 		var r_connect = connections.pop_at(index);
+		r_connect.connection_clicked.disconnect(on_connection_clicked);
 		
 		if connections.size() == 0:
 			reset();
