@@ -232,11 +232,13 @@ func on_connection_clicked(connection: PinConnection):
 func handle_end(event):
 	if locked || is_hardcoded:
 		return;
+		
 	if(Pin.ACTIVE_PIN == self):
 		if(Pin.SECONDARY_PIN != null && check_valid_connection(Pin.SECONDARY_PIN)):
 			if Pin.SECONDARY_PIN.connectedTo:
 				Pin.SECONDARY_PIN.disconnect_pin();
-				
+			
+			PinConnectionManager.add_connection(Pin.ACTIVE_PIN.id, Pin.SECONDARY_PIN.id);
 			connect_to_pin(Pin.SECONDARY_PIN);
 		else:
 			reset();
@@ -309,14 +311,12 @@ func connect_to_id(id: String):
 
 func connect_from_event(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStrength: float = 100.0):
 	Pin.ACTIVE_PIN = self;
-	isDrawingCurve = true;
 	
 	get_active_connection();
 	active_connection.update_start(connection_node.get_global_rect().get_center());
 	active_connection.update_end(pin.connection_node.get_global_rect().get_center());
 	
 	connect_to_pin(pin, rotOverride, bezzierStrength);
-	pin.connect_to_pin(self);
 	
 func connect_to_pin(pin: Pin, rotOverride: Vector2 = Vector2.ZERO, bezzierStrength: float = 100.0):
 	#Is already connected to another pin.
@@ -405,6 +405,7 @@ func set_hardcode_display():
 func get_save_data() -> Dictionary:	
 	return {
 		"id": id,
+		"connections": connection_save_data(),
 		"connectedTo": connectedTo.id if connectedTo else "",
 		"value": value_signature,
 		"isHardcoded": is_hardcoded,
@@ -412,6 +413,14 @@ func get_save_data() -> Dictionary:
 		"isLocked": locked,
 		"isNested": nested,
 	}
+	
+func connection_save_data():
+	var connection_sd = [];
+	
+	for connection in connections:
+		connection_sd.push_back(connection.get_save_data());
+	
+	return connection_sd;
 	
 func set_meta_data(data: Dictionary):
 	meta_data = data;
@@ -429,9 +438,13 @@ func init_pin():
 		var save_id = meta_data.get("id");
 		id = save_id if save_id else SaveDataUtility.get_UUID();
 
-		var connection = meta_data.get("connectedTo", "");
-		if connection != "":
-			PinConnectionManager.add_connection(_id, connection);
+		var connections = meta_data.get("connections", []);
+		for connection in connections:
+			var owner = connection.get("owner", "");
+			var connector = connection.get("connector", "");
+			
+			if(owner == _id && connector != ""):
+				PinConnectionManager.add_connection(owner, connector);
 
 		var value_sig = meta_data.get("value", "");
 		if value_sig != "":

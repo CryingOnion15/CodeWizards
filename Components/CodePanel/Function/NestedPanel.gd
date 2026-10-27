@@ -64,7 +64,7 @@ func on_drop_removed(drop: Dropable):
 	# TODO check if I can remove reset_size from other calls.
 	hide();
 	await get_tree().process_frame;
-	reset_size();
+	minimum_size_changed.emit();
 	show();
 	connect_nested_pins();
 

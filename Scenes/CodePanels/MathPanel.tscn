@@ -1,27 +1,23 @@
 [gd_scene format=3 uid="uid://xyrttilk0tbb"]
 
 [ext_resource type="Script" uid="uid://b874icemm6o7c" path="res://Components/CodePanel/Function/MathPanel.gd" id="1_bh64o"]
-[ext_resource type="Theme" uid="uid://dkgew5lea7bvo" path="res://Assets/Themes/math_panel_theme.tres" id="1_uvjcf"]
 [ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="2_xdwyp"]
 [ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_uvjcf"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="3_xdwyp"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvjcf"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xdwyp"]
 
 [node name="MathPanel" type="PanelContainer" unique_id=2024613806 node_paths=PackedStringArray("math_label", "selection_root")]
 physics_interpolation_mode = 0
-custom_minimum_size = Vector2(120, 120)
 offset_right = 120.0
 offset_bottom = 120.0
-theme = ExtResource("1_uvjcf")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_uvjcf")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xdwyp")
 script = ExtResource("1_bh64o")
 math_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/MathLabel")
-selection_root = NodePath("SelectionContainer")
+selection_root = NodePath("MarginContainer2")
 metadata/_custom_type_script = "uid://b874icemm6o7c"
 
-[node name="SelectionContainer" type="MarginContainer" parent="." unique_id=1849288445]
-visible = false
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=710475090]
 layout_mode = 2
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -30,7 +26,8 @@ theme_override_constants/margin_top = -4
 theme_override_constants/margin_right = -4
 theme_override_constants/margin_bottom = -4
 
-[node name="TextureRect" type="ColorRect" parent="SelectionContainer" unique_id=557283441]
+[node name="TextureRect" type="ColorRect" parent="MarginContainer2" unique_id=557283441]
+custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -56,13 +53,13 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1658703594]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1234162593]
 layout_mode = 2
 mouse_filter = 2
 mouse_behavior_recursive = 1
 theme_override_constants/separation = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=446086344]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1620428656]
 layout_mode = 2
 mouse_filter = 2
 mouse_behavior_recursive = 1
@@ -77,9 +74,10 @@ pin_type = 0
 data_type = 2
 
 [node name="NameLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1438934417]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 mouse_filter = 2
 mouse_behavior_recursive = 1
 theme_override_fonts/normal_font = ExtResource("3_xdwyp")
@@ -90,16 +88,14 @@ scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=980338506]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=525698239]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
-mouse_behavior_recursive = 1
-theme_override_constants/separation = 0
 
 [node name="InputPins" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1647393448]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 mouse_behavior_recursive = 1
 
@@ -107,7 +103,6 @@ mouse_behavior_recursive = 1
 layout_mode = 2
 mouse_behavior_recursive = 2
 pin_type = 0
-default_value = 10.0
 
 [node name="Input2" parent="MarginContainer/VBoxContainer/HBoxContainer2/InputPins" unique_id=1846425676 instance=ExtResource("3_uvjcf")]
 layout_mode = 2
@@ -117,6 +112,7 @@ pin_type = 0
 [node name="MathLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2134505420]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+size_flags_horizontal = 3
 mouse_filter = 2
 mouse_behavior_recursive = 1
 theme_override_fonts/normal_font = ExtResource("3_xdwyp")
@@ -128,15 +124,15 @@ vertical_alignment = 1
 
 [node name="OutputPins" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1531362993]
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 mouse_filter = 2
 mouse_behavior_recursive = 1
 theme_override_constants/separation = 2
 
 [node name="NumberOutputPin" parent="MarginContainer/VBoxContainer/HBoxContainer2/OutputPins" unique_id=1802125251 instance=ExtResource("3_uvjcf")]
 layout_mode = 2
+size_flags_horizontal = 8
 mouse_behavior_recursive = 2
-pin_type = 1
 
 [node name="Filler" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2/OutputPins" unique_id=1806455929]
 layout_mode = 2
@@ -144,7 +140,6 @@ size_flags_vertical = 3
 
 [node name="Out" parent="MarginContainer/VBoxContainer/HBoxContainer2/OutputPins" unique_id=804416880 instance=ExtResource("3_uvjcf")]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 8
 mouse_behavior_recursive = 2
-pin_type = 1
 data_type = 2

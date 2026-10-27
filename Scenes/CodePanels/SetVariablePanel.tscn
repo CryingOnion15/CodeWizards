@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://b6to52ryetxgh"]
 
-[ext_resource type="Theme" uid="uid://d03d66ql8b6mw" path="res://Assets/Themes/variable_panel_theme.tres" id="1_e376i"]
 [ext_resource type="Script" uid="uid://chvtlut61ul2o" path="res://Components/CodePanel/Basic/SetVariablePanel.gd" id="2_e376i"]
 [ext_resource type="Texture2D" uid="uid://cht2ndpn77sjy" path="res://Assets/Sprites/Frame.png" id="3_24qau"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="4_qbagd"]
@@ -14,7 +13,6 @@ custom_minimum_size = Vector2(74, 74)
 offset_right = 74.0
 offset_bottom = 74.0
 mouse_behavior_recursive = 2
-theme = ExtResource("1_e376i")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_e376i")
 script = ExtResource("2_e376i")
 reference_pin = NodePath("MarginContainer/VBoxContainer/Bottom/VBoxContainer/ReferencePin")
@@ -130,5 +128,4 @@ mouse_behavior_recursive = 1
 layout_mode = 2
 size_flags_vertical = 8
 mouse_behavior_recursive = 2
-pin_type = 1
 data_type = 2

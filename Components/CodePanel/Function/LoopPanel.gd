@@ -37,6 +37,8 @@ func disconnect_nested_pins():
 		if(area.dropables.size() > 0):
 			var panel = area.get_panel();
 			panel.disconnect_control_pins();
+			
+		nested_outflow_pin.disconnect_pin();
 
 func connect_nested_pins():
 	disconnect_nested_pins();
@@ -58,4 +60,4 @@ func connect_nested_pins():
 					
 				current_out = panel.outflow_pin;
 				
-		nested_outflow_pin.connect_from_event(current_out, Vector2.RIGHT, 1.0);
+		current_out.connect_from_event(nested_outflow_pin, Vector2.RIGHT, 1.0);

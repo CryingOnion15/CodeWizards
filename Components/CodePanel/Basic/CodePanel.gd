@@ -49,9 +49,9 @@ func _ready():
 	drop_type = normal_type;
 	drag_node = self;
 
-func set_size_via_theme():
-	var width = 0;
-	var height = 0;
+#func set_size_via_theme():
+	#var width = 0;
+	#var height = 0;
 	
 	#match(size_theme):
 		#THEME_SIZE.SMALL:
@@ -67,8 +67,8 @@ func set_size_via_theme():
 			#height = get_theme_constant("large_height", "CodePanel");
 			#pass
 	
-	custom_minimum_size = Vector2(width,height);	
-	size = Vector2(width,height);
+	#custom_minimum_size = Vector2(width,height);	
+	#size = Vector2(width,height);
 	
 func Execute():
 	pass;
@@ -144,8 +144,8 @@ func get_pin_data() -> Array[Dictionary]:
 		
 	return data;
 
-func set_theme_size(t_size: THEME_SIZE):
-	pass;
+#func set_theme_size(t_size: THEME_SIZE):
+	#pass;
 	#size_theme = t_size;
 	#set_size_via_theme();
 
@@ -333,6 +333,7 @@ func select():
 func unselect():
 	print("UNSELECT");
 	if selection_root:
+		selection_root.reset_size();
 		selection_root.hide();
 		
 	is_selected = false;

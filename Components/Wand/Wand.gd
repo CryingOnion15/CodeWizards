@@ -207,6 +207,7 @@ func init_with_data():
 			var panel_data = PanelDatabase.get_panel(panel.get("template"))
 			var panel_scene = load(panel_data.get("panelPath"));
 			var new_panel: CodePanel = panel_scene.instantiate();
+			
 			code_panels.push_back(new_panel);
 			new_panel.set_meta_data(panel);
 

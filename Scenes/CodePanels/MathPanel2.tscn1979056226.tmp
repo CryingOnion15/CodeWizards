@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://hbcxgr733bes"]
+
+[ext_resource type="Script" uid="uid://b874icemm6o7c" path="res://Components/CodePanel/Function/MathPanel.gd" id="1_e8k2l"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="3_sky78"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xdwyp"]
+
+[node name="MathPanel" type="PanelContainer" unique_id=2024613806 node_paths=PackedStringArray("selection_root")]
+physics_interpolation_mode = 0
+offset_right = 120.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xdwyp")
+script = ExtResource("1_e8k2l")
+selection_root = NodePath("ColorRect")
+metadata/_custom_type_script = "uid://b874icemm6o7c"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1209364314]
+layout_mode = 2
+color = Color(1, 0.5411765, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1079035372]
+layout_mode = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="In" parent="MarginContainer" unique_id=197575604 instance=ExtResource("3_sky78")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_behavior_recursive = 2
+pin_type = 0
+data_type = 2
+
+[node name="Input1" parent="MarginContainer" unique_id=614188574 instance=ExtResource("3_sky78")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="Input2" parent="MarginContainer" unique_id=1846425676 instance=ExtResource("3_sky78")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+pin_type = 0
+
+[node name="NumberOutputPin" parent="MarginContainer" unique_id=1802125251 instance=ExtResource("3_sky78")]
+layout_mode = 2
+mouse_behavior_recursive = 2
+
+[node name="Out" parent="MarginContainer" unique_id=804416880 instance=ExtResource("3_sky78")]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_behavior_recursive = 2
+data_type = 2

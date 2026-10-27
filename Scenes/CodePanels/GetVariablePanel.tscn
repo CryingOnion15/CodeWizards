@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dki1put1b3ll1"]
 
-[ext_resource type="Theme" uid="uid://d03d66ql8b6mw" path="res://Assets/Themes/variable_panel_theme.tres" id="1_2361a"]
 [ext_resource type="Script" uid="uid://w811vl7l78r7" path="res://Components/CodePanel/Basic/GetVariablePanel.gd" id="2_2361a"]
 [ext_resource type="Texture2D" uid="uid://d3m4cbm4e7fpc" path="res://Assets/Sprites/ConstFrame.png" id="3_2361a"]
 [ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="4_ny78f"]
@@ -14,7 +13,6 @@ custom_minimum_size = Vector2(74, 74)
 offset_right = 74.0
 offset_bottom = 74.0
 mouse_behavior_recursive = 2
-theme = ExtResource("1_2361a")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_2361a")
 script = ExtResource("2_2361a")
 var_name_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/VarNameLabel")
@@ -110,10 +108,8 @@ mouse_behavior_recursive = 1
 [node name="ReferencePin" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=804416880 instance=ExtResource("5_lqfuk")]
 layout_mode = 2
 mouse_behavior_recursive = 2
-pin_type = 1
 data_type = 3
 
 [node name="ValuePin" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1856335639 instance=ExtResource("5_lqfuk")]
 layout_mode = 2
 mouse_behavior_recursive = 2
-pin_type = 1

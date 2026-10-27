@@ -15,30 +15,37 @@ enum MATH_FUNC {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("READY: ", size);
 	super._ready();
 	
-	match math_type:
-		MATH_FUNC.ADD:
-			math_label.text = "+";
-			return;
-		MATH_FUNC.SUB:
-			math_label.text = "-";
-			return;
-		MATH_FUNC.MULT:
-			math_label.text = "*";
-			return;
-		MATH_FUNC.DIV:
-			math_label.text = "/";
-			return;
-		MATH_FUNC.MOD:
-			math_label.text = "%";
-			return;
-		MATH_FUNC.EXP:
-			math_label.text = "^";
-			return;
-			
-	print("READY: ", size)
+	#hide();
+	#size = custom_minimum_size;
+	#await get_tree().process_frame;
 	
+	update_minimum_size();
+	
+	print("READY 2: ", size)
+	if math_label:
+		match math_type:
+			MATH_FUNC.ADD:
+				math_label.text = "+";
+				return;
+			MATH_FUNC.SUB:
+				math_label.text = "-";
+				return;
+			MATH_FUNC.MULT:
+				math_label.text = "*";
+				return;
+			MATH_FUNC.DIV:
+				math_label.text = "/";
+				return;
+			MATH_FUNC.MOD:
+				math_label.text = "%";
+				return;
+			MATH_FUNC.EXP:
+				math_label.text = "^";
+				return;
+			
 func get_save_data():
 	var save_data = super.get_save_data();
 	
@@ -55,20 +62,17 @@ func init_panel():
 	if not meta_data.is_empty():
 		math_type = meta_data.get("type", MATH_FUNC.ADD);
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_RESIZED:
-		print("RESIZED: ", size)
+#func _notification(what: int) -> void:
+	#if what == NOTIFICATION_RESIZED:
+		#print("RESIZED: ", size)
 	
 func Execute():
 	print("Math Panel Woo.");
-	
-	
 	output_pins[0].set_value("%s:%s" % [id, "get_math_result"])
 	
 func get_math_result():
 	var input1 = input_pins[0].get_value(true);
 	var input2 = input_pins[1].get_value(true);
-	
 	
 	match math_type:
 		MATH_FUNC.ADD:

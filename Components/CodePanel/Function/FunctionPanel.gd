@@ -40,14 +40,7 @@ func handle_start(event):
 	super.handle_start(event);
 	
 	if is_nested:
-		nested_in_connection = inflow_pin.connectedTo;
-		nested_out_connection = outflow_pin.connectedTo;
-		
-		if nested_in_connection:
-			nested_in_connection.disconnect_pin();
-		if nested_out_connection:
-			nested_out_connection.disconnect_pin();
-			
+		nested_in_connection = inflow_pin.connectedTo;			
 		inflow_pin.disconnect_pin();
 		outflow_pin.disconnect_pin();
 		
@@ -128,8 +121,8 @@ func unnest_panel():
 func disconnect_control_pins():
 	if(inflow_pin.connectedTo):
 		inflow_pin.connectedTo.disconnect_pin();
-	inflow_pin.disconnect_pin();
+	#inflow_pin.disconnect_pin();
 	
-	if(outflow_pin.connectedTo):
-		outflow_pin.connectedTo.disconnect_pin();
-	outflow_pin.disconnect_pin();
+	#if(outflow_pin.connectedTo):
+		#outflow_pin.connectedTo.disconnect_pin();
+	#outflow_pin.disconnect_pin();

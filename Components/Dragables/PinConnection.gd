@@ -21,7 +21,7 @@ func _ready() -> void:
 		curve.add_point(Vector2.ZERO)
 		
 func _process(delta: float) -> void:
-	if connector_pin && owner_pin:
+	if connector_pin && owner_pin && !owner_pin.locked:
 		var mouse_pos = line.get_local_mouse_position();
 		var points = curve.get_baked_points();
 		var hovered = false;
@@ -51,19 +51,26 @@ func _process(delta: float) -> void:
 				draw_reset();
 				
 func _input(event: InputEvent) -> void:
-	
-	if event.is_action("Alternate-Controls"):
-		if event.is_pressed() && is_hovered:
-			draw_red();
-		else:
-			draw_reset();
-	
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if is_hovered && owner_pin.alter_control:
-				connection_clicked.emit()
-				get_viewport().set_input_as_handled()
+	if connector_pin && owner_pin:
+		if event.is_action("Alternate-Controls"):
+			if event.is_pressed() && is_hovered:
+				draw_red();
+			else:
+				draw_reset();
+		
+		if event is InputEventMouseButton:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				if is_hovered && owner_pin.alter_control:
+					is_hovered = false;
+					connection_clicked.emit();
+					get_viewport().set_input_as_handled();
 
+func get_save_data():
+	return {
+		"owner": owner_pin.id,
+		"connector": connector_pin.id,
+	}
+	
 func draw_red():
 	line.modulate = Color.RED;
 	
