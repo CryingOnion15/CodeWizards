@@ -75,11 +75,17 @@ static func get_connection_value_callback(panelID, functionName, arguments = [])
 		return func(): return "";
 		
 static func verify_connections():
+	var test = connections;
 	for connection in connections.keys():				
 		var from: Pin = pins.get(connection);
 		var to_array: Array = connections[connection];
 		
 		for to in to_array:
+			var to_pin = pins.get(to)
+			
+			if from.has_connection(to_pin):
+				continue;
+				
 			if to && from:
 				from.connect_to_id(to);
 			else:

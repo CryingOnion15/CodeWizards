@@ -6,8 +6,10 @@ var input_pins: Array[Pin] = [];
 var output_pins: Array[Pin] = [];
 
 var nested_in_connection: Pin = null;
-var nested_out_connection: Pin = null;
+var nested_connections: Array = [];
+#var nested_out_connection: Pin = null;
 var nested_under: String = "";
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,7 +44,11 @@ func handle_start(event):
 	if is_nested:
 		nested_in_connection = inflow_pin.connectedTo;			
 		inflow_pin.disconnect_pin();
+		nested_connections = outflow_pin.connections.map(func (c): return c.connector_pin.id);
 		outflow_pin.disconnect_pin();
+		
+		inflow_pin.set_locked_state(false);
+		outflow_pin.set_locked_state(false);
 		
 func cancel():	
 	super.cancel();
@@ -53,8 +59,10 @@ func cancel():
 			nested_in_connection.connect_from_event(inflow_pin, Vector2.LEFT, 1.0);
 			inflow_pin.set_locked_state(true);
 		
-		if nested_out_connection:
-			nested_out_connection.connect_from_event(outflow_pin, Vector2.RIGHT, 1.0);
+		if nested_connections.size() != 0:
+			for n_connection in nested_connections:
+				outflow_pin.connect_to_id(n_connection);
+			
 			outflow_pin.set_locked_state(true);
 		
 	

@@ -472,3 +472,8 @@ func handle_mouse_buttons(event):
 					
 	if(isDragging && event.is_action_released("Click")):
 		handle_end(event);
+
+func has_connection(connector: Pin):
+	return connections.find_custom(
+		func(connection): return connection.connector_pin.id == connector.id
+	) != -1;

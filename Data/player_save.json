@@ -1,5 +1,72 @@
 {
-	"blocks": [],
+	"blocks": [
+		{
+			"data": {
+				"id": "571a1c12-3c94-af15-e73e-5a9bfd12c6fb",
+				"isNested": false,
+				"nestedUnder": "",
+				"pins": [
+					{
+						"connectedTo": "",
+						"connections": [],
+						"defaultValue": null,
+						"id": "7be11110-9c7a-653f-3a2a-229d30264f47",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": "571a1c12-3c94-af15-e73e-5a9bfd12c6fb:get_panel_reference"
+					},
+					{
+						"connectedTo": "",
+						"connections": [],
+						"defaultValue": 10.0,
+						"id": "a26d4bc9-7257-3861-8265-10b348e41f86",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": ""
+					},
+					{
+						"connectedTo": "",
+						"connections": [],
+						"defaultValue": null,
+						"id": "58abbc36-855c-78e6-51b7-938685dd8360",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": ""
+					},
+					{
+						"connectedTo": "",
+						"connections": [],
+						"defaultValue": null,
+						"id": "4111cef9-95f8-b312-6ffa-a0da0b201a55",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": ""
+					},
+					{
+						"connectedTo": "",
+						"connections": [],
+						"defaultValue": null,
+						"id": "344af9c5-64ea-c342-3c66-d0dde34ddfbe",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": "571a1c12-3c94-af15-e73e-5a9bfd12c6fb:get_panel_reference"
+					}
+				],
+				"position": [
+					4104.0,
+					4400.0
+				],
+				"template": "test_math",
+				"type": 0.0
+			},
+			"template": "test_math"
+		}
+	],
 	"wand_scene": "res://Scenes/Wand/Wand.tscn",
 	"wands": [
 		{
@@ -25,7 +92,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "39cdc8cb-a5c1-7a4d-e934-e9b7f5e5bf7c",
+						"id": "39355908-53f0-1b69-8287-f84026771452",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -35,7 +102,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "16a18c6e-ca60-6495-8bf5-ca25ee39dbb7",
+						"id": "3ff97895-718a-9be1-599b-058965dfcb03",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -264,69 +331,6 @@
 						824.0
 					],
 					"template": "const10"
-				},
-				{
-					"id": "571a1c12-3c94-af15-e73e-5a9bfd12c6fb",
-					"isNested": false,
-					"nestedUnder": "",
-					"pins": [
-						{
-							"connectedTo": "",
-							"connections": [],
-							"defaultValue": null,
-							"id": "7be11110-9c7a-653f-3a2a-229d30264f47",
-							"isHardcoded": false,
-							"isLocked": false,
-							"isNested": false,
-							"value": "571a1c12-3c94-af15-e73e-5a9bfd12c6fb:get_panel_reference"
-						},
-						{
-							"connectedTo": "",
-							"connections": [],
-							"defaultValue": 10.0,
-							"id": "a26d4bc9-7257-3861-8265-10b348e41f86",
-							"isHardcoded": false,
-							"isLocked": false,
-							"isNested": false,
-							"value": ""
-						},
-						{
-							"connectedTo": "",
-							"connections": [],
-							"defaultValue": null,
-							"id": "58abbc36-855c-78e6-51b7-938685dd8360",
-							"isHardcoded": false,
-							"isLocked": false,
-							"isNested": false,
-							"value": ""
-						},
-						{
-							"connectedTo": "",
-							"connections": [],
-							"defaultValue": null,
-							"id": "4111cef9-95f8-b312-6ffa-a0da0b201a55",
-							"isHardcoded": false,
-							"isLocked": false,
-							"isNested": false,
-							"value": ""
-						},
-						{
-							"connectedTo": "",
-							"connections": [],
-							"defaultValue": null,
-							"id": "344af9c5-64ea-c342-3c66-d0dde34ddfbe",
-							"isHardcoded": false,
-							"isLocked": false,
-							"isNested": false,
-							"value": "571a1c12-3c94-af15-e73e-5a9bfd12c6fb:get_panel_reference"
-						}
-					],
-					"position": [
-						1260.0,
-						503.0
-					],
-					"template": "test_math",
-					"type": 0.0
 				}
 			],
 			"parameters": {
