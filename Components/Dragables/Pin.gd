@@ -125,6 +125,8 @@ func _on_mouse_entered() -> void:
 			hover();
 		elif connections.size() == 0:
 			hover();
+			
+	check_for_red_line();
 	#elif connectedTo:
 		#hover();
 
@@ -147,6 +149,8 @@ func _on_mouse_exited() -> void:
 			reset();
 		else:
 			emit_connected();
+	
+	check_for_red_line();
 		
 func update_curve_on_drag(newPos):
 	if active_connection:
@@ -226,8 +230,11 @@ func get_active_connection():
 
 func on_connection_clicked(connection: PinConnection):
 	if alter_control:
-		connection.connector_pin.disconnect_pin();
-		remove_connection_to_pin(connection.connector_pin);
+		if isEntered:
+			disconnect_pin();
+		else:
+			connection.connector_pin.disconnect_pin();
+			remove_connection_to_pin(connection.connector_pin);
 
 func handle_end(event):
 	if locked || is_hardcoded:
@@ -460,8 +467,31 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action("Alternate-Controls"):
 		alter_control = event.is_pressed();
+		if isEntered:
+			check_for_red_line();
 		
 	super._input(event);
+
+func check_for_red_line():
+	if connectedTo:
+		var connection: PinConnection = connectedTo.get_connection(self);
+	
+		if alter_control:
+			if isEntered || connection.is_hovered:
+				connection.draw_red();
+			else:
+				connection.draw_reset();
+	elif connections.size() >= 0:
+		if alter_control:
+			if isEntered:
+				for c in connections:
+					c.draw_red();
+			else:
+				for c in connections:
+					if c.is_hovered:
+						c.draw_red();
+					else:
+						c.draw_reset();
 
 func handle_mouse_buttons(event):
 	if isEntered && event.is_action_pressed("Click"):
@@ -477,3 +507,13 @@ func has_connection(connector: Pin):
 	return connections.find_custom(
 		func(connection): return connection.connector_pin.id == connector.id
 	) != -1;
+	
+func get_connection(connector: Pin):
+	var index = connections.find_custom(
+		func(connection): return connection.connector_pin.id == connector.id
+	);
+	
+	if index != -1:
+		return connections[index];
+	
+	return null;

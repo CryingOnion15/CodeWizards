@@ -48,13 +48,18 @@ func _process(delta: float) -> void:
 				else:
 					draw_reset();
 			else:
-				draw_reset();
+				if owner_pin.isEntered || connector_pin.isEntered:
+					draw_red();
+				else:
+					print("Not Hovered and Not Entered.")
+					draw_reset();
 				
 func _input(event: InputEvent) -> void:
 	if connector_pin && owner_pin:
 		if event.is_action("Alternate-Controls"):
-			if event.is_pressed() && is_hovered:
-				draw_red();
+			if event.is_pressed():
+				if owner_pin.isEntered || connector_pin.isEntered || is_hovered:
+					draw_red();
 			else:
 				draw_reset();
 		
@@ -63,7 +68,7 @@ func _input(event: InputEvent) -> void:
 				if is_hovered && owner_pin.alter_control:
 					is_hovered = false;
 					connection_clicked.emit();
-					get_viewport().set_input_as_handled();
+					#get_viewport().set_input_as_handled();
 
 func get_save_data():
 	return {
