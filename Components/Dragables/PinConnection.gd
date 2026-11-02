@@ -45,18 +45,32 @@ func _process(delta: float) -> void:
 				
 				if owner_pin.alter_control:
 					draw_red();
+				elif check_for_replace():
+					draw_red();
 				else:
 					draw_reset();
 			else:
-				if owner_pin.isEntered || connector_pin.isEntered:
+				if owner_pin.alter_control && (owner_pin.isEntered || connector_pin.isEntered):
 					draw_red();
 				else:
 					print("Not Hovered and Not Entered.")
 					draw_reset();
-				
+
+func check_for_replace():
+	if connector_pin && Pin.ACTIVE_PIN:
+		if connector_pin.isEntered && owner_pin != Pin.ACTIVE_PIN && connector_pin.check_valid_connection(Pin.ACTIVE_PIN):
+			return true;
+		else:
+			return false;
+	else:
+		return false
+
 func _input(event: InputEvent) -> void:
 	if connector_pin && owner_pin:
-		if event.is_action("Alternate-Controls"):
+		
+		var active_drag = Pin.ACTIVE_PIN && Pin.ACTIVE_PIN.isDragging;
+		
+		if !active_drag && event.is_action("Alternate-Controls"):
 			if event.is_pressed():
 				if owner_pin.isEntered || connector_pin.isEntered || is_hovered:
 					draw_red();

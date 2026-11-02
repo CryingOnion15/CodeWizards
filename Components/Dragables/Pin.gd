@@ -111,7 +111,9 @@ func _on_mouse_entered() -> void:
 	
 	super._on_mouse_entered();
 	
-	## TODO handle alt control somewhere in here.
+	if alter_control:
+		check_for_red_line();
+		
 	if(Pin.ACTIVE_PIN != null):
 		Pin.SECONDARY_PIN = self;
 		
@@ -125,10 +127,8 @@ func _on_mouse_entered() -> void:
 			hover();
 		elif connections.size() == 0:
 			hover();
-			
-	check_for_red_line();
-	#elif connectedTo:
-		#hover();
+	
+	
 
 func _on_mouse_exited() -> void:
 	if locked || is_hardcoded:
@@ -149,7 +149,7 @@ func _on_mouse_exited() -> void:
 			reset();
 		else:
 			emit_connected();
-	
+			
 	check_for_red_line();
 		
 func update_curve_on_drag(newPos):
@@ -267,7 +267,10 @@ func hover():
 	pin_hover.emit()
 	
 func correct_connect_hover():
-	pin_hover_correct.emit()
+	pin_hover_correct.emit();
+	
+	if connectedTo && connectedTo != Pin.ACTIVE_PIN:
+		connectedTo.get_connection(self).draw_red();
 	
 func incorrect_connect_hover():
 	pin_hover_incorrect.emit()
@@ -465,7 +468,9 @@ func init_pin():
 		
 func _input(event: InputEvent) -> void:
 	
-	if event.is_action("Alternate-Controls"):
+	var active_drag = Pin.ACTIVE_PIN && Pin.ACTIVE_PIN.isDragging;
+	
+	if !active_drag && event.is_action("Alternate-Controls"):
 		alter_control = event.is_pressed();
 		if isEntered:
 			check_for_red_line();
@@ -481,6 +486,8 @@ func check_for_red_line():
 				connection.draw_red();
 			else:
 				connection.draw_reset();
+		else:
+			connection.draw_reset();
 	elif connections.size() >= 0:
 		if alter_control:
 			if isEntered:
@@ -492,6 +499,9 @@ func check_for_red_line():
 						c.draw_red();
 					else:
 						c.draw_reset();
+		else:
+			for c in connections:
+				c.draw_reset();
 
 func handle_mouse_buttons(event):
 	if isEntered && event.is_action_pressed("Click"):

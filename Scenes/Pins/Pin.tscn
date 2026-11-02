@@ -148,12 +148,6 @@ sprite_frames = SubResource("SpriteFrames_08ots")
 animation = &"Idle"
 script = ExtResource("3_h50ra")
 
-[node name="Line2D" type="Line2D" parent="HBoxContainer/Pin Rect" unique_id=249325266]
-visible = false
-z_index = 2
-position = Vector2(16, 16)
-width = 4.0
-
 [node name="ConnectionParent" type="Control" parent="HBoxContainer/Pin Rect" unique_id=1868535854]
 layout_mode = 1
 anchors_preset = 15
