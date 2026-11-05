@@ -418,8 +418,8 @@ func get_save_data() -> Dictionary:
 		"connections": connection_save_data(),
 		"connectedTo": connectedTo.id if connectedTo else "",
 		"value": value_signature,
-		"isHardcoded": is_hardcoded,
 		"defaultValue": default_value,
+		"isHardcoded": is_hardcoded,
 		"isLocked": locked,
 		"isNested": nested,
 	}

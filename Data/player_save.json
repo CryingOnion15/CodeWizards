@@ -62,7 +62,7 @@
 					4400.0
 				],
 				"template": "test_math",
-				"type": 0.0
+				"type": 0
 			},
 			"template": "test_math"
 		}
@@ -78,6 +78,7 @@
 						"connections": [
 							{
 								"connector": "68be0e64-ed4d-6f8a-7d8f-f7b8802907e2",
+								"hardcoded": false,
 								"owner": "4934a016-08b5-ec27-0ddd-649ac7a44e2c"
 							}
 						],
@@ -92,7 +93,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "39355908-53f0-1b69-8287-f84026771452",
+						"id": "c3ecb156-b16d-7fa4-4d8f-7ca62cdfe346",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -102,7 +103,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "3ff97895-718a-9be1-599b-058965dfcb03",
+						"id": "7ec62182-f324-391d-f076-d4c53e609036",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -149,7 +150,7 @@
 			"panels": [
 				{
 					"id": "15c15bf2-f218-0798-369d-4c4c4767ab0a",
-					"numberValue": 5.0,
+					"numberValue": 5,
 					"pins": [
 						{
 							"connectedTo": "",
@@ -170,17 +171,19 @@
 				},
 				{
 					"id": "1c1e6c74-e858-0405-99b1-5b1abb3ef8f9",
-					"numberValue": 12.0,
+					"numberValue": 12,
 					"pins": [
 						{
 							"connectedTo": "",
 							"connections": [
 								{
 									"connector": "ca700a30-aaad-5040-6822-d03b397b76fd",
+									"hardcoded": false,
 									"owner": "246ec24c-7a9e-853a-37a2-e0ab5a65b82c"
 								},
 								{
 									"connector": "18ac29c7-c23d-0b0c-5eb0-d4ab23545038",
+									"hardcoded": false,
 									"owner": "246ec24c-7a9e-853a-37a2-e0ab5a65b82c"
 								}
 							],
@@ -200,7 +203,7 @@
 				},
 				{
 					"id": "858ea9ca-2b29-43d7-5ba9-541a732d0e8e",
-					"numberValue": 3.0,
+					"numberValue": 3,
 					"pins": [
 						{
 							"connectedTo": "",
@@ -284,6 +287,7 @@
 							"connections": [
 								{
 									"connector": "345d0c59-fe75-a4ac-7eab-5996188bbc89",
+									"hardcoded": false,
 									"owner": "ac2d631e-fe64-e494-11fa-764ceae4234e"
 								}
 							],
@@ -313,7 +317,7 @@
 				},
 				{
 					"id": "1c0a14bb-5bd0-f87b-2596-bba85764f235",
-					"numberValue": 10.0,
+					"numberValue": 10,
 					"pins": [
 						{
 							"connectedTo": "",
@@ -340,6 +344,99 @@
 			"variables": {
 				"Var 1": 14.0,
 				"Var 2": 10.0
+			}
+		},
+		{
+			"entry_panel": {
+				"id": "f009c74b-c764-4b0c-b0ac-8f76d1a167b6",
+				"pins": [
+					{
+						"connectedTo": "",
+						"connections": [
+							{
+								"connector": "b44c9cae-237e-49b1-803d-b608afafd0b6",
+								"hardcoded": false,
+								"owner": "47ef5378-783c-4af9-b018-a48bde324997"
+							}
+						],
+						"defaultValue": null,
+						"id": "47ef5378-783c-4af9-b018-a48bde324997",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": "f009c74b-c764-4b0c-b0ac-8f76d1a167b6:get_panel_reference"
+					},
+					{
+						"connectedTo": "",
+						"connections": [
+							{
+								"connector": "3f425e05-7869-4967-b9a6-e90711ab5ea4",
+								"hardcoded": false,
+								"owner": "4307ed0a-e881-951c-b103-32d58f0fe605"
+							}
+						],
+						"defaultValue": null,
+						"id": "4307ed0a-e881-951c-b103-32d58f0fe605",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": "f009c74b-c764-4b0c-b0ac-8f76d1a167b6:get_panel_value:Param1"
+					},
+					{
+						"connectedTo": "",
+						"connections": [],
+						"defaultValue": null,
+						"id": "03c2abb4-93a7-7f3c-e1aa-f2463def2c91",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": "f009c74b-c764-4b0c-b0ac-8f76d1a167b6:get_panel_value:Type"
+					}
+				],
+				"position": [
+					604.0,
+					504.0
+				],
+				"template": "entry"
+			},
+			"exit_panel": {
+				"id": "676bf91c-8fb4-440d-9348-c987bf12a90e",
+				"pins": [
+					{
+						"connectedTo": "47ef5378-783c-4af9-b018-a48bde324997",
+						"connections": [],
+						"defaultValue": null,
+						"id": "b44c9cae-237e-49b1-803d-b608afafd0b6",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": "676bf91c-8fb4-440d-9348-c987bf12a90e:get_panel_reference"
+					},
+					{
+						"connectedTo": "4307ed0a-e881-951c-b103-32d58f0fe605",
+						"connections": [],
+						"defaultValue": null,
+						"id": "3f425e05-7869-4967-b9a6-e90711ab5ea4",
+						"isHardcoded": false,
+						"isLocked": false,
+						"isNested": false,
+						"value": ""
+					}
+				],
+				"position": [
+					1266.0,
+					506.0
+				],
+				"template": "exit"
+			},
+			"id": "89331df2-caa2-4f02-b071-e4eafdb3d3e0",
+			"panels": [],
+			"parameters": {
+				"Param1": 9.0,
+				"Type": "Heal"
+			},
+			"variables": {
+				"Var 1": 57.0
 			}
 		}
 	]

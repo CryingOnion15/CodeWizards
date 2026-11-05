@@ -8,6 +8,7 @@ var curve: Curve2D = null;
 var owner_pin: Pin = null;
 var connector_pin: Pin = null;
 var is_hovered: bool = false;
+var hardcoded: bool = false; #TODO implement this.
 
 @export var line: Line2D = null;
 @export var hit_width: float = 4.0;
@@ -88,6 +89,7 @@ func get_save_data():
 	return {
 		"owner": owner_pin.id,
 		"connector": connector_pin.id,
+		"hardcoded": hardcoded,
 	}
 	
 func draw_red():
