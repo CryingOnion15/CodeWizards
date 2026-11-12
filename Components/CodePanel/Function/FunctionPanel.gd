@@ -6,7 +6,10 @@ var input_pins: Array[Pin] = [];
 var output_pins: Array[Pin] = [];
 
 var nested_in_connection: Pin = null;
-var nested_out_connection: Pin = null;
+var nested_connections: Array = [];
+#var nested_out_connection: Pin = null;
+var nested_under: String = "";
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,7 +19,7 @@ func _ready() -> void:
 	can_be_nested = true;
 	
 	super._ready();
-	for pin in availablePins:
+	for pin in available_pins:
 		if(inflow_pin == null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL && !pin.nested):
 			inflow_pin = pin;
 			
@@ -26,11 +29,11 @@ func _ready() -> void:
 		if(outflow_pin != null && inflow_pin != null):
 			break
 	
-	input_pins = availablePins.filter(
+	input_pins = available_pins.filter(
 		func(pin):
 			return pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type != Pin.DATA_TYPE.CONTROL; 
 	)
-	output_pins = availablePins.filter(
+	output_pins = available_pins.filter(
 		func(pin):
 			return pin.pin_type == Pin.PIN_TYPE.CONNECTOR && pin.data_type != Pin.DATA_TYPE.CONTROL;
 	)
@@ -39,16 +42,13 @@ func handle_start(event):
 	super.handle_start(event);
 	
 	if is_nested:
-		nested_in_connection = inflow_pin.connectedTo;
-		nested_out_connection = outflow_pin.connectedTo;
-		
-		if nested_in_connection:
-			nested_in_connection.disconnect_pin();
-		if nested_out_connection:
-			nested_out_connection.disconnect_pin();
-			
+		nested_in_connection = inflow_pin.connectedTo;			
 		inflow_pin.disconnect_pin();
+		nested_connections = outflow_pin.connections.map(func (c): return c.connector_pin.id);
 		outflow_pin.disconnect_pin();
+		
+		inflow_pin.set_locked_state(false);
+		outflow_pin.set_locked_state(false);
 		
 func cancel():	
 	super.cancel();
@@ -59,8 +59,10 @@ func cancel():
 			nested_in_connection.connect_from_event(inflow_pin, Vector2.LEFT, 1.0);
 			inflow_pin.set_locked_state(true);
 		
-		if nested_out_connection:
-			nested_out_connection.connect_from_event(outflow_pin, Vector2.RIGHT, 1.0);
+		if nested_connections.size() != 0:
+			for n_connection in nested_connections:
+				outflow_pin.connect_to_id(n_connection);
+			
 			outflow_pin.set_locked_state(true);
 		
 	
@@ -71,17 +73,11 @@ func get_next_control() -> CodePanel:
 	if(outflow_pin.connectedTo):
 		return outflow_pin.connectedTo.get_value();
 	return null;
-
-func disconnect_all_pins():
-	for pin in availablePins:
-		if(pin.connectedTo):
-			pin.connectedTo.disconnect_pin();
-		pin.disconnect_pin();
 		
 func success(drop_type: DropData.DropType):
 	match drop_type:
-		DropData.DropType.GRID:
-			unnest_panel();
+		DropData.DropType.GRID:			
+			unnest_panel();			
 		DropData.DropType.CARD:
 			unnest_panel();
 		DropData.DropType.NEST:
@@ -90,15 +86,51 @@ func success(drop_type: DropData.DropType):
 			pass;
 			
 	super.success(drop_type);
-			
+	
+func get_save_data():
+	var save_data = super.get_save_data();
+	
+	var new = {
+		"isNested": is_nested,
+		"nestedUnder": nested_under,
+	}
+	
+	save_data.merge(new);
+	return save_data;
+	
+func init_panel():
+	super.init_panel();
+	
+	if not meta_data.is_empty():
+		#TODO handle nesting.
+		is_nested = meta_data.get("isNested", false);
+		nested_under = meta_data.get("nestedUnder", "");
+
 func nest_panel():
 	is_nested = true;
 	inflow_pin.set_locked_state(true);
 	outflow_pin.set_locked_state(true);
 	drop_type = nest_type;
 	
+	if wand_graph:
+		wand_graph.remove_panel_from_graph(self);
+		wand_graph.add_panel_to_graph(self);
+	
 func unnest_panel():
 	is_nested = false;
+	nested_under = "";
 	inflow_pin.set_locked_state(false);
 	outflow_pin.set_locked_state(false);
 	drop_type = normal_type;
+	
+	if wand_graph:
+		wand_graph.remove_panel_from_graph(self);
+		
+func disconnect_control_pins():
+	if(inflow_pin.connectedTo):
+		inflow_pin.connectedTo.disconnect_pin();
+	#inflow_pin.disconnect_pin();
+	
+	#if(outflow_pin.connectedTo):
+		#outflow_pin.connectedTo.disconnect_pin();
+	#outflow_pin.disconnect_pin();

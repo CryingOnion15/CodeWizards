@@ -17,34 +17,52 @@ enum MATH_FUNC {
 func _ready() -> void:
 	super._ready();
 	
-	match math_type:
-		MATH_FUNC.ADD:
-			math_label.text = "+";
-			return;
-		MATH_FUNC.SUB:
-			math_label.text = "-";
-			return;
-		MATH_FUNC.MULT:
-			math_label.text = "*";
-			return;
-		MATH_FUNC.DIV:
-			math_label.text = "/";
-			return;
-		MATH_FUNC.MOD:
-			math_label.text = "%";
-			return;
-		MATH_FUNC.EXP:
-			math_label.text = "^";
-			return;
+	update_minimum_size();
+
+	if math_label:
+		match math_type:
+			MATH_FUNC.ADD:
+				math_label.text = "+";
+				return;
+			MATH_FUNC.SUB:
+				math_label.text = "-";
+				return;
+			MATH_FUNC.MULT:
+				math_label.text = "*";
+				return;
+			MATH_FUNC.DIV:
+				math_label.text = "/";
+				return;
+			MATH_FUNC.MOD:
+				math_label.text = "%";
+				return;
+			MATH_FUNC.EXP:
+				math_label.text = "^";
+				return;
+			
+func get_save_data():
+	var save_data = super.get_save_data();
+	
+	var new = {
+		"type": math_type,
+	}
+	
+	save_data.merge(new);
+	return save_data;
+	
+func init_panel():
+	super.init_panel();
+	
+	if not meta_data.is_empty():
+		math_type = meta_data.get("type", MATH_FUNC.ADD);
 	
 func Execute():
-	print("Math Panel Woo.");
+	output_pins[0].set_value("%s:%s" % [id, "get_math_result"])
+	
+func get_math_result():
 	var input1 = input_pins[0].get_value(true);
 	var input2 = input_pins[1].get_value(true);
 	
-	output_pins[0].set_value(get_math_result(input1, input2))
-	
-func get_math_result(input1, input2):
 	match math_type:
 		MATH_FUNC.ADD:
 			return input1 + input2;

@@ -42,7 +42,23 @@ func _ready() -> void:
 		COND_TYPE.NOTEQ:
 			cond_label.text = "!=";
 			return;	
+
+func get_save_data():
+	var save_data = super.get_save_data();
 	
+	var new = {
+		"conditionType": cond_type
+	}
+	
+	save_data.merge(new);
+	return save_data;
+	
+func init_panel():
+	super.init_panel();
+	
+	if not meta_data.is_empty():
+		cond_type = meta_data.get("conditionType", COND_TYPE.LESS);
+
 func Execute():
 	var input1 = input_pins[0].get_value(true);
 	var input2 = input_pins[1].get_value(true);
@@ -76,7 +92,7 @@ func nests_available() -> bool:
 	return false;
 	
 func disconnect_nested_pins():
-	for area in valid_areas:
+	for area in drop_areas:
 		if(area.dropables.size() > 0):
 			var panel = area.get_panel();
 			panel.disconnect_all_pins();
@@ -84,8 +100,8 @@ func disconnect_nested_pins():
 func connect_nested_pins():
 	disconnect_nested_pins();
 	
-	for i in range(valid_areas.size()):
-		var area: NestedDropArea = valid_areas[i];
+	for i in range(drop_areas.size()):
+		var area: NestedDropArea = drop_areas[i];
 		var panel = area.get_panel();
 		
 		if panel:

@@ -4,48 +4,35 @@ class_name Dropable extends Dragable
 signal drop_success(dropType)
 signal drop_cancel
 
+var drop_scene: PackedScene = null;
 var drop_type: int = 0;
 var drag_node: Node;
-var _drop_node: Node;
 var valid_drop: bool = false;
 
-@export var drop_node: Node:
-	get:
-		if _drop_node == null:
-			return self;
-		else:
-			return _drop_node;
-	set(value):
-		_drop_node = value;
-
 # Data Vars
-#var drop_node: Node = null;
-var drop_data: Dictionary = {};
+#var drop_data: Dictionary = {};
 var current_parent: Node = null;
 var start_position: Vector2 = Vector2.ZERO;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
-	
-func init_drop():
-	pass;
 
 func handle_start(event):
 	super.handle_start(event);
-	drop_node.modulate.a = .5;
+	modulate.a = .5;
 	current_parent = get_parent();
-	start_position = drop_node.position;	
+	start_position = position;	
 	DropManager.set_dropable(self);
 	
-	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_IGNORE);
+	set_mouse_filter_rec(self, Control.MOUSE_FILTER_IGNORE);
 
 func handle_end(event):
 	super.handle_end(event);
-	drop_node.modulate.a = 1;
+	modulate.a = 1;
 	DropManager.drop();
 	
-	set_mouse_filter_rec(drop_node, Control.MOUSE_FILTER_STOP);
+	set_mouse_filter_rec(self, Control.MOUSE_FILTER_STOP);
 
 func set_mouse_filter_rec(node: Node, filter: Control.MouseFilter):
 	if node is Control:
@@ -60,18 +47,12 @@ func drag(delta):
 		
 	super.drag(delta);
 	DropManager.update_drop_location(delta);
-	
-func set_data(data: Dictionary):
-	drop_data = data;
-	
-func get_data():
-	return drop_data;
 
 func success(dropType: DropData.DropType):
 	drop_success.emit(dropType);
 	
 func cancel():
-	drop_node.reparent(current_parent);
+	reparent(current_parent);
 	position = start_position;
 	drop_cancel.emit();
 	

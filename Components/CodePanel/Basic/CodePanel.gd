@@ -6,97 +6,198 @@ enum THEME_SIZE {
 	LARGE = 2,
 }
 
-var availablePins: Array[Pin] = [];
+@export var selection_root: Node = null;
+
+var available_pins: Array[Pin] = [];
 var panel_card: PanelCard = null;
-var save_data: Dictionary;
+var meta_data: Dictionary = {};
 var is_nested: bool = false;
+var is_selected: bool = false;
 var can_be_nested: bool = false;
-#var nested_area: DropArea = null;
+var show_card: bool = false;
+var wand_graph: WandGraph = null;
+var template_id: String = "";
 
 #drop types.
 var nest_type = DropData.DropType.GRID | DropData.DropType.CARD;
 var normal_type = DropData.DropType.CARD;
 
-@export var size_theme: THEME_SIZE = THEME_SIZE.MEDIUM;
-@export var pin_root: Node = self;
+static var selected_panel: CodePanel = null;
+#@export var size_theme: THEME_SIZE = THEME_SIZE.MEDIUM;
+#@export var pin_root: Node = self;
+
+var _id: String = "";
+	
+var id: String = "":
+	get:
+		if _id == "":
+			_id = SaveDataUtility.get_UUID();
+			PinConnectionManager.register_panel(_id, self);
+		return _id;
+	set(value):
+		_id = value;
+		PinConnectionManager.register_panel(_id, self);
 
 func _ready():
 	super._ready();
-	var children = pin_root.find_children("*", "Pin", true, false);
-	for child in children:
-		var pin = child as Pin;
-		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
-			# Set this pin's value to it's code panel owner.
-			pin.set_value(self);
-		availablePins.push_back(child as Pin);
-		
-	set_size_via_theme();
+	find_pins();
+	init_panel();
+	setup_pins();
+	unselect();
 	
 	#Dropable settings.
 	drop_type = normal_type;
-	drag_node = drop_node;
+	drag_node = self;
 
-func set_size_via_theme():
-	var width = 0;
-	var height = 0;
+#func set_size_via_theme():
+	#var width = 0;
+	#var height = 0;
 	
-	match(size_theme):
-		THEME_SIZE.SMALL:
-			width = get_theme_constant("small_width", "CodePanel");
-			height = get_theme_constant("small_height", "CodePanel");
-			pass
-		THEME_SIZE.MEDIUM:
-			width = get_theme_constant("medium_width", "CodePanel");
-			height = get_theme_constant("medium_height", "CodePanel");
-			pass
-		THEME_SIZE.LARGE:
-			width = get_theme_constant("large_width", "CodePanel");
-			height = get_theme_constant("large_height", "CodePanel");
-			pass
+	#match(size_theme):
+		#THEME_SIZE.SMALL:
+			#width = get_theme_constant("small_width", "CodePanel");
+			#height = get_theme_constant("small_height", "CodePanel");
+			#pass
+		#THEME_SIZE.MEDIUM:
+			#width = get_theme_constant("medium_width", "CodePanel");
+			#height = get_theme_constant("medium_height", "CodePanel");
+			#pass
+		#THEME_SIZE.LARGE:
+			#width = get_theme_constant("large_width", "CodePanel");
+			#height = get_theme_constant("large_height", "CodePanel");
+			#pass
 	
-	custom_minimum_size = Vector2(width,height);	
-	size = Vector2(width,height);
+	#custom_minimum_size = Vector2(width,height);	
+	#size = Vector2(width,height);
 	
 func Execute():
 	pass;
 
 func get_next_control() -> CodePanel:
 	return null;
-	
-func set_data(data: Dictionary):
-	save_data = data;
-	
-func set_theme_size(t_size: THEME_SIZE):
-	size_theme = t_size;
-	set_size_via_theme();
 
-func init_drop():
-	pass;
-	## TODO When data is linked I can set the card/block to the prefab.
-	#drop_panel = drop_scene.instantiate();
-	#drop_panel.panel_card = self;
-	#self.add_child(drop_panel);
-	#DropManager.add_dropable_to_pool(drop_panel);
+func find_pins():
+	var children = find_children("*", "Pin", true, false);
+	for child in children:
+		var pin = child as Pin;			
+		available_pins.push_back(pin);
+
+func setup_pins():
+	for pin in available_pins:
+		if(pin.data_type == Pin.DATA_TYPE.CONTROL):
+			# Set this pin's value to it's code panel owner.
+			pin.set_value("%s:%s" % [id, "get_panel_reference"]);
+
+func get_panel_reference():
+	return self;
+
+func set_meta_data(data: Dictionary):
+	meta_data = data;
+
+#TODO need to handle all interaction with data set.
+func init_panel():
+	if not meta_data.is_empty():
+		var save_id = meta_data.get("id");
+		id = save_id if save_id else SaveDataUtility.get_UUID(); 
+		
+		var pos = meta_data.get("position", [DropManager.DROP_POOL.x, DropManager.DROP_POOL.y]);
+		position = Vector2(pos[0], pos[1]);
+		
+		template_id = meta_data.get("template", "");
+		if(template_id != ""):
+			var card_data = PanelDatabase.get_card(template_id)
+			if card_data:
+				var card = load(card_data["cardPath"]);
+				panel_card = card.instantiate();
+				panel_card.set_card_texture(load(card_data["cardTexture"]));
+				DropManager.add_dropable_to_pool(panel_card);
+				panel_card.drop_panel = self;
+				panel_card.template_id = template_id;
+		
+		#TODO probably need to refine this, but it might work out.
+		var pin_data = meta_data.get("pins", []);
+		
+		#TODO refine this.
+		if(pin_data.size() > 0):
+			for i in range(available_pins.size()):
+				var pin: Pin = available_pins[i];
+				var p_data = pin_data[i]
+				pin.set_meta_data(p_data);
+				pin.init_pin();
+		
+func get_save_data():
+	return {
+		#Meta-Data
+		"id": id,
+		"template": template_id,
+		#"scene": scene_file_path,
+		#"panelScene": panel_card.scene_file_path if panel_card else "",
+		"position": [position.x, position.y],
+		"pins": get_pin_data()
+	}
+	
+func get_pin_data() -> Array[Dictionary]:
+	var data: Array[Dictionary] = [];
+	
+	for pin in available_pins:
+		data.push_back(pin.get_save_data());
+		
+	return data;
+
+#func set_theme_size(t_size: THEME_SIZE):
+	#pass;
+	#size_theme = t_size;
+	#set_size_via_theme();
 
 func handle_start(event):
 	super.handle_start(event);
 	
 	if !is_nested:
-		drag_node = drop_node;
+		drag_node = self;
 	
 	if panel_card:
-		panel_card.drop_node.modulate.a = .5;
-		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
+		panel_card.modulate.a = .5;
+		panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_IGNORE);
+	
+	if CodePanel.selected_panel != self:	
+		if CodePanel.selected_panel != null:
+			CodePanel.selected_panel.unselect();
+		
+		CodePanel.selected_panel = self;
+		select();
 	
 func handle_end(event):
 	super.handle_end(event);
 	drag_node = null;
 	
 	if panel_card:
-		panel_card.drop_node.modulate.a = 1;
-		panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_STOP);
+		panel_card.modulate.a = 1;
+		panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_STOP);
+		
+func drag(delta):
+	super.drag(delta);
 	
-	
+	if wand_graph:
+		var graph_bounds = wand_graph.drop_area.size;
+		var panel_bounds = size;
+		
+		var right = graph_bounds.x;
+		var left = 0;
+		var up = 0;
+		var down = graph_bounds.y;
+		
+		if(position.x + panel_bounds.x > right):
+			position.x = right - panel_bounds.x;
+			
+		if(position.x < left):
+			position.x = left;
+			
+		if(position.y < up):
+			position.y = up;
+			
+		if(position.y + panel_bounds.y > down):
+			position.y = down - panel_bounds.y;
+		
 func _get_nest_data():
 	return self;
 
@@ -112,16 +213,15 @@ func success(drop_type: DropData.DropType):
 	match drop_type:
 		DropData.DropType.GRID:
 			if panel_card:
-				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
-			#DropManager.add_dropable_to_pool(self);
+				panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_IGNORE);
 		DropData.DropType.CARD:
 			if panel_card:
-				panel_card.drop_node.modulate.a = 1;
-				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_STOP);
-			DropManager.add_dropable_to_pool(self);
+				panel_card.modulate.a = 1;
+				panel_card.set_mouse_filter_rec(panel_card, MOUSE_FILTER_STOP);
+			remove_panel_from_graph();
+			disconnect_all_pins();
 		DropData.DropType.NEST:
-			if panel_card:
-				panel_card.set_mouse_filter_rec(panel_card.drop_node, MOUSE_FILTER_IGNORE);
+			pass;
 		DropData.DropType.RAM:
 			pass;
 		
@@ -135,36 +235,42 @@ func cancel():
 		reparent(current_parent);
 		position = start_position;
 	
-	if panel_card && panel_card.drop_node:
-		panel_card.drop_node.reparent(self);
-		DropManager.add_dropable_to_pool(panel_card.drop_node);
+	if panel_card && panel_card:
+		panel_card.reparent(self);
+		DropManager.add_dropable_to_pool(panel_card);
 
 func update_valid(drop_area: DropArea):
 	super.update_valid(drop_area);
-	position = start_position;
 	
 	match drop_area.type:
 		DropData.DropType.CARD:
-			drop_node.position = start_position;
-			drag_node = panel_card.drop_node;
-			panel_card.drop_node.reparent(drop_area);
-			var offset = Vector2(1,1) * panel_card.drop_node.size.x / 2;
-			panel_card.drop_node.position = drop_area.get_local_mouse_position() - offset;
+			if is_nested:
+				reparent(current_parent);
+				
+			position = start_position;
+			show_card = true;
+			
+			if panel_card:
+				drag_node = panel_card;
+				panel_card.reparent(drop_area);
+				var offset = Vector2(1,1) * panel_card.size.x / 2;
+				panel_card.position = drop_area.get_local_mouse_position() - offset;
+			else:
+				drag_node = null;
 
 		DropData.DropType.NEST:
 			drag_node = null;
-			drop_node.reparent(drop_area);
-			drop_node.position = Vector2.ZERO;
+			reparent(drop_area);
+			position = Vector2.ZERO;
 			drop_area.resize_area();
 			
 		DropData.DropType.GRID:
-			print("GRID");
-			if is_nested:
-				drop_node.reparent(drop_area);
-				drag_node = drop_node;
-				
-			var offset = Vector2(1,0) * drop_node.size.x / 2;
-			drop_node.position = drop_area.get_local_mouse_position() - offset;
+			if is_nested || show_card:
+				reparent(drop_area);
+				drag_node = self;
+				show_card = false;
+				var offset = Vector2(1,0) * size.x / 2;
+				position = drop_area.get_local_mouse_position() - offset;
 		_:
 			update_to_default_state();
 
@@ -172,36 +278,76 @@ func update_invalid(drop_area: DropArea):
 	super.update_valid(drop_area);
 	
 	if get_parent() != current_parent:
-		drop_node.reparent(current_parent);
+		reparent(current_parent);
 	
 	if !is_nested:
-		drag_node = drop_node;
-		var offset = Vector2(1,0) * drop_node.size.x / 2;
-		drop_node.position = drop_node.get_parent().get_local_mouse_position() - offset;
+		drag_node = self;
+		if show_card:
+			show_card = false;
+			var offset = Vector2(1,0) * size.x / 2;
+			position = drop_area.get_local_mouse_position() - offset;
+		
 	else:
 		drag_node = null;
-		drop_node.position = Vector2.ZERO;
+		position = Vector2.ZERO;
 		drop_area.minimum_size_changed.emit();
 	
 	if panel_card:
-		panel_card.drop_node.reparent(self);
+		panel_card.reparent(self);
 		DropManager.add_dropable_to_pool(panel_card);
 	
 func update_to_default_state():
 	super.update_to_default_state();
 	
 	if get_parent() != current_parent:
-		drop_node.reparent(current_parent);
+		reparent(current_parent);
 
 	if !is_nested:
-		drag_node = drop_node;
-		var offset = Vector2(1,0) * drop_node.size.x / 2;
-		drop_node.position = drop_node.get_parent().get_local_mouse_position() - offset;
+		drag_node = self;
+		if show_card:
+			show_card = false;
+			var offset = Vector2(1,0) * size.x / 2;
+			position = get_parent().get_local_mouse_position() - offset;
 	else:
 		drag_node = null;
-		drop_node.position = Vector2.ZERO;
+		position = Vector2.ZERO;
 		current_parent.minimum_size_changed.emit();
 
 	if panel_card:
-		panel_card.drop_node.reparent(self);
+		panel_card.reparent(self);
 		DropManager.add_dropable_to_pool(panel_card);
+
+func disconnect_all_pins():
+	for pin in available_pins:
+		if(pin.connectedTo):
+			pin.connectedTo.disconnect_pin();
+		pin.disconnect_pin();
+
+func select():
+	if selection_root:
+		selection_root.show();
+		
+	is_selected = true;
+	
+func unselect():
+	if selection_root:
+		selection_root.reset_size();
+		selection_root.hide();
+		
+	is_selected = false;
+
+static func clear_selection():
+	if CodePanel.selected_panel:
+		CodePanel.selected_panel.unselect();
+		CodePanel.selected_panel = null;
+		
+func remove_panel_from_graph(): 
+	if wand_graph:
+		#TODO maybe do a signal here. Not sure. Look into better solution.
+		var parent = get_parent();
+		if parent is DropArea:
+			parent.remove_dropable(self);
+			
+		wand_graph.remove_panel_from_graph(self);
+		DropManager.add_dropable_to_pool(self);
+		wand_graph = null;

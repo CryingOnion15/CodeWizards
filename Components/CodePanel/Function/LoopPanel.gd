@@ -6,7 +6,7 @@ var nested_outflow_pin: Pin = null;
 func _ready() -> void:
 	super._ready();
 	
-	for pin in availablePins:
+	for pin in available_pins:
 		if(nested_inflow_pin == null && pin.pin_type == Pin.PIN_TYPE.RECIEVER && pin.data_type == Pin.DATA_TYPE.CONTROL && pin.nested):
 			nested_inflow_pin = pin;
 			
@@ -22,7 +22,6 @@ func Execute():
 
 func run_loop(iterations):
 	for i in range(iterations):
-		print("Loop Panel Iteration: ", i);
 		var current_panel = nested_inflow_pin.connectedTo.get_value();
 		while (current_panel && current_panel != self):
 			if(current_panel is FunctionPanel):
@@ -33,10 +32,12 @@ func run_loop(iterations):
 				break;
 	
 func disconnect_nested_pins():
-	for area in valid_areas:
+	for area in drop_areas:
 		if(area.dropables.size() > 0):
 			var panel = area.get_panel();
-			panel.disconnect_all_pins();
+			panel.disconnect_control_pins();
+			
+		nested_outflow_pin.disconnect_pin();
 
 func connect_nested_pins():
 	disconnect_nested_pins();
@@ -45,7 +46,7 @@ func connect_nested_pins():
 		var first_in: Pin = null;
 		var current_out: Pin = null;
 		
-		for area in valid_areas:
+		for area in drop_areas:
 			if(area.dropables.size() > 0):
 				var panel = area.get_panel();
 
@@ -58,4 +59,4 @@ func connect_nested_pins():
 					
 				current_out = panel.outflow_pin;
 				
-		nested_outflow_pin.connect_from_event(current_out, Vector2.RIGHT, 1.0);
+		current_out.connect_from_event(nested_outflow_pin, Vector2.RIGHT, 1.0);

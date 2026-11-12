@@ -28,7 +28,6 @@ func drop_succeeded(drop: Dropable):
 	resize_area();
 	
 func resize_area():
-	print("RESET AREA");
 	visible = false;
 	await get_tree().process_frame;
 	size = _get_minimum_size();

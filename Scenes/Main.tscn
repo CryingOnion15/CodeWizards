@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bix8krudobhcd" path="res://Components/Managers/DropManager.gd" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://cdnlfufr6b2nq" path="res://Scenes/mouse_tracker.gd" id="2_pbw6q"]
+[ext_resource type="Script" uid="uid://q20rxwmv1y4g" path="res://Components/AIGeneration/WandGenerator.gd" id="2_v1gob"]
 [ext_resource type="Texture2D" uid="uid://20j3wg8i1l5" path="res://Assets/Textures/PinTextures/PinDefault.tres" id="3_v1gob"]
+[ext_resource type="PackedScene" uid="uid://d0jg47rrgc5qi" path="res://Scenes/Wand/WandManager.tscn" id="6_v1gob"]
+[ext_resource type="Script" uid="uid://3wyx7yx4s5qg" path="res://Scenes/test_model.gd" id="7_jw32o"]
 [ext_resource type="Script" uid="uid://xbcok28pi1il" path="res://Scenes/MainUIWindow.gd" id="8_vy5pj"]
-[ext_resource type="PackedScene" uid="uid://db65srmiso8tw" path="res://Scenes/Graphs/WandEditGraph.tscn" id="9_vy5pj"]
 
 [node name="MainScene" type="Node2D" unique_id=370466545]
 
@@ -13,6 +15,10 @@
 [node name="DropManager" type="Node" parent="Managers" unique_id=1829666957]
 script = ExtResource("1_rgh2o")
 metadata/_custom_type_script = "uid://bix8krudobhcd"
+
+[node name="WandGenerator" type="Node" parent="Managers" unique_id=1683040757]
+script = ExtResource("2_v1gob")
+metadata/_custom_type_script = "uid://q20rxwmv1y4g"
 
 [node name="MouseTracker" type="Node2D" parent="." unique_id=758852499]
 visible = false
@@ -34,9 +40,17 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_vy5pj")
 
-[node name="WandEditGraph" parent="UITest" unique_id=2145066972 instance=ExtResource("9_vy5pj")]
-texture_filter = 1
+[node name="WandManager" parent="UITest" unique_id=877808445 instance=ExtResource("6_v1gob")]
 layout_mode = 1
+
+[node name="Button" type="Button" parent="UITest" unique_id=1318625449 node_paths=PackedStringArray("wand_gen")]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Test Model"
+script = ExtResource("7_jw32o")
+wand_gen = NodePath("../../Managers/WandGenerator")
 
 [node name="Panel" type="Panel" parent="." unique_id=1079431470]
 visible = false

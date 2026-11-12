@@ -17,7 +17,7 @@ func _ready() -> void:
 		queue_free();
 
 static func set_dropable(dropable: Dropable):
-	if(instance != null):
+	if(instance != null):				
 		instance.current_dropable = dropable;
 		instance.dropable_updated.emit(instance.current_dropable);
 
@@ -44,12 +44,14 @@ static func drop():
 			drop.cancel();
 			
 		DropManager.set_dropable(null);
+		
+static func drop_by_event(dropable: Dropable, area: DropArea):
+	if(instance != null):
+		instance.drop_event.emit(dropable, area);
 
-static func add_dropable_to_pool(dropable: Dropable):
-	dropable.drop_node.position = DROP_POOL;
-	if(dropable.drop_node.get_parent()):
-			dropable.drop_node.reparent(instance);
+static func add_dropable_to_pool(dropable: Dropable):	
+	dropable.position = DROP_POOL;
+	if(dropable.get_parent()):
+			dropable.reparent(instance);
 	else:
-		instance.add_child(dropable.drop_node);
-	
-	
+		instance.add_child(dropable);

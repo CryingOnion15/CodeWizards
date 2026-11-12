@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://choon7ss738be"]
+
+[ext_resource type="FontFile" uid="uid://j68lln0uthex" path="res://Assets/Font/CozetteVector.ttf" id="1_6g2gt"]
+[ext_resource type="PackedScene" uid="uid://pjl2fcuwac4i" path="res://Scenes/Pins/Pin.tscn" id="2_ah2xg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_io4fb"]
+font = ExtResource("1_6g2gt")
+font_size = 24
+
+[node name="ParameterPin" type="HBoxContainer" unique_id=2042947690]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -20.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+mouse_behavior_recursive = 1
+
+[node name="ParamName" type="Label" parent="." unique_id=2106743129]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_behavior_recursive = 1
+text = "Param"
+label_settings = SubResource("LabelSettings_io4fb")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pin" parent="." unique_id=1856335639 instance=ExtResource("2_ah2xg")]
+layout_mode = 2
+mouse_behavior_recursive = 2

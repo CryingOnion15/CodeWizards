@@ -1,0 +1,38 @@
+{
+	"scene": "res://Scenes/Wand/Wand.tscn",
+	"wands": [
+		{
+			"image": "",
+			"Name": "Name Test",
+			"panels": [
+				{
+					"id": "const1",
+					"location": [0,0],
+					"pins": [],
+				},
+			],
+			"parameters": [
+				{
+					"name": "Param 1",
+					"type": "number",
+					"defaultValue": 0
+				},
+				{
+					"name": "Param 2",
+					"type": "string",
+					"defaultValue": "Block",
+				}
+			],
+			"variables": [
+				{
+					"name": "Var 1",
+					"value": 9,
+				},
+				{
+					"name": "Var 2",
+					"value": 2,
+				}
+			],
+		},
+	],
+}

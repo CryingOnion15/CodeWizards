@@ -1,42 +1,68 @@
 class_name PanelCard extends Dropable
 
-@export var drop_scene: PackedScene = null;
-
 var drop_panel: CodePanel = null;
 var nested_area: NestedDropArea = null;
+var template_id: String = "";
+var tex_rect: TextureRect = null;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super._ready();
 	drop_type = drop_type | DropData.DropType.GRID;
-	
+	if not tex_rect:
+		tex_rect = get_node("TextureRect");
+
+func set_card_texture(tex: Texture):
+	if not tex_rect:
+		tex_rect = get_node("TextureRect");
+	tex_rect.texture = tex;
+
 func handle_start(event):
 	super.handle_start(event);
-	drop_panel.set_mouse_filter_rec(drop_panel.drop_node,Control.MOUSE_FILTER_IGNORE);
-	drop_panel.drop_node.modulate.a = .5;
+	drop_panel.set_mouse_filter_rec(drop_panel,Control.MOUSE_FILTER_IGNORE);
+	drop_panel.modulate.a = .5;
+	CodePanel.clear_selection();
 	
 func handle_end(event):
 	super.handle_end(event);
-	drop_panel.set_mouse_filter_rec(drop_panel.drop_node,Control.MOUSE_FILTER_STOP);
-	drop_panel.drop_node.modulate.a = 1;
-
-func init_drop():
-	var new_panel = drop_scene.instantiate();
+	drop_panel.set_mouse_filter_rec(drop_panel,Control.MOUSE_FILTER_STOP);
+	drop_panel.modulate.a = 1;
 	
-	if new_panel is CodePanel:
-		drop_panel = new_panel;
-	else:
-		var panels = new_panel.find_children("*", "CodePanel", true, false);
-		if panels.size() > 0:
-			drop_panel = panels[0];
+func get_save_data():
+	return {
+		"template": template_id,
+		"data": drop_panel.get_save_data(),
+	}
+	
+func init_card(data: Dictionary):
+	if not data.is_empty():
+		template_id = data.get("template", "");
+		
+		if template_id == "":
+			push_error("Cannot initialize a card with no template.");
+			return;
+			
+		var panel = PanelDatabase.get_panel(template_id);
+		var panel_scene = panel.get("panelPath", "");
+		
+		if panel_scene != "":
+			drop_scene = load(panel_scene);
+			init_code_panel(data.get("data", {}));
 		else:
-			drop_panel = null;
+			push_error("Could not find panel that you are trying to instantiate.")
+
+func init_code_panel(data):
+	var new_panel: CodePanel = drop_scene.instantiate();
+	
+	drop_panel = new_panel;
+	
 	
 	if(drop_panel):
 		DropManager.add_dropable_to_pool(drop_panel);
 		drop_panel.panel_card = self;
-		
-		drop_panel.set_data(get_data());
+		data.set("template",template_id);
+		drop_panel.set_meta_data(data);
+		drop_panel.init_panel();
 		
 		#If this panel can be nested then add the type.
 		if drop_panel.can_be_nested:
@@ -59,7 +85,7 @@ func success(dropType: DropData.DropType):
 
 func cancel():
 	super.cancel();
-	drop_panel.drop_node.reparent(self);
+	drop_panel.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	
 func _get_grid_data():
@@ -77,20 +103,20 @@ func update_valid(drop_area: DropArea):
 	
 	match drop_area.type:
 		DropData.DropType.GRID:
-			drop_panel.drop_node.reparent(drop_area);
-			var offset = Vector2(1,0) * drop_panel.drop_node.size.x / 2;
-			drop_panel.drop_node.position = drop_area.get_local_mouse_position() - offset;
-			drag_node = drop_panel.drop_node;
-			drop_node.position = start_position;
+			drop_panel.reparent(drop_area);
+			var offset = Vector2(1,0) * drop_panel.size.x / 2;
+			drop_panel.position = drop_area.get_local_mouse_position() - offset;
+			drag_node = drop_panel;
+			position = start_position;
 		#TODO for nesting.
 		DropData.DropType.NEST:
 			if(drop_panel.can_be_nested):
-				drop_panel.drop_node.reparent(drop_area);
-				drop_panel.drop_node.position = Vector2.ZERO;
+				drop_panel.reparent(drop_area);
+				drop_panel.position = Vector2.ZERO;
 				drag_node = null;
 				nested_area = drop_area as NestedDropArea;
 				nested_area.minimum_size_changed.emit();
-				drop_node.position = start_position;
+				position = start_position;
 		_:
 			update_to_default_state();
 
@@ -103,7 +129,7 @@ func update_invalid(drop_area: DropArea):
 	
 	drag_node = null;
 	position = start_position;
-	drop_panel.drop_node.reparent(self);
+	drop_panel.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	
 func update_to_default_state():
@@ -114,6 +140,6 @@ func update_to_default_state():
 		nested_area = null;
 	
 	drag_node = self;
-	drop_panel.drop_node.reparent(self);
+	drop_panel.reparent(self);
 	DropManager.add_dropable_to_pool(drop_panel);
 	position = get_parent().get_local_mouse_position() - (size / 2);

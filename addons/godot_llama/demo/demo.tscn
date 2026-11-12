@@ -1,0 +1,311 @@
+[gd_scene format=3 uid="uid://cyqc5xw8bxhf8"]
+
+[ext_resource type="Script" uid="uid://cfh1p5jxdx4nn" path="res://addons/godot_llama/demo/demo.gd" id="1"]
+
+[node name="Main" type="Control" unique_id=197178039]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1789516609]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Scroll" type="ScrollContainer" parent="MarginContainer" unique_id=2032100322]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer/Scroll" unique_id=861780396]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=1840538979]
+layout_mode = 2
+text = "godot_llama Demo"
+horizontal_alignment = 1
+
+[node name="ModelPathLabel" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=369157706]
+layout_mode = 2
+text = "GGUF model path"
+
+[node name="ModelPathRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=166803450]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SelectModelButton" type="Button" parent="MarginContainer/Scroll/VBox/ModelPathRow" unique_id=1190929376]
+layout_mode = 2
+text = "Select Model..."
+
+[node name="ModelPathValue" type="Label" parent="MarginContainer/Scroll/VBox/ModelPathRow" unique_id=874784642]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "No model selected"
+autowrap_mode = 2
+
+[node name="ConfigRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=516046702]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LoadButton" type="Button" parent="MarginContainer/Scroll/VBox/ConfigRow" unique_id=2074687937]
+layout_mode = 2
+text = "Load Model"
+
+[node name="CreateContextButton" type="Button" parent="MarginContainer/Scroll/VBox/ConfigRow" unique_id=595829725]
+layout_mode = 2
+text = "Create Context"
+
+[node name="NCtxLabel" type="Label" parent="MarginContainer/Scroll/VBox/ConfigRow" unique_id=214916037]
+layout_mode = 2
+text = "n_ctx"
+
+[node name="NCtxSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/ConfigRow" unique_id=996020193]
+layout_mode = 2
+min_value = 256.0
+max_value = 32768.0
+step = 256.0
+value = 256.0
+
+[node name="ThreadsLabel" type="Label" parent="MarginContainer/Scroll/VBox/ConfigRow" unique_id=1204146491]
+layout_mode = 2
+text = "threads"
+
+[node name="ThreadsSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/ConfigRow" unique_id=1672695952]
+layout_mode = 2
+min_value = 1.0
+max_value = 64.0
+value = 4.0
+
+[node name="SystemPromptLabel" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=1641793713]
+layout_mode = 2
+text = "System prompt (NPC behavior)"
+
+[node name="SystemPromptEdit" type="TextEdit" parent="MarginContainer/Scroll/VBox" unique_id=697987707]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+placeholder_text = "You are a concise in-character NPC..."
+
+[node name="WorldStateLabel" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=1468157763]
+layout_mode = 2
+text = "World state"
+
+[node name="WorldStateEdit" type="TextEdit" parent="MarginContainer/Scroll/VBox" unique_id=1620461808]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+placeholder_text = "Current quest flags, location facts, known lore..."
+
+[node name="MemoryRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=1080451923]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HistoryTurnsLabel" type="Label" parent="MarginContainer/Scroll/VBox/MemoryRow" unique_id=1342139118]
+layout_mode = 2
+text = "history_turns"
+
+[node name="HistoryTurnsSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/MemoryRow" unique_id=449567748]
+layout_mode = 2
+max_value = 20.0
+value = 4.0
+
+[node name="ClearMemoryButton" type="Button" parent="MarginContainer/Scroll/VBox/MemoryRow" unique_id=1623102705]
+layout_mode = 2
+text = "Clear Memory"
+
+[node name="PromptLabel" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=2088392225]
+layout_mode = 2
+text = "Prompt"
+
+[node name="PromptEdit" type="TextEdit" parent="MarginContainer/Scroll/VBox" unique_id=1012365079]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+placeholder_text = "Write a prompt..."
+
+[node name="GenerateRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=1366032913]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="GenerateButton" type="Button" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=384283065]
+layout_mode = 2
+text = "Generate"
+
+[node name="MaxTokensLabel" type="Label" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=860788495]
+layout_mode = 2
+text = "max_tokens"
+
+[node name="MaxTokensSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=2086412121]
+layout_mode = 2
+min_value = 1.0
+max_value = 2048.0
+value = 100.0
+
+[node name="TemperatureLabel" type="Label" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=1818458058]
+layout_mode = 2
+text = "temperature"
+
+[node name="TemperatureSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=650050759]
+layout_mode = 2
+max_value = 2.0
+step = 0.05
+value = 1.0
+
+[node name="TopPLabel" type="Label" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=1482397389]
+layout_mode = 2
+text = "top_p"
+
+[node name="TopPSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=2065838170]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="StreamingCheck" type="CheckBox" parent="MarginContainer/Scroll/VBox/GenerateRow" unique_id=300024496]
+layout_mode = 2
+button_pressed = true
+text = "Stream"
+
+[node name="AdvancedGenerateRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=1567924144]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TopKLabel" type="Label" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=328960923]
+layout_mode = 2
+text = "top_k"
+
+[node name="TopKSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=1445102646]
+layout_mode = 2
+max_value = 200.0
+value = 40.0
+
+[node name="MinPLabel" type="Label" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=434633771]
+layout_mode = 2
+text = "min_p"
+
+[node name="MinPSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=858863511]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+
+[node name="RepeatPenaltyLabel" type="Label" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=752772662]
+layout_mode = 2
+text = "repeat_penalty"
+
+[node name="RepeatPenaltySpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=1497885239]
+layout_mode = 2
+min_value = 0.5
+max_value = 2.0
+step = 0.01
+value = 1.5
+
+[node name="FrequencyPenaltyLabel" type="Label" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=60788475]
+layout_mode = 2
+text = "freq_penalty"
+
+[node name="FrequencyPenaltySpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=934992898]
+layout_mode = 2
+min_value = -2.0
+max_value = 2.0
+step = 0.01
+
+[node name="PresencePenaltyLabel" type="Label" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=475341436]
+layout_mode = 2
+text = "pres_penalty"
+
+[node name="PresencePenaltySpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=1008292208]
+layout_mode = 2
+min_value = -2.0
+max_value = 2.0
+step = 0.01
+
+[node name="PenaltyLastNLabel" type="Label" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=922183382]
+layout_mode = 2
+text = "penalty_last_n"
+
+[node name="PenaltyLastNSpin" type="SpinBox" parent="MarginContainer/Scroll/VBox/AdvancedGenerateRow" unique_id=41433339]
+layout_mode = 2
+min_value = -1.0
+max_value = 2048.0
+value = 64.0
+
+[node name="StopRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=1825715358]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StopSequencesLabel" type="Label" parent="MarginContainer/Scroll/VBox/StopRow" unique_id=1822293630]
+layout_mode = 2
+text = "stop sequences"
+
+[node name="StopSequencesEdit" type="LineEdit" parent="MarginContainer/Scroll/VBox/StopRow" unique_id=385621493]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Comma-separated, e.g. <|im_end|>,\\nUser:"
+
+[node name="StateRow" type="HBoxContainer" parent="MarginContainer/Scroll/VBox" unique_id=1936266970]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatePathLabel" type="Label" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=1807558306]
+layout_mode = 2
+text = "state path"
+
+[node name="StatePathEdit" type="LineEdit" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=2055506954]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "user://llama_state.session"
+
+[node name="ClearKVButton" type="Button" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=1401503269]
+layout_mode = 2
+text = "Clear KV"
+
+[node name="SaveStateFileButton" type="Button" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=2116759896]
+layout_mode = 2
+text = "Save File"
+
+[node name="LoadStateFileButton" type="Button" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=463441712]
+layout_mode = 2
+text = "Load File"
+
+[node name="SaveStateMemoryButton" type="Button" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=10343493]
+layout_mode = 2
+text = "Save Blob"
+
+[node name="LoadStateMemoryButton" type="Button" parent="MarginContainer/Scroll/VBox/StateRow" unique_id=1644586981]
+layout_mode = 2
+text = "Load Blob"
+
+[node name="OutputLabel" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=766708976]
+layout_mode = 2
+text = "Output"
+
+[node name="OutputText" type="RichTextLabel" parent="MarginContainer/Scroll/VBox" unique_id=148270314]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/Scroll/VBox" unique_id=1200918065]
+layout_mode = 2
+text = "Status: ready"
+
+[node name="ModelFileDialog" type="FileDialog" parent="." unique_id=1934274017]
+title = "Open a File"
+size = Vector2i(900, 560)
+ok_button_text = "Select"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.gguf ; GGUF model files")

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://lqu5pw6x5io7"]
 
-[ext_resource type="PackedScene" uid="uid://dqqnnocltwmwf" path="res://Scenes/CodePanels/VariablePanel.tscn" id="1_12b0p"]
+[ext_resource type="PackedScene" uid="uid://dqqnnocltwmwf" path="res://Scenes/CodePanels/ConstantPanel.tscn" id="1_12b0p"]
 [ext_resource type="PackedScene" uid="uid://dvq4oxn7hio21" path="res://Scenes/Graphs/GraphSettings.tscn" id="1_jwmoq"]
 [ext_resource type="PackedScene" uid="uid://bgrb6gwo3nd0u" path="res://Scenes/CodePanels/EntryPanel.tscn" id="2_jwmoq"]
 [ext_resource type="PackedScene" uid="uid://d17pdvccg7ghu" path="res://Scenes/CodePanels/ExitPanel.tscn" id="3_4t6jd"]

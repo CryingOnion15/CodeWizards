@@ -1,0 +1,103 @@
+{
+	"panels": {
+		"const0": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 0
+			}
+		},
+		"const1": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 1
+			}
+		},
+		"const2": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 2
+			}
+		},
+		"const3": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 3
+			}
+		},
+		"const4": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 4
+			}
+		},
+		"const5": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 5
+			}
+		},
+		"const6": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 6
+			}
+		},
+		"const7": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 7
+			}
+		},
+		"const8": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 8
+			}
+		},
+		"const9": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 9
+			}
+		},
+		"const10": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 10
+			}
+		},
+		"const11": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 11
+			}
+		},
+		"const12": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 12
+			}
+		},
+		"const13": {
+			"panelPath": "res://Scenes/CodePanels/ConstantPanel.tscn",
+			"data": {
+				"numberValue": 13
+			}
+		},
+		"test_loop": {
+			"panelPath": "res://Scenes/CodePanels/LoopPanel.tscn",
+		},
+		"test_math": {
+			"panelPath": "res://Scenes/CodePanels/MathPanel.tscn",
+		},
+		"test_cond": {
+			"panelPath": "res://Scenes/CodePanels/ConditionPanel.tscn",
+		},
+		"entry": {
+			"panelPath": "res://Scenes/CodePanels/EntryPanel.tscn"
+		},
+		"exit": {
+			"panelPath": "res://Scenes/CodePanels/ExitPanel.tscn"
+		},
+	}
+}
