@@ -43,7 +43,6 @@ func on_update_drop_pos(pos: Vector2):
 	
 func on_drop(drop: Dropable, drop_area: DropArea):	
 	if(drop_area == self):
-		print("Current " + drop_area.name + " Drop: " + drop.name);
 		
 		#Verify location is on this area then do the drop action.
 		if(!already_has_drop(drop)):
@@ -76,13 +75,6 @@ func deactivate_area():
 	
 func drop_succeeded(drop: Dropable):
 	dropables.push_back(drop.get_drop_data(type));
-	print(drop_success.get_connections());
-	print(
-		"EMITTING AREA: ",
-		name,
-		" ID: ",
-		get_instance_id()
-	)
 	drop_success.emit(drop);
 	drop.success(type);
 	

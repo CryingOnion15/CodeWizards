@@ -35,15 +35,6 @@ func setup_nests():
 	for area: DropArea in drop_areas:
 		area.drop_success.connect(on_drop_success.bind(area));
 		area.on_drop_removed.connect(on_drop_removed);
-		
-		print(area.drop_success.get_connections());
-		
-		print(
-			"CONNECTING AREA: ",
-			area.name,
-			" ID: ",
-			area.get_instance_id()
-		)
 
 func on_drop_success(dropable: Dropable, area: DropArea):
 	var panel: Node = dropable.get_drop_data(area.type);

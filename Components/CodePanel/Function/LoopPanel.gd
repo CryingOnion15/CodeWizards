@@ -22,7 +22,6 @@ func Execute():
 
 func run_loop(iterations):
 	for i in range(iterations):
-		print("Loop Panel Iteration: ", i);
 		var current_panel = nested_inflow_pin.connectedTo.get_value();
 		while (current_panel && current_panel != self):
 			if(current_panel is FunctionPanel):

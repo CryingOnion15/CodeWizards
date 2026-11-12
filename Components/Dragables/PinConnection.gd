@@ -54,7 +54,6 @@ func _process(delta: float) -> void:
 				if owner_pin.alter_control && (owner_pin.isEntered || connector_pin.isEntered):
 					draw_red();
 				else:
-					print("Not Hovered and Not Entered.")
 					draw_reset();
 
 func check_for_replace():

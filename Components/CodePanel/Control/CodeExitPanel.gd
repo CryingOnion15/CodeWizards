@@ -21,5 +21,4 @@ func Execute():
 	for i in range(1, available_pins.size()):
 		params[available_pins[i].name] = available_pins[i].get_value(true);
 		
-	print(params);
 	exit_called.emit(params);

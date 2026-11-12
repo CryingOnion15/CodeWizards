@@ -95,7 +95,6 @@ func _get_nest_data():
 	return drop_panel;
 
 func update_valid(drop_area: DropArea):
-	print("VALID");
 	super.update_valid(drop_area);
 		
 	if nested_area && drop_area != nested_area:
@@ -122,7 +121,6 @@ func update_valid(drop_area: DropArea):
 			update_to_default_state();
 
 func update_invalid(drop_area: DropArea):
-	print("INVALID");
 	super.update_invalid(drop_area);
 	
 	if nested_area:
@@ -135,7 +133,6 @@ func update_invalid(drop_area: DropArea):
 	DropManager.add_dropable_to_pool(drop_panel);
 	
 func update_to_default_state():
-	print("DEFAULT");
 	super.update_to_default_state();
 	
 	if nested_area:

@@ -49,14 +49,9 @@ static func drop_by_event(dropable: Dropable, area: DropArea):
 	if(instance != null):
 		instance.drop_event.emit(dropable, area);
 
-static func add_dropable_to_pool(dropable: Dropable):
-	
-	print("Before: %s" % [dropable.size]);
-	
+static func add_dropable_to_pool(dropable: Dropable):	
 	dropable.position = DROP_POOL;
 	if(dropable.get_parent()):
 			dropable.reparent(instance);
 	else:
 		instance.add_child(dropable);
-	
-	print("After: %s" % [dropable.size]);

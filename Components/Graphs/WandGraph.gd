@@ -54,7 +54,8 @@ func Run():
 			currentPanel.Execute();
 			currentPanel = currentPanel.get_next_control();
 	else:
-		print("No Entry Point");
+		push_error("Not Entry Panel Found.");
+		return;
 
 func drag(delta):
 	position += delta;
@@ -95,17 +96,7 @@ func add_panel_to_graph(panel: CodePanel):
 				if(panel.get_parent()):
 					panel.reparent(drop_area);
 				else:
-					print(panel.get_class());
-					print("Panel size: ", panel.size)
-					print("Panel minimum: ", panel.get_combined_minimum_size())
-					print("Margin size: ", panel.get_child(0).size)
-					print("Margin minimum: ", panel.get_child(0).get_combined_minimum_size())
-					drop_area.add_child(panel);
-					print("Add Child");
-					print("Panel size: ", panel.size)
-					print("Panel minimum: ", panel.get_combined_minimum_size())
-					print("Margin size: ", panel.get_child(0).size)
-					print("Margin minimum: ", panel.get_child(0).get_combined_minimum_size())					
+					drop_area.add_child(panel);				
 		
 		panel_added.emit(panel);
 

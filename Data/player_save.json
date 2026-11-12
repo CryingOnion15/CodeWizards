@@ -62,7 +62,7 @@
 					4400.0
 				],
 				"template": "test_math",
-				"type": 0
+				"type": 0.0
 			},
 			"template": "test_math"
 		}
@@ -150,7 +150,7 @@
 			"panels": [
 				{
 					"id": "15c15bf2-f218-0798-369d-4c4c4767ab0a",
-					"numberValue": 5,
+					"numberValue": 5.0,
 					"pins": [
 						{
 							"connectedTo": "",
@@ -171,7 +171,7 @@
 				},
 				{
 					"id": "1c1e6c74-e858-0405-99b1-5b1abb3ef8f9",
-					"numberValue": 12,
+					"numberValue": 12.0,
 					"pins": [
 						{
 							"connectedTo": "",
@@ -203,7 +203,7 @@
 				},
 				{
 					"id": "858ea9ca-2b29-43d7-5ba9-541a732d0e8e",
-					"numberValue": 3,
+					"numberValue": 3.0,
 					"pins": [
 						{
 							"connectedTo": "",
@@ -317,7 +317,7 @@
 				},
 				{
 					"id": "1c0a14bb-5bd0-f87b-2596-bba85764f235",
-					"numberValue": 10,
+					"numberValue": 10.0,
 					"pins": [
 						{
 							"connectedTo": "",

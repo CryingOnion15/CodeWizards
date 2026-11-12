@@ -15,16 +15,10 @@ enum MATH_FUNC {
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("READY: ", size);
 	super._ready();
 	
-	#hide();
-	#size = custom_minimum_size;
-	#await get_tree().process_frame;
-	
 	update_minimum_size();
-	
-	print("READY 2: ", size)
+
 	if math_label:
 		match math_type:
 			MATH_FUNC.ADD:
@@ -61,13 +55,8 @@ func init_panel():
 	
 	if not meta_data.is_empty():
 		math_type = meta_data.get("type", MATH_FUNC.ADD);
-
-#func _notification(what: int) -> void:
-	#if what == NOTIFICATION_RESIZED:
-		#print("RESIZED: ", size)
 	
 func Execute():
-	print("Math Panel Woo.");
 	output_pins[0].set_value("%s:%s" % [id, "get_math_result"])
 	
 func get_math_result():

@@ -324,14 +324,12 @@ func disconnect_all_pins():
 		pin.disconnect_pin();
 
 func select():
-	print("SELECT");
 	if selection_root:
 		selection_root.show();
 		
 	is_selected = true;
 	
 func unselect():
-	print("UNSELECT");
 	if selection_root:
 		selection_root.reset_size();
 		selection_root.hide();
