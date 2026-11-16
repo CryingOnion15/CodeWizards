@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bvfmhain12p2s"]
+
+[ext_resource type="Script" uid="uid://uca32iy0gmlm" path="res://Components/Wand/WandCapacityController.gd" id="1_i8crb"]
+[ext_resource type="PackedScene" uid="uid://obimm2oeuo0q" path="res://Scenes/Wand/WandCapacityStartNode.tscn" id="2_hepgl"]
+[ext_resource type="PackedScene" uid="uid://b8olitve5dkat" path="res://Scenes/Wand/WandCapacityMiddleNode.tscn" id="3_16uug"]
+[ext_resource type="PackedScene" uid="uid://cwcr6mddymtrr" path="res://Scenes/Wand/WandCapacityEndNode.tscn" id="4_ai4ls"]
+
+[node name="WandCapacityController" type="Control" unique_id=1907595189 node_paths=PackedStringArray("container")]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+mouse_filter = 2
+mouse_behavior_recursive = 1
+script = ExtResource("1_i8crb")
+begin_node = ExtResource("2_hepgl")
+middle_node = ExtResource("3_16uug")
+end_node = ExtResource("4_ai4ls")
+container = NodePath("CapacityNodeContainer")
+metadata/_custom_type_script = "uid://uca32iy0gmlm"
+
+[node name="CapacityNodeContainer" type="HBoxContainer" parent="." unique_id=2051182586]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+theme_override_constants/separation = 0
+alignment = 2

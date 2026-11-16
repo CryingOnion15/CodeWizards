@@ -44,6 +44,7 @@ script = ExtResource("8_vy5pj")
 layout_mode = 1
 
 [node name="Button" type="Button" parent="UITest" unique_id=1318625449 node_paths=PackedStringArray("wand_gen")]
+visible = false
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 0
 offset_right = 8.0
