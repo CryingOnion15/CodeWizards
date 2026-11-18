@@ -85,7 +85,6 @@ vertical_alignment = 1
 [node name="ControlPin" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=804416880 instance=ExtResource("3_mt56r")]
 layout_mode = 2
 mouse_behavior_recursive = 2
-pin_type = 1
 data_type = 2
 
 [node name="ParameterContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=761749120]

@@ -43,3 +43,17 @@ func set_wand_capacity(wand_size):
 	
 	#TODO add animation subscriptions.
 	capacity_nodes[MAX_CAPACITY - 1].show();
+	
+func set_active_capacity(filled_count: int):
+	
+	for i in range(current_wand_capacity - 1):
+		if(i < filled_count):
+			capacity_nodes[i].set_active();
+		else:
+			capacity_nodes[i].set_inactive();
+	
+	# Set the last node active if wand is full.
+	if filled_count == current_wand_capacity:
+		capacity_nodes[capacity_nodes.size() - 1].set_active();
+	else:
+		capacity_nodes[capacity_nodes.size() - 1].set_inactive();

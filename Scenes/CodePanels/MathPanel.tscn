@@ -15,6 +15,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_xdwyp")
 script = ExtResource("1_bh64o")
 math_label = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/MathLabel")
 selection_root = NodePath("MarginContainer2")
+capacity_value = 1
 metadata/_custom_type_script = "uid://b874icemm6o7c"
 
 [node name="MarginContainer2" type="MarginContainer" parent="." unique_id=710475090]

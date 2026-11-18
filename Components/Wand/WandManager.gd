@@ -42,6 +42,7 @@ func _ready() -> void:
 				var area = NestedPanelUtility.get_nest(panel.nested_under);
 				DropManager.drop_by_event(panel, area);
 			
+		new_wand.reset_wand();
 	wand_graph.reset_graph();
 	
 	PinConnectionManager.verify_values();
@@ -73,9 +74,12 @@ func on_wand_selected(wand: Wand):
 		wand_graph.reset_graph();
 		current_wand = wand;
 		
+		
 		# Add all existing panels.
 		set_graph_panels();
+		wand_graph.update_wand_capacity(wand.capacity);
 		show_grid();
+		
 		
 		# Set variables.
 		set_wand_variables();

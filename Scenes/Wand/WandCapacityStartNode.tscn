@@ -168,10 +168,11 @@ animations = [{
 }]
 
 [node name="WandCapacityStartNode" type="Control" unique_id=1593958257]
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 3
 anchors_preset = 0
 size_flags_horizontal = 0
+size_flags_vertical = 0
 mouse_filter = 2
 mouse_behavior_recursive = 1
 script = ExtResource("1_sqvka")
@@ -180,10 +181,10 @@ active_sprite = ExtResource("3_0h0fw")
 metadata/_custom_type_script = "uid://c51cvo4ebv56m"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1287391230]
+position = Vector2(16, 16)
+scale = Vector2(2, 2)
 texture = ExtResource("2_0h0fw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D" unique_id=826424523]
 sprite_frames = SubResource("SpriteFrames_2wkjr")
-frame = 5
-frame_progress = 0.50152296
 speed_scale = 0.5

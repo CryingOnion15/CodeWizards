@@ -21,6 +21,7 @@ func _input(event: InputEvent) -> void:
 		drag(event.relative);
 
 func handle_mouse_buttons(event):
+	#&& get_viewport().gui_get_hovered_control() == self
 	if isEntered && event.is_action_pressed("Click"):
 		handle_start(event);
 					

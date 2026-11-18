@@ -7,6 +7,7 @@ enum THEME_SIZE {
 }
 
 @export var selection_root: Node = null;
+@export var capacity_value: int = 0;
 
 var available_pins: Array[Pin] = [];
 var panel_card: PanelCard = null;

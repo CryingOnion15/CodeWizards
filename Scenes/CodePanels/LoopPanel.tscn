@@ -20,6 +20,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_tom4s")
 script = ExtResource("1_isrc0")
 drop_areas = [NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest1/DropArea1"), NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest2/DropArea2"), NodePath("HBoxContainer/VBoxContainer/HBoxContainer/Nests/Nest3/DropArea3")]
 selection_root = NodePath("SelectionContainer")
+capacity_value = 3
 metadata/_custom_type_script = "uid://c3k47y01b8qmf"
 
 [node name="SelectionContainer" type="MarginContainer" parent="." unique_id=874033861]
@@ -248,7 +249,6 @@ offset_right = 0.0
 offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
-pin_type = 1
 data_type = 2
 nested = true
 locked = true
@@ -273,7 +273,6 @@ offset_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_behavior_recursive = 2
-pin_type = 1
 data_type = 2
 
 [node name="NumberOutputPin" parent="HBoxContainer/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1243142184 instance=ExtResource("4_tom4s")]
@@ -287,4 +286,3 @@ offset_right = 0.0
 offset_bottom = 34.0
 grow_horizontal = 0
 mouse_behavior_recursive = 2
-pin_type = 1

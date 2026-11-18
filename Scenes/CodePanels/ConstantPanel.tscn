@@ -20,6 +20,7 @@ script = ExtResource("1_dcjvg")
 value_label = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer2/VariableValueLabel")
 output_pin = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer2/OutputPin")
 selection_root = NodePath("MarginContainer2")
+capacity_value = 1
 metadata/_custom_type_script = "uid://bsedgfu15bv3w"
 
 [node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1049507328]

@@ -51,6 +51,7 @@ nested_false_inflow_pin = NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxCon
 nested_false_outflow_pin = NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nested Output Column/Nested Out Flow Pin False")
 drop_areas = [NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer/VBoxContainer/Nest1/True Area"), NodePath("Pin Root/VBoxContainer/HBoxContainer/VBoxContainer/Internal Control/Nests/PanelContainer2/VBoxContainer/Nest1/False Area")]
 selection_root = NodePath("SelectionContainer")
+capacity_value = 2
 metadata/_custom_type_script = "uid://dd2svrqo8abnk"
 
 [node name="SelectionContainer" type="MarginContainer" parent="." unique_id=535189288]
@@ -333,7 +334,6 @@ offset_right = 0.0
 offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
-pin_type = 1
 data_type = 2
 nested = true
 locked = true
@@ -351,7 +351,6 @@ offset_right = 0.0
 offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
-pin_type = 1
 data_type = 2
 nested = true
 locked = true
@@ -381,7 +380,6 @@ offset_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_behavior_recursive = 2
-pin_type = 1
 data_type = 2
 
 [node name="NumberOutputPin" parent="Pin Root/VBoxContainer/HBoxContainer/OutputColumn" unique_id=1243142184 instance=ExtResource("4_y4sif")]
@@ -395,4 +393,3 @@ offset_right = 0.0
 offset_bottom = 34.0
 grow_horizontal = 0
 mouse_behavior_recursive = 2
-pin_type = 1

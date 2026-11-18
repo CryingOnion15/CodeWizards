@@ -256,6 +256,7 @@
 	"wand_scene": "res://Scenes/Wand/Wand.tscn",
 	"wands": [
 		{
+			"capacity": 4.0,
 			"entry_panel": {
 				"id": "a699f252-d660-6baf-aa5f-0f4add030425",
 				"pins": [
@@ -273,7 +274,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "9c0fcd70-671e-6984-af19-1667901f250d",
+						"id": "fd2aa2ec-eef9-ee5c-df5a-14a2e54801e9",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -283,7 +284,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "23a83b20-3782-f01f-fd22-fce9e5c98171",
+						"id": "fc3f8a05-f65f-5fde-3bfa-ad2d2065e78e",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -291,8 +292,8 @@
 					}
 				],
 				"position": [
-					600.0,
-					400.0
+					867.0,
+					566.0
 				],
 				"template": "entry"
 			},
@@ -338,6 +339,7 @@
 			}
 		},
 		{
+			"capacity": 4.0,
 			"entry_panel": {
 				"id": "f009c74b-c764-4b0c-b0ac-8f76d1a167b6",
 				"pins": [
@@ -355,7 +357,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "dfefb893-c9a0-9955-9ae6-25acf7554e99",
+						"id": "512becfe-593f-a540-3a2b-c7159f2468ee",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -365,7 +367,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "2134bb9e-6aac-42e6-79dc-d0dd775cba65",
+						"id": "5fbd8f6f-a631-72f6-787f-036b36f64c7e",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,

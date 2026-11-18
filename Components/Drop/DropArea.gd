@@ -12,6 +12,7 @@ signal deactivate_area_sig(area);
 var dropables: Array[Dropable];
 var dropLocation: Vector2;
 var meta_data: Dictionary = {};
+var conditions: Array[Callable];
 
 var _id: String = "";
 	
@@ -33,7 +34,7 @@ func _ready() -> void:
 
 func check_valid_dropable(drop: Dropable):	
 	#TODO subscribe to the events if this is a valid droppable type.
-	if(drop != null && drop.drop_type & type):
+	if(drop != null && drop.drop_type & type && validate_conditions(drop)):
 		activate_area();
 	else:
 		deactivate_area();
@@ -98,3 +99,16 @@ func init_area():
 	if not meta_data.is_empty():
 		var save_id = meta_data.get("id");
 		id = save_id if save_id else SaveDataUtility.get_UUID();	
+		
+func add_condition(new_cond):
+	conditions.push_back(new_cond);
+	
+func remove_condition(cond):
+	conditions.remove_at(conditions.find(cond));
+	
+func validate_conditions(dropable):
+	for cond in conditions:
+		if not cond.call(dropable):
+			return false;
+		
+	return true;

@@ -6,6 +6,7 @@ signal panel_removed(panel);
 @export_range(1, 5, 0.1) var xBoundScale = 2;
 @export_range(1, 5, 0.1) var yBoundScale = 2;
 @export var drop_area: DropArea = null;
+@export var capacity_controller: WandCapacityController;
 #@export var graph_settings: GraphSettings = null;
 
 #Scene References
@@ -17,6 +18,8 @@ var entryPanel: CodeEntryPanel = null;
 var exitPanel: CodeExitPanel = null;
 var currentPanel: CodePanel = null;
 var panels: Array[CodePanel] = [];
+var selected_wand_capacity: int = 0;
+var total_panel_capacity: int = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,8 +34,8 @@ func _ready() -> void:
 	#add_panel_to_graph(entryScene.instantiate(), size * .25 + parentSize * .1);
 	#add_panel_to_graph(exitScene.instantiate(), size * .25 + parentSize * .75);
 	
-	#Subscribe to signals.
 	drop_area.connect("drop_success", on_drop_success);
+	drop_area.add_condition(validate_wand_capacity);
 	#graph_settings.large_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.LARGE));
 	#graph_settings.medium_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.MEDIUM));
 	#graph_settings.small_pressed.connect(func(): set_size_of_panels(CodePanel.THEME_SIZE.SMALL));
@@ -99,6 +102,7 @@ func add_panel_to_graph(panel: CodePanel):
 					drop_area.add_child(panel);				
 		
 		panel_added.emit(panel);
+		update_total_panel_capacity();
 
 func remove_panel_from_graph(panel: CodePanel):
 	if(panel != null):
@@ -107,6 +111,7 @@ func remove_panel_from_graph(panel: CodePanel):
 			panels.remove_at(rIndex);
 		
 		panel_removed.emit(panel);
+		update_total_panel_capacity();
 
 func reset_graph():
 	panels.clear();
@@ -128,6 +133,7 @@ func on_drop_success(drop: Dropable):
 	var offset = Vector2(1,0) * newPanel.size.x / 2;
 	
 	add_panel_to_graph(newPanel);
+	
 
 func on_dropable_updated(dropable: Dropable):
 	if dropable:
@@ -139,3 +145,30 @@ func get_view_center():
 	var parent_size = get_parent().size / 2;
 	
 	return Vector2(parent_size.x - position.x, parent_size.y - position.y);
+	
+func update_wand_capacity(wand_capacity):
+	selected_wand_capacity = wand_capacity;
+	capacity_controller.set_wand_capacity(selected_wand_capacity);
+	
+	update_total_panel_capacity()
+	
+	
+func update_total_panel_capacity():
+	var capacity = 0;
+	
+	for panel in panels:
+		capacity += panel.capacity_value;
+		
+	total_panel_capacity = capacity;
+	
+	capacity_controller.set_active_capacity(total_panel_capacity);
+	
+func validate_wand_capacity(drop: Dropable):
+	if drop is PanelCard:
+		var card = drop as PanelCard;
+		
+		return selected_wand_capacity >= total_panel_capacity + card.drop_panel.capacity_value;
+	elif drop is CodePanel:
+		return drop_area.already_has_drop(drop as CodePanel);
+	else:
+		return false;

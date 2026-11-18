@@ -18,6 +18,7 @@ var entry_panel: CodeEntryPanel = null;
 var exit_panel: CodeExitPanel = null;
 var code_panels: Array[CodePanel] = [];
 var wand_variables: Array[Node] = [];
+var capacity: int = 0;
 
 const entry_start_location: Vector2 = Vector2(600,400);
 const exit_start_location: Vector2 = Vector2(1300,800);
@@ -161,6 +162,7 @@ func get_save_data():
 		"entry_panel": entry_panel.get_save_data(),
 		"exit_panel": exit_panel.get_save_data(),
 		"panels": get_panel_data(),
+		"capacity": capacity
 	}
 
 func get_panel_data():
@@ -210,6 +212,8 @@ func init_with_data():
 			
 			code_panels.push_back(new_panel);
 			new_panel.set_meta_data(panel);
+			
+		capacity = meta_data.get("capacity", 4);
 
 func set_meta_data(data: Dictionary):
 	meta_data = data;
