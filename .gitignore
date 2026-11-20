@@ -3,3 +3,4 @@
 /android/
 /WandModel/
 *.gguf
+/addons/godot_llama/bin/~*

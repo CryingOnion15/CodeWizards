@@ -4,10 +4,15 @@ class_name WandCapacityController extends Control
 @export var middle_node: PackedScene
 @export var end_node: PackedScene
 @export var container: Control;
+@export var start_timer: float = 5.0;
+@export var loop_interval: float = 15.0;
 
 const MAX_CAPACITY: int = 16;
 var capacity_nodes: Array[WandCapacityNode] = [];
 var current_wand_capacity: int;
+var loop_running: bool = false;
+var first_run: bool = true;
+var current_time: float = 0.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,8 +33,51 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if loop_running:
+		if first_run:
+			if(current_time > start_timer):
+				current_time = 0.0;
+				first_run = false;
+				trigger_first_animation();
+		else:
+			if(current_time > loop_interval):
+				current_time = 0.0;
+				trigger_first_animation();
+				
+		current_time += delta;
+		
+func start_animation_loop():
+	for node in capacity_nodes:
+		node.glow_trigger.connect(trigger_next_animation);
 	
+	current_time = 0;
+	loop_running = true;
+	
+func stop_animation_loop():
+	current_time = 0;
+	loop_running = false;
+	first_run = true;
+	
+	for node in capacity_nodes:
+		node.stop_glow();
+		
+		if node.glow_trigger.is_connected(trigger_next_animation):
+			node.glow_trigger.disconnect(trigger_next_animation);
+	
+func trigger_first_animation():
+	capacity_nodes[0].play_glow();
+	print("Trigger Start");
+	
+func trigger_next_animation(node: WandCapacityNode):
+	var index = capacity_nodes.find(node) + 1;
+	
+	if index < current_wand_capacity - 1:
+		capacity_nodes[index].play_glow();
+		print("Trigger Next");
+	else:
+		capacity_nodes[capacity_nodes.size() - 1].play_glow();
+		print("Trigger End");
+
 func set_wand_capacity(wand_size):
 	current_wand_capacity = wand_size;
 	

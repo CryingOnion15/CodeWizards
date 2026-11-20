@@ -168,8 +168,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0h7nh")
+}, {
+"duration": 1.0,
+"texture": null
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 30.0
 }]
@@ -187,6 +190,7 @@ mouse_behavior_recursive = 1
 script = ExtResource("1_bsvel")
 inactive_sprite = ExtResource("2_bsvel")
 active_sprite = ExtResource("3_f26eg")
+trigger_frame = 14
 metadata/_custom_type_script = "uid://c51cvo4ebv56m"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1287391230]
@@ -196,4 +200,4 @@ texture = ExtResource("2_bsvel")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D" unique_id=826424523]
 sprite_frames = SubResource("SpriteFrames_qlv66")
-speed_scale = 0.5
+speed_scale = 1.5

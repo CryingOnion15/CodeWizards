@@ -118,6 +118,7 @@ func reset_graph():
 	
 	var parentSize = get_parent_control().get_rect().size;
 	position =  -parentSize * .5;
+	capacity_controller.stop_animation_loop();
 	
 func resize_graph():
 	await get_tree().process_frame;
@@ -150,8 +151,8 @@ func update_wand_capacity(wand_capacity):
 	selected_wand_capacity = wand_capacity;
 	capacity_controller.set_wand_capacity(selected_wand_capacity);
 	
-	update_total_panel_capacity()
-	
+	update_total_panel_capacity();
+	capacity_controller.start_animation_loop();
 	
 func update_total_panel_capacity():
 	var capacity = 0;

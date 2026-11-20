@@ -68,96 +68,6 @@
 		},
 		{
 			"data": {
-				"dropAreas": [
-					"f50f76c6-64e2-090f-6f6c-35347a34e324",
-					"5ef5776d-c211-04ff-11ea-017920114676",
-					"a1a412aa-bdeb-a4d0-6d1d-60ca30bac937"
-				],
-				"id": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9",
-				"isNested": false,
-				"nestedUnder": "",
-				"pins": [
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "68be0e64-ed4d-6f8a-7d8f-f7b8802907e2",
-						"isHardcoded": false,
-						"isLocked": false,
-						"isNested": false,
-						"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
-					},
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "ca700a30-aaad-5040-6822-d03b397b76fd",
-						"isHardcoded": false,
-						"isLocked": false,
-						"isNested": false,
-						"value": ""
-					},
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "68d11b6f-f0be-beef-743a-2cacc8ff332a",
-						"isHardcoded": false,
-						"isLocked": false,
-						"isNested": false,
-						"value": ""
-					},
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "d7878bf8-fa27-fd65-25e2-207e7fe15934",
-						"isHardcoded": false,
-						"isLocked": true,
-						"isNested": true,
-						"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
-					},
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "e4d60952-4fce-8db4-4e3c-e239d02badf0",
-						"isHardcoded": false,
-						"isLocked": true,
-						"isNested": true,
-						"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
-					},
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "ac2d631e-fe64-e494-11fa-764ceae4234e",
-						"isHardcoded": false,
-						"isLocked": false,
-						"isNested": false,
-						"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
-					},
-					{
-						"connectedTo": "",
-						"connections": [],
-						"defaultValue": null,
-						"id": "f25030fa-51e6-45ef-1657-3353f6dd7e58",
-						"isHardcoded": false,
-						"isLocked": false,
-						"isNested": false,
-						"value": ""
-					}
-				],
-				"position": [
-					4104.0,
-					4400.0
-				],
-				"template": "test_loop"
-			},
-			"template": "test_loop"
-		},
-		{
-			"data": {
 				"id": "858ea9ca-2b29-43d7-5ba9-541a732d0e8e",
 				"numberValue": 3.0,
 				"pins": [
@@ -274,7 +184,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "fd2aa2ec-eef9-ee5c-df5a-14a2e54801e9",
+						"id": "36ddfa8b-0386-e956-2612-57a85133fe88",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -284,7 +194,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "fc3f8a05-f65f-5fde-3bfa-ad2d2065e78e",
+						"id": "8591cc90-b7e9-5e37-15b2-3a666f2c200e",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -292,8 +202,8 @@
 					}
 				],
 				"position": [
-					867.0,
-					566.0
+					564.0,
+					466.0
 				],
 				"template": "entry"
 			},
@@ -328,7 +238,95 @@
 				"template": "exit"
 			},
 			"id": "3792401b-59b8-9d65-983b-b1c295627b1f",
-			"panels": [],
+			"panels": [
+				{
+					"dropAreas": [
+						"f50f76c6-64e2-090f-6f6c-35347a34e324",
+						"5ef5776d-c211-04ff-11ea-017920114676",
+						"a1a412aa-bdeb-a4d0-6d1d-60ca30bac937"
+					],
+					"id": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9",
+					"isNested": false,
+					"nestedUnder": "",
+					"pins": [
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "68be0e64-ed4d-6f8a-7d8f-f7b8802907e2",
+							"isHardcoded": false,
+							"isLocked": false,
+							"isNested": false,
+							"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
+						},
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "ca700a30-aaad-5040-6822-d03b397b76fd",
+							"isHardcoded": false,
+							"isLocked": false,
+							"isNested": false,
+							"value": ""
+						},
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "68d11b6f-f0be-beef-743a-2cacc8ff332a",
+							"isHardcoded": false,
+							"isLocked": false,
+							"isNested": false,
+							"value": ""
+						},
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "d7878bf8-fa27-fd65-25e2-207e7fe15934",
+							"isHardcoded": false,
+							"isLocked": true,
+							"isNested": true,
+							"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
+						},
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "e4d60952-4fce-8db4-4e3c-e239d02badf0",
+							"isHardcoded": false,
+							"isLocked": true,
+							"isNested": true,
+							"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
+						},
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "ac2d631e-fe64-e494-11fa-764ceae4234e",
+							"isHardcoded": false,
+							"isLocked": false,
+							"isNested": false,
+							"value": "67e7d6a4-3cf1-4913-7928-6e521b0c5ff9:get_panel_reference"
+						},
+						{
+							"connectedTo": "",
+							"connections": [],
+							"defaultValue": null,
+							"id": "f25030fa-51e6-45ef-1657-3353f6dd7e58",
+							"isHardcoded": false,
+							"isLocked": false,
+							"isNested": false,
+							"value": ""
+						}
+					],
+					"position": [
+						819.0,
+						493.0
+					],
+					"template": "test_loop"
+				}
+			],
 			"parameters": {
 				"Param1": 5.0,
 				"Type": "Poison"
@@ -357,7 +355,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "512becfe-593f-a540-3a2b-c7159f2468ee",
+						"id": "7f159ba8-1035-4990-2c44-de576f3fd051",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,
@@ -367,7 +365,7 @@
 						"connectedTo": "",
 						"connections": [],
 						"defaultValue": null,
-						"id": "5fbd8f6f-a631-72f6-787f-036b36f64c7e",
+						"id": "5e3712c1-d7e7-8fd5-9f71-d4155adb80a9",
 						"isHardcoded": false,
 						"isLocked": false,
 						"isNested": false,

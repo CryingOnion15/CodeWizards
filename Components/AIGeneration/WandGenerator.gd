@@ -11,7 +11,7 @@ var _cached_state;
 var _health_check: float = 0;
 var _status_check: int = 0;
 
-const MAX_TOKENS = 512;
+const MAX_TOKENS = 4096;
 const TEMP = 0.0;
 const TOP_P = 1.0;
 const MIN_P = 0.05;
@@ -61,9 +61,9 @@ func _process(delta: float) -> void:
 		else:
 			_health_check += delta;
 			
-		#if _status_check == 5:
-			#print(_worker.get_latest_output());
-			#_status_check = 0;
+		if _status_check == 5:
+			print(_worker.get_latest_output());
+			_status_check = 0;
 	
 func set_rules_text():
 	var files: = Array(DirAccess.get_files_at('res://Assets/WandRuleFiles/'));
@@ -83,7 +83,6 @@ func generate_wand(prompt_text) -> void:
 	var prompt := _build_chat_prompt(_rules_text + prompt_text);
 	var max_tokens := MAX_TOKENS
 	
-	# TODO modify the extension to allow for Async params.
 	var params := {
 		"temperature": TEMP,
 		"top_p": TOP_P,
@@ -99,18 +98,19 @@ func generate_wand(prompt_text) -> void:
 	_output_text = "";
 	
 	_worker.start_generation(prompt, max_tokens, params);
-	#_llama.generate(prompt, max_tokens, params);
 	print("Generation Started.");
 	_health_check = 0;
 	
 	
 func on_prompt_finish(result: String):
+	print(result);
 	var clean_result := _clean_assistant_output(result);
 	_output_text = clean_result;
 	
 	var test_file = FileAccess.open("res://Tests/test.json", FileAccess.WRITE);
 	test_file.store_string(_output_text);
 	print(_output_text);
+	print("Finished");
 	
 func _build_chat_prompt(user_text: String) -> String:
 	var parts := PackedStringArray();

@@ -161,8 +161,11 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yaoyo")
+}, {
+"duration": 1.0,
+"texture": null
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 30.0
 }]
@@ -178,6 +181,7 @@ mouse_behavior_recursive = 1
 script = ExtResource("1_qpnjh")
 inactive_sprite = ExtResource("2_qpnjh")
 active_sprite = ExtResource("3_171rt")
+trigger_frame = 14
 metadata/_custom_type_script = "uid://c51cvo4ebv56m"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1287391230]
@@ -187,4 +191,4 @@ texture = ExtResource("3_171rt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D" unique_id=826424523]
 sprite_frames = SubResource("SpriteFrames_82j03")
-speed_scale = 0.5
+speed_scale = 1.5

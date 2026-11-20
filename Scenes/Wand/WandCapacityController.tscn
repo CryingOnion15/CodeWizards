@@ -19,6 +19,7 @@ begin_node = ExtResource("2_hepgl")
 middle_node = ExtResource("3_16uug")
 end_node = ExtResource("4_ai4ls")
 container = NodePath("CapacityNodeContainer")
+loop_interval = 7.0
 metadata/_custom_type_script = "uid://uca32iy0gmlm"
 
 [node name="CapacityNodeContainer" type="HBoxContainer" parent="." unique_id=2051182586]

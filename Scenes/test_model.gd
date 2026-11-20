@@ -13,4 +13,4 @@ func _process(delta: float) -> void:
 
 func on_pressed():
 	if wand_gen:
-		wand_gen.generate_wand("Generate one wand with creator: Iffy. Respond with only the JSON object.");
+		wand_gen.generate_wand("Generate one wand with creator: Addy. Respond with only the JSON object.");

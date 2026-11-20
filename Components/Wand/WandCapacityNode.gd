@@ -7,7 +7,7 @@ class_name WandCapacityNode extends Control
 @onready var sprite: Sprite2D = $Sprite2D;
 @onready var animator: AnimatedSprite2D = $Sprite2D/AnimatedSprite2D;
 
-signal glow_trigger
+signal glow_trigger(node: WandCapacityNode);
 
 var active: bool = false;
 
@@ -19,7 +19,7 @@ func _ready() -> void:
 	
 func on_frame_changed():
 	if animator.frame == trigger_frame:
-		glow_trigger.emit();
+		glow_trigger.emit(self);
 
 func set_active():
 	active = true;
