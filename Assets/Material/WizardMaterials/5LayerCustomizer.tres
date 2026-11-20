@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cust4dphlbgnr"]
+
+[ext_resource type="Shader" uid="uid://dwr2of1bwqn81" path="res://Assets/Material/WizardMaterials/5LayerCustomizer.gdshader" id="1_keika"]
+
+[resource]
+shader = ExtResource("1_keika")
+shader_parameter/primary_color = Color(0.10147018, 0.23091623, 0.49733782, 1)
+shader_parameter/secondary_color = Color(1, 0.8784314, 0.20392157, 1)
+shader_parameter/tertiary_color = Color(1, 1, 1, 1)
+shader_parameter/shade_color = Color(0, 0, 0.2627451, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)

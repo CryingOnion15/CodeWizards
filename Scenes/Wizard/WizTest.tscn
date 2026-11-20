@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ddjtrtlwi2uyi"]
+
+[ext_resource type="Texture2D" uid="uid://cbiocoefh1xve" path="res://Assets/Sprites/WizardSprites/Wiz-Robe.png" id="1_eqxvg"]
+[ext_resource type="Material" uid="uid://cust4dphlbgnr" path="res://Assets/Material/WizardMaterials/5LayerCustomizer.tres" id="1_i1rqr"]
+
+[node name="WizTest" type="Node2D" unique_id=506299294]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1888202254]
+material = ExtResource("1_i1rqr")
+texture = ExtResource("1_eqxvg")
